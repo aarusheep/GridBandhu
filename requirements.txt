@@ -13,7 +13,7 @@ apscheduler>=3.10.0
 # Environment variables (.env file)
 python-dotenv>=1.0.0
 
-# API layer
+# HTTP telemetry ingestion and validation
 fastapi>=0.115.0
 uvicorn[standard]>=0.30.0
-pydantic>=2.0.0
+pydantic>=2.7.0
