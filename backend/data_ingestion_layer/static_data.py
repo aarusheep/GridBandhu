@@ -23,7 +23,7 @@ Dependencies:
     pip install pandas psycopg2-binary python-dotenv
 
 Usage:
-    python load_static_data.py --input data/seeds/final_2.0_dataset.csv
+    python backend/data_ingestion_layer/static_data.py --input backend/dataset2.0
 """
 
 import argparse
@@ -47,9 +47,9 @@ def get_connection():
     return psycopg2.connect(
         host=os.getenv("POSTGRES_HOST", "localhost"),
         port=os.getenv("POSTGRES_PORT", 5432),
-        dbname=os.getenv("POSTGRES_DB", "gridshield"),
+        dbname=os.getenv("POSTGRES_DB", "gridbandhu"),
         user=os.getenv("POSTGRES_USER", "postgres"),
-        password=os.getenv("POSTGRES_PASSWORD", ""),
+        password=os.getenv("POSTGRES_PASSWORD", "Hulasi007"),
     )
 
 

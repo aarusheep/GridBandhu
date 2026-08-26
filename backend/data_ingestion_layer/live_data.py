@@ -24,7 +24,7 @@ Dependencies:
     pip install psycopg2-binary redis apscheduler python-dotenv
 
 Usage:
-    python generate_live_telemetry.py --interval-seconds 30
+    python backend/data_ingestion_layer/live_data.py --interval-seconds 30
 """
 
 import argparse

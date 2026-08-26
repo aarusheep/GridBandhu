@@ -1,122 +1,60 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import maplibregl from 'maplibre-gl'
+import 'maplibre-gl/dist/maplibre-gl.css'
 import './App.css'
+import './map-overrides.css'
+import './white-theme.css'
+import './accent-theme.css'
+
+const API = import.meta.env.VITE_API_URL || 'http://localhost:8000/api'
+const BASEMAP_STYLE = 'https://tiles.openfreemap.org/styles/liberty'
+
+function MapView({ topology, selectedSolution, anomaly }) {
+  const mapNode = useRef(null); const mapRef = useRef(null); const readyRef = useRef(false); const [ready, setReady] = useState(false); const [mapError, setMapError] = useState(''); const [mapStatus, setMapStatus] = useState('Loading 3D basemap…')
+  const focusIds = useMemo(() => new Set([...(anomaly?.affected_node_ids || []), ...(anomaly?.affected_edge_ids || []), ...(selectedSolution?.affected_node_ids || []), ...(selectedSolution?.affected_edge_ids || [])]), [anomaly, selectedSolution])
+  const projection = useMemo(() => {
+    const nodes = topology?.nodes || []; const lngs = nodes.map((node) => node.lng); const lats = nodes.map((node) => node.lat)
+    const minLng = Math.min(...lngs); const maxLng = Math.max(...lngs); const minLat = Math.min(...lats); const maxLat = Math.max(...lats); const dx = Math.max(maxLng - minLng, .001); const dy = Math.max(maxLat - minLat, .001)
+    return (lng, lat) => [((lng - minLng) / dx) * 900 + 50, (1 - (lat - minLat) / dy) * 600 + 50]
+  }, [topology])
+  useEffect(() => {
+    if (!mapNode.current || mapRef.current) return undefined
+    const map = new maplibregl.Map({ container: mapNode.current, center: [72.9468, 19.1815], zoom: 14.5, pitch: 55, bearing: -12, maxPitch: 75, attributionControl: false, style: BASEMAP_STYLE })
+    map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'bottom-right'); map.on('error', (event) => { const detail = event?.error?.message || event?.error || 'Unknown MapLibre error'; if (!readyRef.current) { setMapStatus('Basemap request failed'); setMapError(String(detail)); } }); map.on('style.load', () => { readyRef.current = true; setReady(true); setMapStatus('Basemap loaded · preparing 3D layers'); requestAnimationFrame(() => map.resize()); const buildingLayers = (map.getStyle().layers || []).filter((layer) => layer['source-layer'] === 'building' && layer.type === 'fill-extrusion'); buildingLayers.forEach((layer) => { try { map.setPaintProperty(layer.id, 'fill-extrusion-color', '#c7cdd1'); map.setPaintProperty(layer.id, 'fill-extrusion-opacity', 0.9); } catch (error) { setMapError(`Building color failed: ${error.message}`); } }); }); map.on('load', () => { setMapStatus('3D basemap online'); map.setLight({ anchor: 'viewport', color: '#ffffff', intensity: 0.25 }); if (!map.getSource('grid-terrain')) map.addSource('grid-terrain', { type: 'raster-dem', tiles: ['https://demotiles.maplibre.org/terrain-tiles/{z}/{x}/{y}.png'], tileSize: 256, maxzoom: 12 }); try { map.setTerrain({ source: 'grid-terrain', exaggeration: 1.25 }); } catch (error) { setMapError(`Terrain failed: ${error.message}`); } }); mapRef.current = map; const timeout = window.setTimeout(() => { if (!readyRef.current) { setMapStatus('Basemap timeout'); setMapError('The 3D style did not finish loading after 10 seconds. Check browser network access to tiles.openfreemap.org.'); } }, 10000)
+    return () => { window.clearTimeout(timeout); map.remove(); mapRef.current = null; readyRef.current = false }
+  }, [])
+  useEffect(() => {
+    const map = mapRef.current; if (!map || !ready) return
+    const edgeGeo = { type: 'FeatureCollection', features: (topology?.edges || []).map((edge) => ({ type: 'Feature', properties: { id: edge.id, active: focusIds.has(edge.id) }, geometry: { type: 'LineString', coordinates: edge.coordinates } })) }
+    const nodeGeo = { type: 'FeatureCollection', features: (topology?.nodes || []).map((node) => ({ type: 'Feature', properties: { ...node, active: focusIds.has(node.id) }, geometry: { type: 'Point', coordinates: [node.lng, node.lat] } })) }
+    const setSource = (id, data) => { if (map.getSource(id)) map.getSource(id).setData(data); else map.addSource(id, { type: 'geojson', data }) }
+    setSource('grid-edges', edgeGeo); setSource('grid-nodes', nodeGeo)
+    if (!map.getLayer('edges-glow')) map.addLayer({ id: 'edges-glow', type: 'line', source: 'grid-edges', paint: { 'line-color': '#000000', 'line-width': ['case', ['get', 'active'], 12, 9], 'line-opacity': 0.14, 'line-blur': 5 } })
+    if (!map.getLayer('edges-core')) map.addLayer({ id: 'edges-core', type: 'line', source: 'grid-edges', paint: { 'line-color': '#000000', 'line-width': ['case', ['get', 'active'], 5, 3.5], 'line-opacity': 0.94 } })
+    if (!map.getLayer('nodes-halo')) map.addLayer({ id: 'nodes-halo', type: 'circle', source: 'grid-nodes', paint: { 'circle-color': '#000000', 'circle-radius': ['case', ['==', ['get', 'type'], 'pole'], 5, ['get', 'active'], 29, 21], 'circle-opacity': ['case', ['==', ['get', 'type'], 'pole'], 0.08, 0.16], 'circle-blur': 0.65 } })
+    if (!map.getLayer('nodes-core')) map.addLayer({ id: 'nodes-core', type: 'circle', source: 'grid-nodes', paint: { 'circle-color': '#ffffff', 'circle-stroke-color': '#000000', 'circle-stroke-width': ['case', ['==', ['get', 'type'], 'pole'], 1, ['get', 'active'], 5, 3], 'circle-radius': ['case', ['==', ['get', 'type'], 'pole'], 2.5, ['==', ['get', 'type'], 'substation'], 14, 10] } })
+    if (!map.getLayer('node-labels')) map.addLayer({ id: 'node-labels', type: 'symbol', source: 'grid-nodes', layout: { 'text-field': ['case', ['==', ['get', 'type'], 'pole'], '', ['get', 'name']], 'text-size': 14, 'text-offset': [0, 1.8], 'text-anchor': 'top', 'text-allow-overlap': false }, paint: { 'text-color': '#000000', 'text-halo-color': '#ffffff', 'text-halo-width': 3 } })
+  }, [topology, selectedSolution, anomaly, focusIds, ready])
+  return <div className="map-shell"><div ref={mapNode} className="map-canvas" />{mapError && <div className="map-error"><strong>MAP RENDER ERROR</strong><span>{mapError}</span><small>Open browser developer tools → Network to inspect the failed basemap request.</small></div>}<svg className="topology-fallback" viewBox="0 0 1000 700" preserveAspectRatio="none" aria-label="Live topology graph">{(topology?.edges || []).map((edge) => { const points = edge.coordinates.map(([lng, lat]) => projection(lng, lat).join(',')); return <g key={edge.id}><polyline className={`fallback-edge-glow ${focusIds.has(edge.id) ? 'affected' : ''}`} points={points} /><polyline className={`fallback-edge ${focusIds.has(edge.id) ? 'affected' : ''}`} points={points} /></g> })}{(topology?.nodes || []).map((node) => { const [x, y] = projection(node.lng, node.lat); return <g key={node.id} className={`fallback-node ${focusIds.has(node.id) ? 'affected' : ''}`}><circle cx={x} cy={y} r={node.type === 'substation' ? 11 : 6} /><circle className="node-pulse" cx={x} cy={y} r={node.type === 'substation' ? 21 : 13} /><text x={x + 10} y={y - 10}>{node.type === 'facility' ? '' : node.name?.slice(0, 22)}</text></g> })}</svg><div className="map-vignette" /><div className="map-coordinates">19°10'53.4&quot; N &nbsp; 72°56'49.1&quot; E</div><div className="map-status"><span className="live-dot" /> LIVE TOPOLOGY <span className="divider" /> {topology?.nodes?.length || 0} NODES <span className="divider" /> {mapStatus}</div></div>
+}
+
+function Metric({ label, value, unit, tone = 'cyan' }) { return <div className="metric"><span>{label}</span><strong className={`tone-${tone}`}>{value} <small>{unit}</small></strong></div> }
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+  const [loggedIn, setLoggedIn] = useState(false); const [username, setUsername] = useState('operator'); const [password, setPassword] = useState('gridbandhu'); const [topology, setTopology] = useState({ nodes: [], edges: [] }); const [anomaly, setAnomaly] = useState(null); const [solutions, setSolutions] = useState([]); const [selected, setSelected] = useState(null); const [events, setEvents] = useState([]); const [connection, setConnection] = useState('CONNECTING'); const [error, setError] = useState('')
+  const load = async (path, options) => { let response; try { response = await fetch(`${API}${path}`, options) } catch (networkError) { throw new Error(`API unreachable at ${API}: ${networkError.message}`) } if (!response.ok) { const body = await response.text(); throw new Error(`${response.status} ${response.statusText}: ${body || 'empty response'}`) } try { return await response.json() } catch (parseError) { throw new Error(`Invalid JSON from ${path}: ${parseError.message}`) } }
+  const login = (event) => { event.preventDefault(); if (username && password) { setError(''); setLoggedIn(true); load('/topology').then(setTopology).catch((loadError) => setError(`Topology load failed: ${loadError.message}`)) } }
+  useEffect(() => {
+    if (!loggedIn) return undefined
+    load('/events').then(setEvents).catch((loadError) => setError(`Events load failed: ${loadError.message}`)); const socket = new WebSocket(API.replace(/^http/, 'ws').replace(/\/api$/, '') + '/api/v1/ws/live'); socket.onopen = () => setConnection('CONNECTED'); socket.onclose = (event) => { setConnection('OFFLINE'); if (event.code !== 1000) setError(`WebSocket closed (${event.code}): ${event.reason || 'server rejected the connection'}`) }; socket.onerror = () => { setConnection('OFFLINE'); setError('WebSocket connection failed. Check /api/v1/ws/live and the backend console.') }
+    socket.onmessage = (message) => { try { const payload = JSON.parse(message.data); if (payload.type === 'telemetry_update') setTopology((current) => ({ ...current, nodes: payload.nodes, edges: payload.edges })); if (payload.type === 'anomaly_detected') { setAnomaly(payload.anomaly); load(`/anomalies/${payload.anomaly.id}/solutions`).then((data) => setSolutions(data.solutions)).catch((loadError) => setError(`Solutions load failed: ${loadError.message}`)) } if (payload.type === 'solution_applied') { setAnomaly(payload.anomaly); setSelected(payload.solution) } if (payload.message) setEvents((current) => [payload, ...current].slice(0, 8)) } catch (parseError) { setError(`Invalid WebSocket message: ${parseError.message}`) } }
+    return () => socket.close()
+  }, [loggedIn])
+  const preview = async (solution) => { setSelected(solution); if (anomaly) await load(`/anomalies/${anomaly.id}/solutions/${solution.id}/preview`, { method: 'POST' }).catch((loadError) => setError(`Solution preview failed: ${loadError.message}`)) }
+  const accept = async () => { if (!anomaly || !selected) return; const result = await load(`/anomalies/${anomaly.id}/solutions/${selected.id}/accept`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'accept' }) }).catch((loadError) => { setError(`Solution apply failed: ${loadError.message}`); return null }); if (result) { setAnomaly(result.anomaly); setSelected(result.solution) } }
+  if (!loggedIn) return <main className="login-page"><div className="login-grid" /><div className="login-card"><div className="brand-mark">GB<span>◈</span></div><p className="eyebrow">GRID OPERATIONS PLATFORM</p><h1>Welcome back</h1><p className="muted">Sign in to monitor and orchestrate your distribution grid.</p><form onSubmit={login}><label>OPERATOR ID<input value={username} onChange={(e) => setUsername(e.target.value)} /></label><label>ACCESS KEY<input type="password" value={password} onChange={(e) => setPassword(e.target.value)} /></label><button className="primary-button" type="submit">ENTER CONTROL ROOM <span>↗</span></button></form><p className="login-foot"><span className="live-dot" /> SYSTEMS OPERATIONAL</p></div></main>
+  const healthy = topology.nodes.filter((node) => node.status === 'healthy').length
+  return <main className="dashboard"><aside className="sidebar"><div className="brand-mark small">GB<span>◈</span></div><nav><button className="nav-active">◉<span>Overview</span></button><button>⌁<span>Topology</span></button><button>⌁<span>Telemetry</span></button><button>◇<span>Incidents</span>{anomaly && <b>1</b>}</button><button>⊙<span>Settings</span></button></nav><div className="sidebar-bottom"><div className="user-avatar">OP</div><span>OPS / 01</span></div></aside><section className="workspace"><header className="topbar"><div><p className="eyebrow">DISTRIBUTION CONTROL / WEST ZONE</p><h2>Network overview <span className="live-pill"><i /> LIVE</span></h2></div><div className="top-actions"><span className={`connection ${connection === 'CONNECTED' ? 'online' : ''}`}><i /> {connection}</span><button className="icon-button">⌕</button><button className="icon-button">⋮</button></div></header><div className="content-grid"><section className="map-panel"><MapView topology={topology} selectedSolution={selected} anomaly={anomaly} /><div className="map-legend"><span><i className="cyan" /> energized</span><span><i className="amber" /> watch</span><span><i className="red" /> affected</span></div></section><aside className="right-rail"><div className="rail-heading"><span>DECISION CENTER</span><span className="priority">PRIORITY / P1</span></div>{anomaly ? <div className="anomaly-card"><div className="anomaly-top"><span className="alert-icon">!</span><span>ANOMALY DETECTED</span><time>just now</time></div><h3>{anomaly.title}</h3><p>{anomaly.reason}</p><div className="affected"><span>AFFECTED ASSETS</span><strong>{anomaly.affected_node_ids?.length || 0} nodes <em>·</em> {anomaly.affected_edge_ids?.length || 0} edges</strong></div></div> : <div className="empty-anomaly"><span className="pulse-ring" /> No active anomalies<br /><small>Detection layer is monitoring the grid</small></div>}<div className="solutions-heading"><span>MILP RECOMMENDATIONS</span><small>{solutions.length || 3} OPTIONS</small></div><div className="solution-list">{solutions.map((solution) => <button key={solution.id} className={`solution ${selected?.id === solution.id ? 'selected' : ''}`} onClick={() => preview(solution)}><span className="rank">0{solution.rank}</span><span className="solution-copy"><strong>{solution.title}</strong><small>{solution.description}</small><span className="solution-meta"><b>{solution.confidence}%</b> confidence <em>·</em> {solution.eta_minutes} min</span></span><span className="chevron">›</span></button>)}</div>{selected && anomaly && <button className="apply-button" onClick={accept}>{selected.state === 'applied' ? 'SOLUTION APPLIED' : 'APPLY SELECTED SOLUTION'} <span>↗</span></button>}<div className="activity-heading"><span>LIVE ACTIVITY</span><small>STREAM</small></div><div className="activity-list">{events.slice(0, 4).map((event) => <div className="activity" key={event.id}><i className={event.severity === 'critical' ? 'red' : 'cyan'} /><div><strong>{event.message}</strong><small>{new Date(event.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</small></div></div>)}{!events.length && <p className="muted tiny">Waiting for telemetry events…</p>}</div></aside></div><footer className="metrics"><Metric label="GRID HEALTH" value={`${healthy}/${topology.nodes.length || '—'}`} unit="NODES" /><Metric label="ACTIVE FLOW" value="2.18" unit="MW" /><Metric label="LOAD FACTOR" value="68.4" unit="%" tone="amber" /><Metric label="LAST SYNC" value="08" unit="SEC AGO" /></footer></section>{error && <div className="toast">{error}</div>}</main>
 }
 
 export default App
