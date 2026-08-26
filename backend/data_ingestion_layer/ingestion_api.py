@@ -8,14 +8,17 @@ from urllib.parse import unquote
 import psycopg2
 import redis
 from dotenv import load_dotenv
-from fastapi import FastAPI, HTTPException, Request, status
+from fastapi import APIRouter, FastAPI, HTTPException, Request, status
 
 from .validation import TelemetryPayload, validate_against_topology
 
-load_dotenv(Path(__file__).resolve().parents[2] / ".env")
-load_dotenv(Path(__file__).resolve().parents[1] / ".env", override=False)
+ENV_FILE = Path(__file__).resolve().parents[1] / ".env"
+if not ENV_FILE.is_file():
+    raise RuntimeError(f"Required environment file not found: {ENV_FILE}")
+load_dotenv(ENV_FILE)
 
 app = FastAPI(title="GridBandhu Telemetry Ingestion")
+router = APIRouter()
 
 
 def get_postgres_connection():
@@ -123,7 +126,7 @@ def persist_telemetry(payload: TelemetryPayload, redis_client=None, connection=N
             connection.close()
 
 
-@app.post("/telemetry", status_code=status.HTTP_201_CREATED)
+@router.post("/telemetry", status_code=status.HTTP_201_CREATED)
 def ingest_telemetry(payload: TelemetryPayload, request: Request):
     topology = getattr(request.app.state, "topology_cache", topology_cache)
     redis_client = getattr(request.app.state, "redis_client", None)
@@ -139,3 +142,6 @@ def ingest_telemetry(payload: TelemetryPayload, request: Request):
 
     persist_telemetry(payload, redis_client=redis_client, connection=connection)
     return {"status": "accepted", "dtc_id": payload.dtc_id}
+
+
+app.include_router(router)

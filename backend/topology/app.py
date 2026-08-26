@@ -23,6 +23,7 @@ from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
+from backend.data_ingestion_layer.ingestion_api import router as ingestion_router
 
 try:
     import psycopg2
@@ -293,6 +294,7 @@ async def lifespan(_: FastAPI):
 
 app = FastAPI(title="GridBandhu Topology API", version="0.1.0", lifespan=lifespan)
 app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
+app.include_router(ingestion_router, prefix="/api/ingestion", tags=["telemetry-ingestion"])
 
 
 @app.get("/api/health")
