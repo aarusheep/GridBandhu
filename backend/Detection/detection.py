@@ -1266,6 +1266,9 @@ def main():
                     redis_conn,
                     rules
                 )
+                # Let the API distinguish a current detector result from a
+                # stale faults:active record after the detector is stopped.
+                redis_conn.set("detection:heartbeat", datetime.now(timezone.utc).isoformat(), ex=max(POLL_INTERVAL_SECONDS * 2 + 30, 90))
 
             # ======================================================
             # PostgreSQL connection failure

@@ -69,18 +69,17 @@ from dotenv import load_dotenv
 # Project structure:
 #
 # GRIDBANDHU/
-# ├── .env
 # └── backend/
+#     ├── .env
 #     └── data_ingestion_layer/
 #         └── live_data.py
 #
 # parents[1] points to backend/, where the shared .env file lives.
 
-ROOT_DIR = Path(__file__).resolve().parents[2]
 ENV_FILE = Path(__file__).resolve().parents[1] / ".env"
-
-load_dotenv(ENV_FILE)
-load_dotenv(ROOT_DIR / "backend" / ".env", override=False)
+if not ENV_FILE.is_file():
+    raise RuntimeError(f"Required environment file not found: {ENV_FILE}")
+load_dotenv(ENV_FILE, override=False)
 
 
 # ============================================================================

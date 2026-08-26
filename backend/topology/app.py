@@ -214,6 +214,10 @@ def create_redis_client():
     return redis.Redis(host=os.getenv("REDIS_HOST", "localhost"), port=int(os.getenv("REDIS_PORT", 6379)), db=int(os.getenv("REDIS_DB", 0)), decode_responses=True, protocol=2)
 
 
+def detector_is_online(redis_client) -> bool:
+    return bool(redis_client.exists("detection:heartbeat"))
+
+
 def fault_from_redis(redis_client, fault_id: str) -> dict[str, Any] | None:
     details = redis_client.hgetall(f"fault:{fault_id}")
     edge_id = details.get("edge_id")
@@ -249,7 +253,7 @@ async def live_integration_loop() -> None:
                 if raw:
                     edge["flow"] = float(raw.get("current_flow_kw", edge.get("flow", 0)))
                     edge["telemetry"] = raw
-                    edge["status"] = "affected" if str(raw.get("is_faulted", "false")).lower() == "true" else "healthy"
+                    edge["status"] = "affected" if detector_is_online(client) and str(raw.get("is_faulted", "false")).lower() == "true" else "healthy"
             for node in topology["nodes"]:
                 key_id = node["id"].removeprefix("DTC_") if node["type"] == "dtc" else node["id"]
                 raw = client.hgetall(f"node:{key_id}")
@@ -259,7 +263,8 @@ async def live_integration_loop() -> None:
                         node["load"] = float(raw["loading_percentage"])
                     elif raw.get("current_load_kw") is not None and node.get("capacity"):
                         node["load"] = round(float(raw["current_load_kw"]) / node["capacity"] * 100, 1)
-            current_faults = {str(item) for item in client.smembers("faults:active")}
+            detector_online = detector_is_online(client)
+            current_faults = {str(item) for item in client.smembers("faults:active")} if detector_online else set()
             if current_faults != previous_faults:
                 if current_faults:
                     first_fault = next((fault_from_redis(client, fault_id) for fault_id in current_faults), None)
@@ -382,7 +387,7 @@ def get_events() -> list[dict[str, Any]]:
 
 @app.get("/api/anomalies/active")
 def get_anomaly() -> dict[str, Any] | None:
-    return active_anomaly
+    return active_anomaly if active_anomaly and detector_is_online(create_redis_client()) else None
 
 
 def build_solution_edge_paths() -> list[list[str]]:
