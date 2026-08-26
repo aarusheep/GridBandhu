@@ -30,13 +30,17 @@ import argparse
 import os
 import random
 import re
+from pathlib import Path
+from urllib.parse import unquote
 
 import pandas as pd
 import psycopg2
 from psycopg2.extras import execute_values
 from dotenv import load_dotenv
 
-load_dotenv()
+ROOT_DIR = Path(__file__).resolve().parents[2]
+load_dotenv(ROOT_DIR / ".env")
+load_dotenv(ROOT_DIR / "backend" / ".env", override=False)
 
 
 # ---------------------------------------------------------------------------
@@ -47,9 +51,9 @@ def get_connection():
     return psycopg2.connect(
         host=os.getenv("POSTGRES_HOST", "localhost"),
         port=os.getenv("POSTGRES_PORT", 5432),
-        dbname=os.getenv("POSTGRES_DB", "gridshield"),
+        dbname=os.getenv("POSTGRES_DB", "gridbandhu"),
         user=os.getenv("POSTGRES_USER", "postgres"),
-        password=os.getenv("POSTGRES_PASSWORD", ""),
+        password=unquote(os.getenv("POSTGRES_PASSWORD", "")),
     )
 
 
@@ -322,7 +326,10 @@ def insert_links(cur, df: pd.DataFrame):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--input", default="../dataset2.0")
+    parser.add_argument(
+        "--input",
+        default=str(Path(__file__).resolve().parents[1] / "dataset2.0"),
+    )
     args = parser.parse_args()
 
     df = load_dataframe(args.input)

@@ -51,7 +51,9 @@ import argparse
 import os
 import random
 import logging
+from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import unquote
 
 import psycopg2
 import redis
@@ -78,6 +80,7 @@ ROOT_DIR = Path(__file__).resolve().parents[2]
 ENV_FILE = ROOT_DIR / ".env"
 
 load_dotenv(ENV_FILE)
+load_dotenv(ROOT_DIR / "backend" / ".env", override=False)
 
 
 # ============================================================================
@@ -157,6 +160,7 @@ def get_redis_client():
         port=REDIS_PORT,
         db=REDIS_DB,
         decode_responses=True,
+        protocol=2,
     )
 
     # Test connection immediately.
@@ -183,7 +187,7 @@ def get_pg_connection():
         port=POSTGRES_PORT,
         dbname=POSTGRES_DB,
         user=POSTGRES_USER,
-        password=POSTGRES_PASSWORD,
+        password=unquote(POSTGRES_PASSWORD),
     )
 
 
@@ -681,7 +685,10 @@ def update_dtc(dtc):
             f"node:{dtc_id}",
             mapping={
                 "current_load_kw": load,
+                "load_kw": load,
+                "capacity_kw": capacity,
                 "loading_percentage": loading_percentage,
+                "timestamp": datetime.now(timezone.utc).isoformat(),
                 "status": "good",
             },
         )
