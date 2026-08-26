@@ -6,18 +6,19 @@ their min safe fraction -- unless their own relay has tripped.
 """
 
 import pulp
-from milp.weights import DEPENDENCIES
+from .weights import DEPENDENCIES
 
 NEVER_SHED_TYPES = ("Hospital", "Water Plant")
 
 
-def build_model(feeders: list[dict], total_supply_mw: float, topology: dict = None) -> tuple:
+def build_model(feeders: list[dict], total_supply_mw: float, topology: dict = None, unavailable_feeders: set[str] | None = None) -> tuple:
     prob = pulp.LpProblem("GridShield_LoadAllocation", pulp.LpMaximize)
 
     # x[fid] = fraction of demand served (continuous, 0-1)
     # y[fid] = whether the feeder is energized at all (binary)
     x = {}
     y = {}
+    unavailable_feeders = unavailable_feeders or set()
     for f in feeders:
         fid = f["feeder_id"]
         x[fid] = pulp.LpVariable(f"serve_{fid}", lowBound=0, upBound=1, cat="Continuous")
@@ -66,8 +67,11 @@ def build_model(feeders: list[dict], total_supply_mw: float, topology: dict = No
     for f in feeders:
         fid = f["feeder_id"]
         relay = f.get("relay_status", "NORMAL")
-        if f.get("load_type") in NEVER_SHED_TYPES and relay not in ("TRIPPED", "FAULT"):
+        if f.get("load_type") in NEVER_SHED_TYPES and relay not in ("TRIPPED", "FAULT") and fid not in unavailable_feeders:
             prob += y[fid] == 1, f"NeverShed_{fid}"
+
+        if fid in unavailable_feeders:
+            prob += y[fid] == 0, f"FaultedFeederLockout_{fid}"
 
     if topology is not None:
         _add_topology_constraints(prob, x, y, feeders, topology)

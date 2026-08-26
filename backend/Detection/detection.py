@@ -72,7 +72,7 @@ load_dotenv(ENV_FILE)
 # CONFIGURATION
 # ============================================================================
 
-POLL_INTERVAL_SECONDS = 60
+POLL_INTERVAL_SECONDS = 20
 
 
 # ----------------------------------------------------------------------------
@@ -191,6 +191,25 @@ class LiveReading:
     relay_status: Optional[str]
 
     raw: dict
+
+
+@dataclass
+class NodeReading:
+    """Live DTC/facility telemetry from Redis."""
+
+    node_id: str
+    raw: dict
+
+
+def load_node_rules(pg_conn) -> dict[str, float | None]:
+    """Load valid DTC/facility IDs and their optional load reference."""
+    rules = {}
+    with pg_conn.cursor() as cur:
+        cur.execute("SELECT dtc_id, capacity_kw FROM dtc")
+        rules.update({str(node_id): float(capacity) if capacity is not None else None for node_id, capacity in cur.fetchall() if node_id is not None})
+        cur.execute("SELECT facility_id, backup_power_kw FROM facilities")
+        rules.update({str(node_id): float(capacity) if capacity is not None else None for node_id, capacity in cur.fetchall() if node_id is not None})
+    return rules
 
 
 # ============================================================================
@@ -520,6 +539,35 @@ def get_live_readings(
         )
 
     return readings
+
+
+def get_live_node_readings(redis_conn) -> list[NodeReading]:
+    """Read DTC/facility telemetry records published under node:* keys."""
+    readings = []
+    for key in redis_conn.scan_iter(match="node:*"):
+        node_id = key.split(":", 1)[1]
+        raw = redis_conn.hgetall(key)
+        if raw:
+            readings.append(NodeReading(node_id=node_id, raw=raw))
+    return readings
+
+
+def evaluate_node(reading: NodeReading, reference_kw: float | None) -> str | None:
+    """Detect electrical-quality and loading faults on a DTC/facility node."""
+    voltage = safe_float(reading.raw.get("voltage_pu"))
+    thd = safe_float(reading.raw.get("thd_percentage"))
+    load = safe_float(reading.raw.get("load_kw") or reading.raw.get("current_load_kw"))
+    loading = safe_float(reading.raw.get("loading_percentage"))
+
+    if voltage is not None and not 0.88 <= voltage <= 1.10:
+        return "undervoltage" if voltage < 0.88 else "overvoltage"
+    if thd is not None and thd > 5.0:
+        return "high_thd"
+    if loading is not None and loading > 100.0:
+        return "node_overload"
+    if reference_kw and load is not None and load > reference_kw * 1.5:
+        return "node_overload"
+    return None
 
 
 # ============================================================================
@@ -904,6 +952,32 @@ def clear_fault(
     )
 
 
+def raise_node_fault(redis_conn, node_id: str, fault_type: str) -> None:
+    fault_id = f"fault_node_{node_id}"
+    detected_at = datetime.now(timezone.utc).isoformat()
+    redis_conn.hset(f"node:{node_id}", "is_faulted", "true")
+    pipe = redis_conn.pipeline()
+    pipe.sadd("faults:active", fault_id)
+    pipe.hset(f"fault:{fault_id}", mapping={
+        "node_id": node_id,
+        "fault_type": fault_type,
+        "path_description": f"Node telemetry anomaly at {node_id}",
+        "detected_at": detected_at,
+    })
+    pipe.execute()
+    log.warning("🚨 NODE FAULT [%s] on %s", fault_type, node_id)
+
+
+def clear_node_fault(redis_conn, node_id: str) -> None:
+    fault_id = f"fault_node_{node_id}"
+    pipe = redis_conn.pipeline()
+    pipe.hset(f"node:{node_id}", "is_faulted", "false")
+    pipe.srem("faults:active", fault_id)
+    pipe.delete(f"fault:{fault_id}")
+    pipe.execute()
+    log.info("✅ NODE RESOLVED: %s", node_id)
+
+
 # ============================================================================
 # CHECK EXISTING FAULT STATE
 # ============================================================================
@@ -952,6 +1026,8 @@ def run_cycle(
     readings = get_live_readings(
         redis_conn
     )
+    node_readings = get_live_node_readings(redis_conn)
+    node_rules = load_node_rules(pg_conn)
 
     print(
         f"Live Redis edges found: "
@@ -965,6 +1041,9 @@ def run_cycle(
     still_faulted = []
 
     newly_cleared = []
+    newly_node_faulted = []
+    still_node_faulted = []
+    newly_node_cleared = []
 
     # ------------------------------------------------------------
     # Evaluate every live edge
@@ -1006,6 +1085,10 @@ def run_cycle(
             is_currently_marked_faulted(
                 redis_conn,
                 reading.edge_id
+            )
+            or redis_conn.sismember(
+                "faults:active",
+                f"fault_{reading.edge_id}"
             )
         )
 
@@ -1055,6 +1138,26 @@ def run_cycle(
                 reading.edge_id
             )
 
+    # ------------------------------------------------------------
+    # Evaluate DTC/facility node telemetry
+    # ------------------------------------------------------------
+    for reading in node_readings:
+        if reading.node_id not in node_rules:
+            log.warning("Node %s exists in Redis but not PostgreSQL. Skipping.", reading.node_id)
+            continue
+        fault_type = evaluate_node(reading, node_rules[reading.node_id])
+        fault_id = f"fault_node_{reading.node_id}"
+        currently_faulted = redis_conn.sismember("faults:active", fault_id)
+        if fault_type:
+            raise_node_fault(redis_conn, reading.node_id, fault_type)
+            if currently_faulted:
+                still_node_faulted.append((reading.node_id, fault_type))
+            else:
+                newly_node_faulted.append((reading.node_id, fault_type))
+        elif currently_faulted:
+            clear_node_fault(redis_conn, reading.node_id)
+            newly_node_cleared.append(reading.node_id)
+
     # =========================================================================
     # SUMMARY
     # =========================================================================
@@ -1096,6 +1199,13 @@ def run_cycle(
             f"{edge_id}"
         )
 
+    for node_id, fault_type in newly_node_faulted:
+        print(f"🚨 NODE FAULT DETECTED: {node_id} ({fault_type})")
+    for node_id, fault_type in still_node_faulted:
+        print(f"⚠️ NODE STILL ACTIVE: {node_id} ({fault_type})")
+    for node_id in newly_node_cleared:
+        print(f"✅ NODE RESOLVED: {node_id}")
+
     # ------------------------------------------------------------
     # Active fault set
     # ------------------------------------------------------------
@@ -1131,7 +1241,7 @@ def run_cycle(
 
     print()
     print(
-        f"Edges checked: {checked}"
+        f"Edges checked: {checked}; nodes checked: {len(node_readings)}"
     )
 
     print(

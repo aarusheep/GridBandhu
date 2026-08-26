@@ -22,9 +22,11 @@ import os
 import json
 import redis
 import psycopg2
+from pathlib import Path
 from dotenv import load_dotenv
 
-load_dotenv()
+ENV_FILE = Path(__file__).resolve().parents[1] / ".env"
+load_dotenv(ENV_FILE)
 
 # ---------------------------------------------------------------------------
 # Connections
@@ -35,6 +37,7 @@ _redis = redis.Redis(
     port=int(os.getenv("REDIS_PORT", 6379)),
     db=int(os.getenv("REDIS_DB", 0)),
     decode_responses=True,
+    protocol=2,
 )
 
 
@@ -320,14 +323,17 @@ def has_new_faults() -> bool:
         return False
 
 
-def get_fault_details(edge_id: str) -> dict:
-    """Get fault info from the edge's Redis hash."""
-    live = _safe_hgetall(f"edge:{edge_id}")
+def get_fault_details(fault_id: str) -> dict:
+    """Get detector fault details from the canonical fault Redis hash."""
+    live = _safe_hgetall(f"fault:{fault_id}")
+    if not live:
+        live = _safe_hgetall(f"edge:{fault_id}")
     return {
-        "edge_id": edge_id,
+        "edge_id": live.get("edge_id", ""),
+        "node_id": live.get("node_id", ""),
         "fault_type": live.get("fault_type", "unknown"),
-        "fault_detail": live.get("fault_detail", ""),
-        "detected_at": live.get("fault_detected_at", ""),
+        "fault_detail": live.get("path_description", live.get("fault_detail", "")),
+        "detected_at": live.get("detected_at", live.get("fault_detected_at", "")),
         "is_faulted": live.get("is_faulted", "false") == "true",
     }
 

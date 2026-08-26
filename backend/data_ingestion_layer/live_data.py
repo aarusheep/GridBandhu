@@ -631,6 +631,8 @@ def update_edges(edges):
                 "current_flow_kw": current_flow,
                 "switch_state": base["expected_state"],
                 "protective_relay_status": "NORMAL",
+                "is_faulted": "false",
+                "test_injected": "false",
             }
 
         r.hset(
@@ -687,8 +689,14 @@ def update_dtc(dtc):
                 "load_kw": load,
                 "capacity_kw": capacity,
                 "loading_percentage": loading_percentage,
+                # Keep generated DTC readings compatible with the validated
+                # ingestion contract used by the HTTP boundary.
+                "voltage_pu": round(random.uniform(0.96, 1.04), 4),
+                "thd_percentage": round(random.uniform(1.0, 3.0), 3),
                 "timestamp": datetime.now(timezone.utc).isoformat(),
                 "status": "good",
+                "is_faulted": "false",
+                "test_injected": "false",
             },
         )
 
@@ -736,11 +744,17 @@ def update_facilities(facilities):
             f"node:{facility_id}",
             mapping={
                 "current_load_kw": load,
+                "load_kw": load,
+                "loading_percentage": round((load / typical_load) * 100, 1) if typical_load > 0 else 0,
+                "voltage_pu": round(random.uniform(0.96, 1.04), 4),
+                "thd_percentage": round(random.uniform(1.0, 3.0), 3),
                 "avg_utilised_power_1min": nudge(
                     load,
                     pct=0.01,
                 ),
                 "status": "good",
+                "is_faulted": "false",
+                "test_injected": "false",
             },
         )
 

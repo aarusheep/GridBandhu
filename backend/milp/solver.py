@@ -5,9 +5,10 @@ Each alternative uses a different strategy to force diverse solutions.
 """
 
 import time
+import re
 import pulp
-from milp.formulation import build_model
-from state.schema import store_paths, get_active_faults, get_fault_details
+from .formulation import build_model
+from backend.state.schema import store_paths, get_active_faults, get_fault_details
 
 
 def solve(feeders: list[dict], total_supply_mw: float, topology: dict = None) -> dict:
@@ -17,29 +18,117 @@ def solve(feeders: list[dict], total_supply_mw: float, topology: dict = None) ->
     """
     total_demand = sum(f["demand_mw"] for f in feeders)
 
-    # Solve primary (best) allocation
-    start = time.time()
-    prob, x, y = build_model(feeders, total_supply_mw, topology)
-    prob.solve(pulp.PULP_CBC_CMD(msg=0))
-    solve_ms = (time.time() - start) * 1000
-
-    primary = _extract_result(prob, x, y, feeders, total_supply_mw, total_demand, solve_ms)
-
-    # Generate top 3 alternatives and store per fault
     faults = get_active_faults()
     if faults:
-        paths = _generate_alternatives(feeders, total_supply_mw, topology, primary)
-        for fault_id in faults:
-            fault_detail = get_fault_details(fault_id)
-            for p in paths:
-                p["fault_id"] = fault_id
-                p["fault_detail"] = fault_detail.get("fault_detail", "")
-            store_paths(fault_id, paths)
+        groups = _group_overlapping_faults(faults, topology or {})
+        first_primary = None
+        for group in groups:
+            contexts = [get_fault_details(fault_id) for fault_id in group]
+            blocked = {feeder for context in contexts for feeder in _faulted_feeders(context, topology or {})}
+            primary = _solve_primary(feeders, total_supply_mw, topology, blocked, total_demand)
+            first_primary = first_primary or primary
+            paths = _generate_alternatives(feeders, total_supply_mw, topology, primary, blocked)
+            for fault_id, context in zip(group, contexts):
+                fault_paths = []
+                for path in paths:
+                    path = dict(path)
+                    path["fault_id"] = fault_id
+                    path["fault_detail"] = context.get("fault_detail", "")
+                    path["affected_edge_ids"] = _edge_ids_for_path(path, feeders)
+                    path["description"] = _fault_description(context, path)
+                    fault_paths.append(path)
+                store_paths(fault_id, fault_paths)
+        return first_primary
 
-    return primary
+    return _solve_primary(feeders, total_supply_mw, topology, set(), total_demand)
 
 
-def _generate_alternatives(feeders, total_supply_mw, topology, primary_result) -> list[dict]:
+def _solve_primary(feeders, supply, topology, blocked, total_demand):
+    start = time.time()
+    prob, x, y = build_model(feeders, supply, topology, blocked)
+    prob.solve(pulp.PULP_CBC_CMD(msg=0))
+    return _extract_result(prob, x, y, feeders, supply, total_demand, (time.time() - start) * 1000)
+
+
+def _faulted_feeders(context, topology):
+    ids = set()
+    for value in (context.get("edge_id", ""), context.get("node_id", "")):
+        match = re.search(r"/([0-9]{3})/P", str(value))
+        if match:
+            ids.add(match.group(1))
+    for edge in topology.get("edges", []):
+        if context.get("node_id") in {edge.get("from"), edge.get("to")}:
+            ids.update(_feeder_ids_from_edge(edge.get("id", "")))
+            ids.update(_feeder_ids_from_connected_graph(edge, topology))
+    return ids
+
+
+def _feeder_ids_from_edge(edge_id):
+    match = re.search(r"/([0-9]{3})/P", str(edge_id))
+    return {match.group(1)} if match else set()
+
+
+def _feeder_ids_from_connected_graph(start_edge, topology):
+    """Walk from a node/facility through DTC links until an HT feeder is found."""
+    frontier = {start_edge.get("from"), start_edge.get("to")}
+    visited = set(frontier)
+    found = set()
+    for _ in range(len(topology.get("edges", [])) + 1):
+        next_frontier = set()
+        for edge in topology.get("edges", []):
+            endpoints = {edge.get("from"), edge.get("to")}
+            if endpoints.intersection(frontier):
+                found.update(_feeder_ids_from_edge(edge.get("id", "")))
+                next_frontier.update(endpoints - visited)
+        if not next_frontier:
+            break
+        visited.update(next_frontier)
+        frontier = next_frontier
+    return found
+
+
+def _fault_assets(fault_id, topology):
+    context = get_fault_details(fault_id)
+    assets = {context.get("edge_id"), context.get("node_id")}
+    for edge in topology.get("edges", []):
+        if context.get("node_id") in {edge.get("from"), edge.get("to")}:
+            assets.add(edge.get("id"))
+    return {str(asset) for asset in assets if asset}
+
+
+def _group_overlapping_faults(faults, topology):
+    groups = []
+    for fault_id in faults:
+        assets = _fault_assets(fault_id, topology)
+        feeders = _faulted_feeders(get_fault_details(fault_id), topology)
+        for group in groups:
+            if assets.intersection(group["assets"]) or feeders.intersection(group["feeders"]):
+                group["faults"].append(fault_id)
+                group["assets"].update(assets)
+                group["feeders"].update(feeders)
+                break
+        else:
+            groups.append({"faults": [fault_id], "assets": set(assets), "feeders": set(feeders)})
+    return [group["faults"] for group in groups]
+
+
+def _fault_description(context, path):
+    target = context.get("node_id") or context.get("edge_id") or "network asset"
+    kind = context.get("fault_type", "fault").replace("_", " ")
+    return f"Response to {kind} at {target}: {path['description']}"
+
+
+def _edge_ids_for_path(path: dict, feeders: list[dict]) -> list[str]:
+    """Map the MILP allocation strategy back to real topology edge IDs."""
+    served = {item["feeder_id"] for item in path["allocations"] if item["status"] != "SHED"}
+    edge_ids = []
+    for feeder in feeders:
+        if feeder["feeder_id"] in served:
+            edge_ids.extend(str(edge_id) for edge_id in feeder.get("edge_ids", []))
+    return list(dict.fromkeys(edge_ids))
+
+
+def _generate_alternatives(feeders, total_supply_mw, topology, primary_result, blocked_feeders=None) -> list[dict]:
     """
     Generate 3 ranked alternatives with different strategies:
     
@@ -62,7 +151,7 @@ def _generate_alternatives(feeders, total_supply_mw, topology, primary_result) -
 
     # --- Path 2: Maximize feeder count (breadth over depth) ---
     start = time.time()
-    prob2, x2, y2 = build_model(feeders, total_supply_mw, topology)
+    prob2, x2, y2 = build_model(feeders, total_supply_mw, topology, blocked_feeders)
     prob2.setObjective(pulp.lpSum(y2[f["feeder_id"]] for f in feeders))
     prob2.solve(pulp.PULP_CBC_CMD(msg=0))
     solve_ms2 = (time.time() - start) * 1000
@@ -81,7 +170,7 @@ def _generate_alternatives(feeders, total_supply_mw, topology, primary_result) -
 
     # --- Path 3: Critical loads only ---
     start = time.time()
-    prob3, x3, y3 = build_model(feeders, total_supply_mw, topology)
+    prob3, x3, y3 = build_model(feeders, total_supply_mw, topology, blocked_feeders)
     CRITICAL_TYPES = ("Hospital", "Water Plant", "Fire Station")
     for f in feeders:
         fid = f["feeder_id"]

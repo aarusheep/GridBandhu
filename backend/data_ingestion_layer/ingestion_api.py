@@ -1,6 +1,7 @@
 """HTTP ingestion boundary for validated DTC telemetry."""
 
 import os
+import json
 from contextlib import closing
 from pathlib import Path
 from urllib.parse import unquote
@@ -9,8 +10,11 @@ import psycopg2
 import redis
 from dotenv import load_dotenv
 from fastapi import APIRouter, FastAPI, HTTPException, Request, status
+from pydantic import BaseModel, Field
 
 from .validation import TelemetryPayload, validate_against_topology
+from backend.security.encryption import decrypt_payload
+from backend.security.telemetry import require_fresh
 
 ENV_FILE = Path(__file__).resolve().parents[1] / ".env"
 if not ENV_FILE.is_file():
@@ -65,6 +69,11 @@ class TopologyCache:
 
 
 topology_cache = TopologyCache()
+
+
+class EncryptedTelemetryPayload(BaseModel):
+    nonce: str = Field(min_length=1)
+    ciphertext: str = Field(min_length=1)
 
 
 def ensure_history_table(connection) -> None:
@@ -148,6 +157,7 @@ def ingest_telemetry(payload: TelemetryPayload, request: Request):
     connection = getattr(request.app.state, "postgres_connection", None)
 
     try:
+        require_fresh(payload.timestamp)
         capacity = topology.capacity_for(payload.dtc_id)
         validate_against_topology(payload, capacity)
     except LookupError as error:
@@ -157,6 +167,16 @@ def ingest_telemetry(payload: TelemetryPayload, request: Request):
 
     persist_telemetry(payload, redis_client=redis_client, connection=connection)
     return {"status": "accepted", "dtc_id": payload.dtc_id}
+
+
+@router.post("/telemetry/encrypted", status_code=status.HTTP_201_CREATED)
+def ingest_encrypted_telemetry(envelope: EncryptedTelemetryPayload, request: Request):
+    """Decrypt and authenticate telemetry before applying normal validation."""
+    try:
+        payload = TelemetryPayload.model_validate(json.loads(decrypt_payload(envelope.nonce, envelope.ciphertext)))
+    except (ValueError, json.JSONDecodeError) as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
+    return ingest_telemetry(payload, request)
 
 
 app.include_router(router)

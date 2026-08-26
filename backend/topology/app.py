@@ -10,20 +10,24 @@ import logging
 import math
 import os
 import random
+import re
 import time
 import urllib.parse
 import urllib.request
-from collections import defaultdict
+from collections import defaultdict, deque
 from contextlib import asynccontextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
+from fastapi import Depends, FastAPI, HTTPException, Query, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
 from backend.data_ingestion_layer.ingestion_api import router as ingestion_router
+from backend.milp.grid import router as milp_router
+from backend.security.auth import authenticate, authenticate_websocket, create_token, credentials_match
+from backend.security.rbac import require_permission
 
 try:
     import psycopg2
@@ -189,6 +193,7 @@ def route_edges_through_roads() -> None:
 events: list[dict[str, Any]] = []
 connections: set[WebSocket] = set()
 active_anomaly: dict[str, Any] | None = None
+active_anomalies: dict[str, dict[str, Any]] = {}
 active_solution: dict[str, Any] | None = None
 
 
@@ -221,6 +226,25 @@ def detector_is_online(redis_client) -> bool:
 
 def fault_from_redis(redis_client, fault_id: str) -> dict[str, Any] | None:
     details = redis_client.hgetall(f"fault:{fault_id}")
+    node_id = details.get("node_id")
+    if node_id:
+        connected_edges = [
+            edge["id"] for edge in topology["edges"]
+            if node_id in {edge["from"], edge["to"]}
+        ]
+        return {
+            "id": fault_id,
+            "type": details.get("fault_type", "node_fault"),
+            "severity": "critical",
+            "title": f"{details.get('fault_type', 'Node fault').replace('_', ' ').title()} detected",
+            "reason": details.get("path_description", "Detection layer reported abnormal node telemetry"),
+            "source_node_id": node_id,
+            "affected_node_ids": [node_id],
+            "affected_edge_ids": connected_edges,
+            "detected_at": details.get("detected_at", now_iso()),
+            "status": "open",
+            "node_id": node_id,
+        }
     edge_id = details.get("edge_id")
     if not edge_id:
         return None
@@ -237,8 +261,120 @@ def fault_from_redis(redis_client, fault_id: str) -> dict[str, Any] | None:
     return {"id": fault_id, "type": details.get("fault_type", "fault"), "severity": "critical", "title": f"{details.get('fault_type', 'Fault').replace('_', ' ').title()} detected", "reason": details.get("path_description", "Detection layer reported an affected network edge"), "source_node_id": f"DTC_{details['dtc_id']}" if details.get("dtc_id") else edge["from"], "affected_node_ids": list(affected_nodes), "affected_edge_ids": affected_edges, "detected_at": details.get("detected_at", now_iso()), "status": "open", "edge_id": edge_id}
 
 
+def get_runtime_anomaly(anomaly_id: str, client=None) -> dict[str, Any] | None:
+    """Resolve an active anomaly from memory first, then Redis as source of truth."""
+    item = active_anomalies.get(anomaly_id)
+    if item:
+        return item
+    if active_anomaly and active_anomaly.get("id") == anomaly_id:
+        return active_anomaly
+    client = client or create_redis_client()
+    if not detector_is_online(client) or not client.sismember("faults:active", anomaly_id):
+        return None
+    return fault_from_redis(client, anomaly_id)
+
+
+async def run_milp_for_active_fault() -> None:
+    """Run the real MILP solver and persist its alternatives in Redis."""
+    try:
+        from backend.milp.solver import solve
+        from backend.state.schema import get_all_feeders, get_total_supply
+
+        feeders = await asyncio.to_thread(get_all_feeders)
+        supply = await asyncio.to_thread(get_total_supply)
+        if not feeders:
+            raise RuntimeError("MILP received no feeder telemetry from Redis/Postgres")
+        milp_topology = {
+            "nodes": [{"id": node["id"]} for node in topology["nodes"]],
+            "edges": [{"from_node": edge["from"], "to_node": edge["to"], "capacity_kw": edge.get("capacity", 0)} for edge in topology["edges"]],
+            "switches": [],
+        }
+        result = await asyncio.to_thread(solve, feeders, supply, milp_topology)
+        logger.info("MILP solved: %s, served %.3f/%.3f MW", result.get("status"), result.get("total_served_mw", 0), result.get("total_demand_mw", 0))
+    except Exception as exc:
+        logger.exception("MILP solve failed")
+        await broadcast({"type": "integration_error", "message": f"MILP solve failed: {exc}", "severity": "critical", "timestamp": now_iso()})
+
+
+def apply_control_command(command: dict[str, Any], client) -> None:
+    """Simulation control layer: execute a resolution command in Redis."""
+    anomalies = command.get("anomalies") or [command.get("anomaly", {})]
+    for anomaly in anomalies:
+        _restore_controlled_asset(anomaly, client)
+    logger.info("Control command executed: %s for %d fault(s)", command.get("command_id"), len(anomalies))
+
+
+def _restore_controlled_asset(anomaly: dict[str, Any], client) -> None:
+    """Restore one asset and atomically retire its resolved fault record.
+
+    The detector remains responsible for detecting a fault again if a producer
+    continues publishing bad telemetry. Removing the active record here is
+    necessary because the control layer is the component that has confirmed
+    the accepted resolution was executed; it also prevents a stale detector
+    membership from keeping the UI stuck on an already-normal asset.
+    """
+    fault_id = anomaly.get("id")
+    if anomaly.get("edge_id"):
+        edge = next((item for item in topology["edges"] if item["id"] == anomaly["edge_id"]), None)
+        if edge:
+            client.hset(f"edge:{edge['id']}", mapping={
+                "current_flow_kw": round(float(edge.get("capacity", 0)) * 0.6, 2),
+                "switch_state": "closed",
+                "protective_relay_status": "NORMAL",
+                "is_faulted": "false",
+                "test_injected": "false",
+            })
+    elif anomaly.get("node_id"):
+        node_id = anomaly["node_id"]
+        raw = client.hgetall(f"node:{node_id}")
+        load = float(raw.get("current_load_kw", raw.get("load_kw", 0)))
+        client.hset(f"node:{node_id}", mapping={
+            "current_load_kw": load,
+            "load_kw": load,
+            "voltage_pu": 1.0,
+            "thd_percentage": 2.0,
+            "status": "good",
+            "is_faulted": "false",
+            "test_injected": "false",
+        })
+    if fault_id:
+        client.srem("faults:active", fault_id)
+        client.delete(f"fault:{fault_id}")
+        logger.info("Control layer resolved %s", fault_id)
+
+
+def fault_feeder_scope(anomaly: dict[str, Any]) -> set[str]:
+    values = [anomaly.get("edge_id", ""), *anomaly.get("affected_edge_ids", [])]
+    return {match.group(1) for value in values if (match := re.search(r"/([0-9]{3})/P", str(value)))}
+
+
+def faults_overlap(first: dict[str, Any], second: dict[str, Any]) -> bool:
+    return bool(
+        set(first.get("affected_node_ids", [])).intersection(second.get("affected_node_ids", []))
+        or set(first.get("affected_edge_ids", [])).intersection(second.get("affected_edge_ids", []))
+        or fault_feeder_scope(first).intersection(fault_feeder_scope(second))
+    )
+
+
+async def control_layer_loop() -> None:
+    """Consume resolution commands and restore telemetry for the test control layer."""
+    client = create_redis_client()
+    while True:
+        try:
+            item = await asyncio.to_thread(client.blpop, "control:commands", 1)
+            if item:
+                _, payload = item
+                apply_control_command(json.loads(payload), client)
+        except asyncio.CancelledError:
+            raise
+        except Exception as exc:
+            logger.exception("Control layer command failed")
+            await broadcast({"type": "integration_error", "message": f"Control layer command failed: {exc}", "severity": "critical", "timestamp": now_iso()})
+            await asyncio.sleep(1)
+
+
 async def live_integration_loop() -> None:
-    global active_anomaly
+    global active_anomaly, active_anomalies, active_solution
     try:
         client = create_redis_client()
     except Exception as exc:
@@ -260,6 +396,7 @@ async def live_integration_loop() -> None:
                 raw = client.hgetall(f"node:{key_id}")
                 if raw:
                     node["telemetry"] = raw
+                    node["status"] = "affected" if detector_is_online(client) and str(raw.get("is_faulted", "false")).lower() == "true" else "healthy"
                     if raw.get("loading_percentage") is not None:
                         node["load"] = float(raw["loading_percentage"])
                     elif raw.get("current_load_kw") is not None and node.get("capacity"):
@@ -267,16 +404,29 @@ async def live_integration_loop() -> None:
             detector_online = detector_is_online(client)
             current_faults = {str(item) for item in client.smembers("faults:active")} if detector_online else set()
             if current_faults != previous_faults:
+                cleared_faults = sorted(previous_faults - current_faults)
+                if cleared_faults:
+                    if active_solution and active_solution.get("anomaly_id") in cleared_faults:
+                        active_solution = None
+                    for fault_id in cleared_faults:
+                        active_anomalies.pop(fault_id, None)
+                    if active_anomaly and active_anomaly.get("id") in cleared_faults:
+                        active_anomaly = None
+                    event = add_event("anomaly_cleared", "Detection layer cleared resolved fault(s)", "success")
+                    await broadcast({**event, "cleared_anomaly_ids": cleared_faults})
                 if current_faults:
-                    first_fault = next((fault_from_redis(client, fault_id) for fault_id in current_faults), None)
+                    fault_records = {fault["id"]: fault for fault in (fault_from_redis(client, fault_id) for fault_id in sorted(current_faults)) if fault}
+                    active_anomalies = fault_records
+                    first_fault = next(iter(fault_records.values()), None)
                     active_anomaly = first_fault
                     if first_fault:
-                        event = add_event("anomaly_detected", first_fault["title"], "critical", anomaly=first_fault)
-                        await broadcast(event)
-                elif previous_faults:
+                        await run_milp_for_active_fault()
+                        for fault in fault_records.values():
+                            event = add_event("anomaly_detected", fault["title"], "critical", anomaly=fault)
+                            await broadcast(event)
+                else:
                     active_anomaly = None
-                    event = add_event("anomaly_cleared", "Detection layer cleared all active faults", "success")
-                    await broadcast(event)
+                    active_anomalies = {}
                 previous_faults = current_faults
             await broadcast({"type": "telemetry_update", "timestamp": now_iso(), "nodes": topology["nodes"], "edges": topology["edges"]})
         except Exception as exc:
@@ -288,13 +438,16 @@ async def live_integration_loop() -> None:
 @asynccontextmanager
 async def lifespan(_: FastAPI):
     task = asyncio.create_task(live_integration_loop())
+    control_task = asyncio.create_task(control_layer_loop())
     yield
     task.cancel()
+    control_task.cancel()
 
 
 app = FastAPI(title="GridBandhu Topology API", version="0.1.0", lifespan=lifespan)
 app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
-app.include_router(ingestion_router, prefix="/api/ingestion", tags=["telemetry-ingestion"])
+app.include_router(ingestion_router, prefix="/api/ingestion", tags=["telemetry-ingestion"], dependencies=[Depends(require_permission("view"))])
+app.include_router(milp_router, prefix="/api/milp", tags=["milp"], dependencies=[Depends(require_permission("view"))])
 
 
 @app.get("/api/health")
@@ -340,19 +493,19 @@ def diagnostics() -> dict[str, Any]:
 
 @app.post("/api/auth/login")
 def login(body: LoginRequest) -> dict[str, Any]:
-    if not body.username or not body.password:
-        raise HTTPException(401, "Username and password are required")
-    return {"token": "demo-session", "user": {"name": body.username, "role": "Grid Operations"}}
+    if not body.username or not body.password or not credentials_match(body.username, body.password):
+        raise HTTPException(401, "Invalid username or password")
+    return {"token": create_token(body.username, "operator"), "user": {"name": body.username, "role": "operator"}}
 
 
 @app.get("/api/topology")
-def get_topology() -> dict[str, Any]:
+def get_topology(_: dict = Depends(require_permission("view"))) -> dict[str, Any]:
     route_edges_through_roads()
     return {**topology, "anomaly": active_anomaly, "selected_solution": active_solution}
 
 
 @app.get("/api/telemetry/snapshot")
-def get_telemetry() -> dict[str, Any]:
+def get_telemetry(_: dict = Depends(require_permission("view"))) -> dict[str, Any]:
     return {"timestamp": now_iso(), "nodes": topology["nodes"], "edges": topology["edges"]}
 
 
@@ -383,13 +536,26 @@ async def clear_test_fault(body: TestFaultRequest) -> dict[str, Any]:
 
 
 @app.get("/api/events")
-def get_events() -> list[dict[str, Any]]:
+def get_events(_: dict = Depends(require_permission("view"))) -> list[dict[str, Any]]:
     return events
 
 
 @app.get("/api/anomalies/active")
-def get_anomaly() -> dict[str, Any] | None:
+def get_anomaly(_: dict = Depends(require_permission("view"))) -> dict[str, Any] | None:
     return active_anomaly if active_anomaly and detector_is_online(create_redis_client()) else None
+
+
+@app.get("/api/anomalies/active/all")
+def get_active_anomalies(_: dict = Depends(require_permission("view"))) -> list[dict[str, Any]]:
+    client = create_redis_client()
+    if not detector_is_online(client):
+        return []
+    records = []
+    for fault_id in sorted(str(item) for item in client.smembers("faults:active")):
+        fault = fault_from_redis(client, fault_id)
+        if fault:
+            records.append(fault)
+    return records
 
 
 def build_solution_edge_paths() -> list[list[str]]:
@@ -406,19 +572,82 @@ def build_solution_edge_paths() -> list[list[str]]:
     return paths
 
 
+def route_node_to_solution_feeder(node_id: str | list[str], path: dict[str, Any]) -> list[str]:
+    """Project a feeder allocation onto one connected map route.
+
+    MILP allocations identify served feeders, not a map polyline. Use the
+    topology graph to derive the shortest connected route from a faulted node
+    to one feeder represented by this alternative.
+    """
+    allocations = [item for item in path.get("allocations", []) if item.get("status") != "SHED"]
+    feeder_ids = [str(item.get("feeder_id")) for item in allocations if item.get("feeder_id")]
+    if not feeder_ids:
+        return []
+    feeder_id = feeder_ids[(int(path.get("path_id", 1)) - 1) % len(feeder_ids)]
+    target_edges = [edge for edge in topology["edges"] if f"/{feeder_id}/" in str(edge.get("id", ""))]
+    if not target_edges:
+        return []
+    adjacency = defaultdict(list)
+    for edge in topology["edges"]:
+        adjacency[edge["from"]].append((edge["to"], edge["id"]))
+        adjacency[edge["to"]].append((edge["from"], edge["id"]))
+    targets = {endpoint for edge in target_edges for endpoint in (edge["from"], edge["to"])}
+    start_nodes = [node_id] if isinstance(node_id, str) else node_id
+    queue = deque((start, []) for start in start_nodes)
+    visited = set(start_nodes)
+    while queue:
+        current, route = queue.popleft()
+        if current in targets:
+            target_edge = next((edge["id"] for edge in target_edges if current in {edge["from"], edge["to"]}), None)
+            return list(dict.fromkeys([*route, target_edge] if target_edge else route))
+        for neighbor, edge_id in adjacency[current]:
+            if neighbor not in visited:
+                visited.add(neighbor)
+                queue.append((neighbor, [*route, edge_id]))
+    return []
+
+
+def route_fault_to_solution_feeder(anomaly: dict[str, Any], path: dict[str, Any]) -> list[str]:
+    """Build a local route for either a node fault or an edge fault."""
+    if anomaly.get("node_id"):
+        starts = [anomaly["node_id"]]
+    elif anomaly.get("edge_id"):
+        fault_edge = next((edge for edge in topology["edges"] if edge["id"] == anomaly["edge_id"]), None)
+        starts = [fault_edge["from"], fault_edge["to"]] if fault_edge else []
+    else:
+        starts = []
+    route = route_node_to_solution_feeder(starts, path) if starts else []
+    return list(dict.fromkeys([*anomaly.get("affected_edge_ids", []), *route]))
+
+
 @app.get("/api/anomalies/{anomaly_id:path}/solutions")
-def get_solutions(anomaly_id: str) -> dict[str, Any]:
-    if not active_anomaly or anomaly_id != active_anomaly["id"]:
+def get_solutions(anomaly_id: str, _: dict = Depends(require_permission("view"))) -> dict[str, Any]:
+    selected_anomaly = get_runtime_anomaly(anomaly_id)
+    if not selected_anomaly:
         raise HTTPException(404, "Anomaly not found")
-    ids = active_anomaly["affected_node_ids"]
-    paths = build_solution_edge_paths()
-    return {"anomaly_id": anomaly_id, "solutions": [{"id": "SOL-01", "rank": 1, "title": "Transfer load to alternate feeder", "description": "Open the affected section and route supply through the nearest healthy tie switch.", "confidence": 94, "restored_kw": 680, "eta_minutes": 4, "risk": "low", "affected_node_ids": ids, "affected_edge_ids": paths[0]}, {"id": "SOL-02", "rank": 2, "title": "Redistribute transformer demand", "description": "Balance demand across adjacent DTCs while preserving critical facilities.", "confidence": 86, "restored_kw": 540, "eta_minutes": 7, "risk": "medium", "affected_node_ids": ids[:1], "affected_edge_ids": paths[1]}, {"id": "SOL-03", "rank": 3, "title": "Prioritize critical consumers", "description": "Curtail non-critical load to keep hospital and water services online.", "confidence": 78, "restored_kw": 390, "eta_minutes": 2, "risk": "medium", "affected_node_ids": ids, "affected_edge_ids": paths[2]}]}
+    ids = selected_anomaly["affected_node_ids"]
+    try:
+        from backend.state.schema import get_paths
+        paths = get_paths(anomaly_id)
+    except Exception as exc:
+        raise HTTPException(503, f"MILP results unavailable: {exc}") from exc
+    if not paths:
+        raise HTTPException(503, "MILP has not produced recommendations for this active fault yet")
+    confidence = [94, 86, 78]
+    solutions = []
+    for index, path in enumerate(paths[:3]):
+        map_edges = path.get("affected_edge_ids", [])
+        if selected_anomaly.get("node_id") or selected_anomaly.get("edge_id"):
+            map_edges = route_fault_to_solution_feeder(selected_anomaly, path) or list(selected_anomaly.get("affected_edge_ids", []))
+        solutions.append({"id": f"SOL-{path.get('path_id', index + 1):02d}", "rank": path.get("path_id", index + 1), "title": path.get("strategy", f"MILP alternative {index + 1}"), "description": path.get("description", "MILP-generated allocation alternative"), "confidence": confidence[index] if index < len(confidence) else 70, "restored_kw": round(path.get("total_served_mw", 0) * 1000), "eta_minutes": 4 + index * 2, "risk": "low" if index == 0 else "medium", "affected_node_ids": ids, "affected_edge_ids": map_edges})
+    return {"anomaly_id": anomaly_id, "solutions": solutions}
 
 
 @app.post("/api/anomalies/{anomaly_id:path}/solutions/{solution_id}/preview")
-async def preview_solution(anomaly_id: str, solution_id: str) -> dict[str, Any]:
+async def preview_solution(anomaly_id: str, solution_id: str, _: dict = Depends(require_permission("view"))) -> dict[str, Any]:
     global active_solution
-    if not active_anomaly or anomaly_id != active_anomaly["id"]:
+    selected_anomaly = get_runtime_anomaly(anomaly_id)
+    if not selected_anomaly:
         raise HTTPException(404, "Anomaly not found")
     result = {"anomaly_id": anomaly_id, "solution_id": solution_id, "state": "preview"}
     active_solution = result
@@ -426,25 +655,81 @@ async def preview_solution(anomaly_id: str, solution_id: str) -> dict[str, Any]:
     return result
 
 
+def clear_accepted_fault(anomaly: dict[str, Any], client) -> None:
+    """Restore the selected Redis asset and remove only its active fault."""
+    fault_id = anomaly["id"]
+    if anomaly.get("edge_id"):
+        edge = next((item for item in topology["edges"] if item["id"] == anomaly["edge_id"]), None)
+        if edge:
+            client.hset(f"edge:{edge['id']}", mapping={
+                "current_flow_kw": round(float(edge.get("capacity", 0)) * 0.6, 2),
+                "switch_state": "closed",
+                "protective_relay_status": "NORMAL",
+                "is_faulted": "false",
+                "test_injected": "false",
+            })
+    elif anomaly.get("node_id"):
+        node_id = anomaly["node_id"]
+        node_key = f"node:{node_id}"
+        raw = client.hgetall(node_key)
+        load = float(raw.get("current_load_kw", raw.get("load_kw", 0)))
+        client.hset(node_key, mapping={
+            "current_load_kw": load,
+            "load_kw": load,
+            "voltage_pu": 1.0,
+            "thd_percentage": 2.0,
+            "status": "good",
+            "is_faulted": "false",
+            "test_injected": "false",
+        })
+    client.srem("faults:active", fault_id)
+    client.delete(f"fault:{fault_id}")
+
+
 @app.post("/api/anomalies/{anomaly_id:path}/solutions/{solution_id}/accept")
-async def accept_solution(anomaly_id: str, solution_id: str, _: DecisionAction | None = None) -> dict[str, Any]:
+async def accept_solution(anomaly_id: str, solution_id: str, _: DecisionAction | None = None, __: dict = Depends(require_permission("approve_recommendation"))) -> dict[str, Any]:
     global active_solution, active_anomaly
-    if not active_anomaly or anomaly_id != active_anomaly["id"]:
+    client = create_redis_client()
+    selected_anomaly = get_runtime_anomaly(anomaly_id, client)
+    if not selected_anomaly:
         raise HTTPException(404, "Anomaly not found")
-    active_solution = {"anomaly_id": anomaly_id, "solution_id": solution_id, "state": "applied", "applied_at": now_iso()}
-    active_anomaly = {**active_anomaly, "status": "resolved", "resolved_at": now_iso()}
-    for node in topology["nodes"]:
-        if node["id"] in active_anomaly["affected_node_ids"]:
-            node["status"] = "restored"
-            node["load"] = min(node["load"], 72)
+    solution = next((item for item in get_solutions(anomaly_id)["solutions"] if item["id"] == solution_id), None)
+    if not solution:
+        raise HTTPException(404, "Solution not found for anomaly")
+    active_solution = {**solution, "anomaly_id": anomaly_id, "solution_id": solution_id, "state": "queued", "applied_at": now_iso()}
+    related_anomalies = [selected_anomaly]
+    for fault_id in sorted(str(item) for item in client.smembers("faults:active")):
+        candidate = fault_from_redis(client, fault_id)
+        if candidate and candidate["id"] != selected_anomaly["id"] and faults_overlap(selected_anomaly, candidate):
+            related_anomalies.append(candidate)
+    command = {
+        "command_id": f"CMD-{int(time.time() * 1000)}",
+        "command_type": "resolve_fault",
+        "anomalies": related_anomalies,
+        "solution_id": solution_id,
+        "created_at": now_iso(),
+    }
+    client.rpush("control:commands", json.dumps(command))
     event = add_event("solution_applied", f"{solution_id} applied successfully", "success", solution=active_solution)
-    await broadcast({"type": "solution_applied", "solution": active_solution, "anomaly": active_anomaly})
+    await broadcast({"type": "solution_applied", "solution": active_solution, "anomaly": selected_anomaly, "control_command": command})
     await broadcast(event)
-    return {"solution": active_solution, "anomaly": active_anomaly}
+    return {"solution": active_solution, "anomaly": selected_anomaly, "control_command": command}
 
 
 @app.websocket("/api/ws")
-async def websocket_endpoint(socket: WebSocket):
+async def websocket_endpoint(socket: WebSocket, token: str | None = Query(default=None)):
+    try:
+        authenticate_websocket(token)
+    except HTTPException:
+        logger.warning(
+            "Rejected unauthenticated WebSocket: path=%s origin=%s user_agent=%s token_parameter=%s",
+            socket.url.path,
+            socket.headers.get("origin", "-"),
+            socket.headers.get("user-agent", "-")[:160],
+            bool(token),
+        )
+        await socket.close(code=1008, reason="Authentication required")
+        return
     await socket.accept()
     connections.add(socket)
     await socket.send_json({"type": "connected", "timestamp": now_iso()})
@@ -458,6 +743,6 @@ async def websocket_endpoint(socket: WebSocket):
 
 
 @app.websocket("/api/v1/ws/live")
-async def legacy_live_websocket_endpoint(socket: WebSocket):
+async def legacy_live_websocket_endpoint(socket: WebSocket, token: str | None = Query(default=None)):
     """Compatibility route for the existing live-data client contract."""
-    await websocket_endpoint(socket)
+    await websocket_endpoint(socket, token)
