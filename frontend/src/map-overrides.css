@@ -1,0 +1,3 @@
+.topology-fallback { display: none !important; }
+.map-error { position:absolute; z-index:5; top:50%; left:50%; transform:translate(-50%,-50%); width:min(520px,calc(100% - 40px)); padding:20px; border:1px solid #ff536c; background:rgba(12,0,4,.94); color:#ffc0c8; font:11px var(--mono); box-shadow:0 0 30px rgba(255,83,108,.2); }
+.map-error strong,.map-error span,.map-error small { display:block; }.map-error strong { color:#ff536c; letter-spacing:.12em; margin-bottom:10px; }.map-error span { word-break:break-word; }.map-error small { color:#b2838b; margin-top:12px; }

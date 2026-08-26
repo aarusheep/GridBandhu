@@ -23,7 +23,7 @@ Dependencies:
     pip install pandas psycopg2-binary python-dotenv
 
 Usage:
-    python load_static_data.py --input data/seeds/final_2.0_dataset.csv
+    python backend/data_ingestion_layer/static_data.py --input backend/dataset2.0
 """
 
 import argparse
