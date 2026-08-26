@@ -30,13 +30,14 @@ import argparse
 import os
 import random
 import re
+from pathlib import Path
 
 import pandas as pd
 import psycopg2
 from psycopg2.extras import execute_values
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(Path(__file__).resolve().parents[1] / ".env")
 
 
 # ---------------------------------------------------------------------------

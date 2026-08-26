@@ -28,6 +28,10 @@ try:
     import psycopg2
 except ImportError:  # The CSV demo fallback remains usable without DB packages.
     psycopg2 = None
+try:
+    import redis
+except ImportError:
+    redis = None
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -43,6 +47,10 @@ class LoginRequest(BaseModel):
 
 class DecisionAction(BaseModel):
     action: str = "accept"
+
+
+class TestFaultRequest(BaseModel):
+    edge_id: str | None = None
 
 
 def now_iso() -> str:
@@ -200,27 +208,80 @@ async def broadcast(payload: dict[str, Any]) -> None:
     connections.difference_update(stale)
 
 
-async def demo_detection_loop() -> None:
+def create_redis_client():
+    if redis is None:
+        raise RuntimeError("Redis telemetry is required: install redis")
+    return redis.Redis(host=os.getenv("REDIS_HOST", "localhost"), port=int(os.getenv("REDIS_PORT", 6379)), db=int(os.getenv("REDIS_DB", 0)), decode_responses=True, protocol=2)
+
+
+def fault_from_redis(redis_client, fault_id: str) -> dict[str, Any] | None:
+    details = redis_client.hgetall(f"fault:{fault_id}")
+    edge_id = details.get("edge_id")
+    if not edge_id:
+        return None
+    edge = next((item for item in topology["edges"] if str(item["id"]) == str(edge_id)), None)
+    if not edge:
+        return None
+    affected_edges = [edge["id"]]
+    for candidate in topology["edges"]:
+        if candidate["id"] != edge["id"] and (candidate["from"] in {edge["from"], edge["to"]} or candidate["to"] in {edge["from"], edge["to"]}):
+            affected_edges.append(candidate["id"])
+    affected_nodes = {edge["from"], edge["to"]}
+    if details.get("dtc_id"):
+        affected_nodes.add(f"DTC_{details['dtc_id']}")
+    return {"id": fault_id, "type": details.get("fault_type", "fault"), "severity": "critical", "title": f"{details.get('fault_type', 'Fault').replace('_', ' ').title()} detected", "reason": details.get("path_description", "Detection layer reported an affected network edge"), "source_node_id": f"DTC_{details['dtc_id']}" if details.get("dtc_id") else edge["from"], "affected_node_ids": list(affected_nodes), "affected_edge_ids": affected_edges, "detected_at": details.get("detected_at", now_iso()), "status": "open", "edge_id": edge_id}
+
+
+async def live_integration_loop() -> None:
     global active_anomaly
-    await asyncio.sleep(3)
+    try:
+        client = create_redis_client()
+    except Exception as exc:
+        logger.exception("Redis integration could not start")
+        await broadcast({"type": "integration_error", "message": f"Redis telemetry integration could not start: {exc}", "severity": "critical", "timestamp": now_iso()})
+        return
+    previous_faults: set[str] = set()
     while True:
-        if active_anomaly is None:
-            affected = [n for n in topology["nodes"] if n["type"] == "dtc"][:2]
-            affected_ids = [n["id"] for n in affected]
-            affected_edges = [e["id"] for e in topology["edges"] if e["from"] in affected_ids or e["to"] in affected_ids][:3]
-            active_anomaly = {"id": "ANOM-001", "type": "overload", "severity": "critical", "title": "Transformer overload detected", "reason": "Loading exceeded safe operating threshold", "source_node_id": affected_ids[0] if affected_ids else "DTC_UNKNOWN", "affected_node_ids": affected_ids, "affected_edge_ids": affected_edges, "detected_at": now_iso(), "status": "open"}
-            event = add_event("anomaly_detected", "Transformer overload detected", "critical", anomaly=active_anomaly)
-            await broadcast(event)
-        for node in topology["nodes"]:
-            if node["type"] in {"dtc", "facility"}:
-                node["load"] = round(max(20, min(96, node["load"] + random.uniform(-2.2, 2.2))), 1)
-        await broadcast({"type": "telemetry_update", "timestamp": now_iso(), "nodes": topology["nodes"], "edges": topology["edges"]})
-        await asyncio.sleep(8)
+        try:
+            client.ping()
+            for edge in topology["edges"]:
+                raw = client.hgetall(f"edge:{edge['id']}")
+                if raw:
+                    edge["flow"] = float(raw.get("current_flow_kw", edge.get("flow", 0)))
+                    edge["telemetry"] = raw
+                    edge["status"] = "affected" if str(raw.get("is_faulted", "false")).lower() == "true" else "healthy"
+            for node in topology["nodes"]:
+                key_id = node["id"].removeprefix("DTC_") if node["type"] == "dtc" else node["id"]
+                raw = client.hgetall(f"node:{key_id}")
+                if raw:
+                    node["telemetry"] = raw
+                    if raw.get("loading_percentage") is not None:
+                        node["load"] = float(raw["loading_percentage"])
+                    elif raw.get("current_load_kw") is not None and node.get("capacity"):
+                        node["load"] = round(float(raw["current_load_kw"]) / node["capacity"] * 100, 1)
+            current_faults = {str(item) for item in client.smembers("faults:active")}
+            if current_faults != previous_faults:
+                if current_faults:
+                    first_fault = next((fault_from_redis(client, fault_id) for fault_id in current_faults), None)
+                    active_anomaly = first_fault
+                    if first_fault:
+                        event = add_event("anomaly_detected", first_fault["title"], "critical", anomaly=first_fault)
+                        await broadcast(event)
+                elif previous_faults:
+                    active_anomaly = None
+                    event = add_event("anomaly_cleared", "Detection layer cleared all active faults", "success")
+                    await broadcast(event)
+                previous_faults = current_faults
+            await broadcast({"type": "telemetry_update", "timestamp": now_iso(), "nodes": topology["nodes"], "edges": topology["edges"]})
+        except Exception as exc:
+            logger.exception("Live Redis integration cycle failed")
+            await broadcast({"type": "integration_error", "message": f"Redis telemetry error: {exc}", "severity": "critical", "timestamp": now_iso()})
+        await asyncio.sleep(float(os.getenv("LIVE_POLL_SECONDS", "2")))
 
 
 @asynccontextmanager
 async def lifespan(_: FastAPI):
-    task = asyncio.create_task(demo_detection_loop())
+    task = asyncio.create_task(live_integration_loop())
     yield
     task.cancel()
 
@@ -237,23 +298,36 @@ def health() -> dict[str, Any]:
 @app.get("/api/diagnostics")
 def diagnostics() -> dict[str, Any]:
     """Safe runtime diagnostics; never returns database credentials."""
-    result: dict[str, Any] = {"api": "ok", "topology_source": topology["source"], "topology_rows": {"nodes": len(topology["nodes"]), "edges": len(topology["edges"])}, "postgres": "unknown", "redis": "not_required_by_demo_loop"}
+    result: dict[str, Any] = {"api": "ok", "topology_source": topology["source"], "topology_rows": {"nodes": len(topology["nodes"]), "edges": len(topology["edges"])}, "postgres": "unknown", "redis": "unknown"}
     if psycopg2 is None:
         result["postgres"] = "driver_missing"
-        return result
-    conn = None
+    else:
+        conn = None
+        try:
+            conn = psycopg2.connect(host=os.getenv("POSTGRES_HOST", "localhost"), port=os.getenv("POSTGRES_PORT", 5432), dbname=os.getenv("POSTGRES_DB", "gridbandhu"), user=os.getenv("POSTGRES_USER", "postgres"), password=os.getenv("POSTGRES_PASSWORD", ""), connect_timeout=3)
+            with conn.cursor() as cur:
+                cur.execute("SELECT COUNT(*) FROM substations"); result["postgres_substations"] = cur.fetchone()[0]
+                cur.execute("SELECT COUNT(*) FROM ht_edges"); result["postgres_ht_edges"] = cur.fetchone()[0]
+            result["postgres"] = "ok"
+        except Exception as exc:
+            result["postgres"] = "error"
+            result["postgres_error"] = str(exc)
+        finally:
+            if conn is not None:
+                conn.close()
+
+    redis_conn = None
     try:
-        conn = psycopg2.connect(host=os.getenv("POSTGRES_HOST", "localhost"), port=os.getenv("POSTGRES_PORT", 5432), dbname=os.getenv("POSTGRES_DB", "gridbandhu"), user=os.getenv("POSTGRES_USER", "postgres"), password=os.getenv("POSTGRES_PASSWORD", ""), connect_timeout=3)
-        with conn.cursor() as cur:
-            cur.execute("SELECT COUNT(*) FROM substations"); result["postgres_substations"] = cur.fetchone()[0]
-            cur.execute("SELECT COUNT(*) FROM ht_edges"); result["postgres_ht_edges"] = cur.fetchone()[0]
-        result["postgres"] = "ok"
+        redis_conn = create_redis_client()
+        redis_conn.ping()
+        result["redis"] = "ok"
+        result["redis_active_faults"] = len(redis_conn.smembers("faults:active"))
     except Exception as exc:
-        result["postgres"] = "error"
-        result["postgres_error"] = str(exc)
+        result["redis"] = "error"
+        result["redis_error"] = str(exc)
     finally:
-        if conn is not None:
-            conn.close()
+        if redis_conn is not None:
+            redis_conn.close()
     return result
 
 
@@ -275,6 +349,32 @@ def get_telemetry() -> dict[str, Any]:
     return {"timestamp": now_iso(), "nodes": topology["nodes"], "edges": topology["edges"]}
 
 
+@app.post("/api/test/inject-fault")
+async def inject_test_fault(body: TestFaultRequest) -> dict[str, Any]:
+    """Inject a temporary relay trip into Redis for end-to-end testing."""
+    if os.getenv("GRIDBANDHU_ENABLE_TEST_CONTROLS", "true").lower() != "true":
+        raise HTTPException(403, "Test controls are disabled")
+    edge = next((item for item in topology["edges"] if item["type"] == "ht" and (body.edge_id is None or str(item["id"]) == body.edge_id)), None)
+    if not edge:
+        raise HTTPException(404, "No matching HT edge found in the Postgres topology")
+    client = create_redis_client()
+    client.hset(f"edge:{edge['id']}", mapping={"current_flow_kw": 0, "switch_state": "open", "protective_relay_status": "PICKUP", "test_injected": "true"})
+    return {"status": "injected", "edge_id": edge["id"], "message": "Test relay trip written to Redis; detection should publish an alert within its next cycle."}
+
+
+@app.post("/api/test/clear-fault")
+async def clear_test_fault(body: TestFaultRequest) -> dict[str, Any]:
+    """Restore a test edge's normal Redis telemetry so the detector can clear it."""
+    if os.getenv("GRIDBANDHU_ENABLE_TEST_CONTROLS", "true").lower() != "true":
+        raise HTTPException(403, "Test controls are disabled")
+    edge = next((item for item in topology["edges"] if item["type"] == "ht" and (body.edge_id is None or str(item["id"]) == body.edge_id)), None)
+    if not edge:
+        raise HTTPException(404, "No matching HT edge found in the Postgres topology")
+    client = create_redis_client()
+    client.hset(f"edge:{edge['id']}", mapping={"current_flow_kw": round(float(edge.get("capacity", 0)) * 0.6, 2), "switch_state": "closed", "protective_relay_status": "NORMAL", "test_injected": "false"})
+    return {"status": "cleared", "edge_id": edge["id"], "message": "Normal telemetry written to Redis; detection should clear the alert within its next cycle."}
+
+
 @app.get("/api/events")
 def get_events() -> list[dict[str, Any]]:
     return events
@@ -285,15 +385,30 @@ def get_anomaly() -> dict[str, Any] | None:
     return active_anomaly
 
 
-@app.get("/api/anomalies/{anomaly_id}/solutions")
+def build_solution_edge_paths() -> list[list[str]]:
+    fault_id = active_anomaly["edge_id"]
+    fault = next((edge for edge in topology["edges"] if edge["id"] == fault_id), None)
+    base = list(dict.fromkeys(active_anomaly["affected_edge_ids"]))
+    neighbors = []
+    if fault:
+        endpoints = {fault["from"], fault["to"]}
+        neighbors = [edge["id"] for edge in topology["edges"] if edge["id"] not in base and (edge["from"] in endpoints or edge["to"] in endpoints)]
+    paths = [list(dict.fromkeys([fault_id, *base]))]
+    paths.append(list(dict.fromkeys([fault_id, *base[1:2], *neighbors[:1]])))
+    paths.append(list(dict.fromkeys([fault_id, *base[2:3], *neighbors[1:2]])))
+    return paths
+
+
+@app.get("/api/anomalies/{anomaly_id:path}/solutions")
 def get_solutions(anomaly_id: str) -> dict[str, Any]:
     if not active_anomaly or anomaly_id != active_anomaly["id"]:
         raise HTTPException(404, "Anomaly not found")
     ids = active_anomaly["affected_node_ids"]
-    return {"anomaly_id": anomaly_id, "solutions": [{"id": "SOL-01", "rank": 1, "title": "Transfer load to alternate feeder", "description": "Open the affected section and route supply through the nearest healthy tie switch.", "confidence": 94, "restored_kw": 680, "eta_minutes": 4, "risk": "low", "affected_node_ids": ids, "affected_edge_ids": active_anomaly["affected_edge_ids"]}, {"id": "SOL-02", "rank": 2, "title": "Redistribute transformer demand", "description": "Balance demand across adjacent DTCs while preserving critical facilities.", "confidence": 86, "restored_kw": 540, "eta_minutes": 7, "risk": "medium", "affected_node_ids": ids[:1], "affected_edge_ids": active_anomaly["affected_edge_ids"][:2]}, {"id": "SOL-03", "rank": 3, "title": "Prioritize critical consumers", "description": "Curtail non-critical load to keep hospital and water services online.", "confidence": 78, "restored_kw": 390, "eta_minutes": 2, "risk": "medium", "affected_node_ids": ids, "affected_edge_ids": active_anomaly["affected_edge_ids"][:1]}]}
+    paths = build_solution_edge_paths()
+    return {"anomaly_id": anomaly_id, "solutions": [{"id": "SOL-01", "rank": 1, "title": "Transfer load to alternate feeder", "description": "Open the affected section and route supply through the nearest healthy tie switch.", "confidence": 94, "restored_kw": 680, "eta_minutes": 4, "risk": "low", "affected_node_ids": ids, "affected_edge_ids": paths[0]}, {"id": "SOL-02", "rank": 2, "title": "Redistribute transformer demand", "description": "Balance demand across adjacent DTCs while preserving critical facilities.", "confidence": 86, "restored_kw": 540, "eta_minutes": 7, "risk": "medium", "affected_node_ids": ids[:1], "affected_edge_ids": paths[1]}, {"id": "SOL-03", "rank": 3, "title": "Prioritize critical consumers", "description": "Curtail non-critical load to keep hospital and water services online.", "confidence": 78, "restored_kw": 390, "eta_minutes": 2, "risk": "medium", "affected_node_ids": ids, "affected_edge_ids": paths[2]}]}
 
 
-@app.post("/api/anomalies/{anomaly_id}/solutions/{solution_id}/preview")
+@app.post("/api/anomalies/{anomaly_id:path}/solutions/{solution_id}/preview")
 async def preview_solution(anomaly_id: str, solution_id: str) -> dict[str, Any]:
     global active_solution
     if not active_anomaly or anomaly_id != active_anomaly["id"]:
@@ -304,7 +419,7 @@ async def preview_solution(anomaly_id: str, solution_id: str) -> dict[str, Any]:
     return result
 
 
-@app.post("/api/anomalies/{anomaly_id}/solutions/{solution_id}/accept")
+@app.post("/api/anomalies/{anomaly_id:path}/solutions/{solution_id}/accept")
 async def accept_solution(anomaly_id: str, solution_id: str, _: DecisionAction | None = None) -> dict[str, Any]:
     global active_solution, active_anomaly
     if not active_anomaly or anomaly_id != active_anomaly["id"]:
@@ -326,6 +441,8 @@ async def websocket_endpoint(socket: WebSocket):
     await socket.accept()
     connections.add(socket)
     await socket.send_json({"type": "connected", "timestamp": now_iso()})
+    if active_anomaly:
+        await socket.send_json({"type": "anomaly_detected", "anomaly": active_anomaly, "timestamp": now_iso()})
     try:
         while True:
             await socket.receive_text()

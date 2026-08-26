@@ -47,6 +47,7 @@ Configuration is loaded from .env.
 import logging
 import os
 import time
+from pathlib import Path
 
 from dataclasses import dataclass
 from datetime import datetime, timezone
@@ -63,7 +64,8 @@ from dotenv import load_dotenv
 # LOAD .ENV
 # ============================================================================
 
-load_dotenv()
+ENV_FILE = Path(__file__).resolve().parents[1] / ".env"
+load_dotenv(ENV_FILE)
 
 
 # ============================================================================
@@ -236,7 +238,8 @@ def connect_redis():
         host=REDIS_HOST,
         port=REDIS_PORT,
         db=REDIS_DB,
-        decode_responses=True
+        decode_responses=True,
+        protocol=2
     )
 
 
@@ -498,16 +501,11 @@ def get_live_readings(
         # ------------------------------------------------------------
         # IMPORTANT:
         #
-        # generate_live_telemetry.py writes:
-        #
-        #     relay_status
-        #
-        # So detection reads exactly the same field.
+        # The current ingestion layer publishes protective_relay_status;
+        # accept the detector's documented relay_status name as well.
         # ------------------------------------------------------------
 
-        relay_status = raw.get(
-            "relay_status"
-        )
+        relay_status = raw.get("relay_status") or raw.get("protective_relay_status")
 
         readings.append(
             LiveReading(

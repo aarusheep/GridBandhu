@@ -72,10 +72,10 @@ from dotenv import load_dotenv
 #     └── data_ingestion_layer/
 #         └── live_data.py
 #
-# parents[2] points to GRIDBANDHU/
+# parents[1] points to backend/, where the shared .env file lives.
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
-ENV_FILE = ROOT_DIR / ".env"
+ENV_FILE = Path(__file__).resolve().parents[1] / ".env"
 
 load_dotenv(ENV_FILE)
 
@@ -157,6 +157,7 @@ def get_redis_client():
         port=REDIS_PORT,
         db=REDIS_DB,
         decode_responses=True,
+        protocol=2,
     )
 
     # Test connection immediately.
