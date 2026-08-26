@@ -15,9 +15,18 @@ class TelemetryPayload(BaseModel):
     load_kw: float
     capacity_kw: float
     loading_percentage: float
+    voltage_pu: float
+    thd_percentage: float
     timestamp: datetime
 
-    @field_validator("load_kw", "capacity_kw", "loading_percentage", mode="before")
+    @field_validator(
+        "load_kw",
+        "capacity_kw",
+        "loading_percentage",
+        "voltage_pu",
+        "thd_percentage",
+        mode="before",
+    )
     @classmethod
     def require_finite_numbers(cls, value: object) -> object:
         if isinstance(value, bool) or not isinstance(value, (int, float)):
@@ -60,3 +69,9 @@ def validate_against_topology(
     expected_percentage = (payload.load_kw / topology_capacity_kw) * 100
     if not isclose(payload.loading_percentage, expected_percentage, rel_tol=0, abs_tol=0.1):
         raise ValueError("loading_percentage does not match load_kw / capacity_kw")
+
+    if not 0.88 <= payload.voltage_pu <= 1.10:
+        raise ValueError("voltage_pu must be between 0.88 and 1.10")
+
+    if not 0 <= payload.thd_percentage <= 5.0:
+        raise ValueError("thd_percentage must be between 0 and 5.0")

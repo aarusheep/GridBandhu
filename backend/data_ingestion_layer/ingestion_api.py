@@ -77,10 +77,20 @@ def ensure_history_table(connection) -> None:
                 load_kw DOUBLE PRECISION NOT NULL,
                 capacity_kw DOUBLE PRECISION NOT NULL,
                 loading_percentage DOUBLE PRECISION NOT NULL,
+                voltage_pu DOUBLE PRECISION NOT NULL,
+                thd_percentage DOUBLE PRECISION NOT NULL,
                 timestamp TIMESTAMPTZ NOT NULL,
                 ingested_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
             )
             """
+        )
+        cursor.execute(
+            "ALTER TABLE telemetry_history "
+            "ADD COLUMN IF NOT EXISTS voltage_pu DOUBLE PRECISION"
+        )
+        cursor.execute(
+            "ALTER TABLE telemetry_history "
+            "ADD COLUMN IF NOT EXISTS thd_percentage DOUBLE PRECISION"
         )
 
 
@@ -95,14 +105,17 @@ def persist_telemetry(payload: TelemetryPayload, redis_client=None, connection=N
             cursor.execute(
                 """
                 INSERT INTO telemetry_history
-                    (dtc_id, load_kw, capacity_kw, loading_percentage, timestamp)
-                VALUES (%s, %s, %s, %s, %s)
+                    (dtc_id, load_kw, capacity_kw, loading_percentage,
+                     voltage_pu, thd_percentage, timestamp)
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
                 """,
                 (
                     payload.dtc_id,
                     payload.load_kw,
                     payload.capacity_kw,
                     payload.loading_percentage,
+                    payload.voltage_pu,
+                    payload.thd_percentage,
                     payload.timestamp,
                 ),
             )
@@ -114,6 +127,8 @@ def persist_telemetry(payload: TelemetryPayload, redis_client=None, connection=N
                 "load_kw": payload.load_kw,
                 "capacity_kw": payload.capacity_kw,
                 "loading_percentage": payload.loading_percentage,
+                "voltage_pu": payload.voltage_pu,
+                "thd_percentage": payload.thd_percentage,
                 "timestamp": payload.timestamp.isoformat(),
                 "status": "valid",
             },
