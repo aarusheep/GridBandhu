@@ -1,0 +1,14 @@
+# Data handling
+pandas>=2.0.0
+
+# Postgres (static topology data)
+psycopg2-binary>=2.9.0
+
+# Redis (live telemetry data)
+redis>=5.0.0
+
+# Scheduling (detection loop + telemetry generator)
+apscheduler>=3.10.0
+
+# Environment variables (.env file)
+python-dotenv>=1.0.0
