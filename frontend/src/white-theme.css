@@ -5,3 +5,36 @@
 .login-card h1,.topbar h2,.solution-copy strong,.anomaly-card h3 { color:#000 !important; }.muted,.eyebrow,.rail-heading,.solutions-heading,.activity-heading,.metric span,.map-legend,.connection,.sidebar nav button,.sidebar-bottom { color:#444 !important; }
 .sidebar nav .nav-active { color:#000 !important; background:#f0f0f0 !important; border-left-color:#000 !important; }.brand-mark,.brand-mark span { color:#000 !important; }.user-avatar { color:#000 !important; border-color:#000 !important; }
 .map-panel,.map-shell { background:#fff !important; }.map-canvas { filter:brightness(1.15) contrast(.84) !important; }.map-vignette { background:transparent !important; }.map-status,.map-coordinates { box-shadow:0 2px 10px rgba(0,0,0,.08); }.map-status .live-dot,.connection i,.live-pill i { background:#000 !important; box-shadow:none !important; }.live-pill,.priority { color:#000 !important; border-color:#000 !important; }.anomaly-card { border-color:#000 !important; background:#f7f7f7 !important; }.alert-icon { color:#000 !important; border-color:#000 !important; }.apply-button,.primary-button { color:#fff !important; background:#000 !important; border-color:#000 !important; }.solution:hover,.solution.selected { border-color:#000 !important; background:#f1f1f1 !important; box-shadow:inset 2px 0 #000 !important; }.activity > i,.cyan,.amber,.red { background:#000 !important; box-shadow:none !important; }.tone-cyan,.tone-amber { color:#000 !important; }.topology-fallback { display:none !important; }
+
+/* Keep the dashboard focused on the map and operational panels. */
+.metrics { display:none !important; }
+
+/* Readable telemetry, detection, and MILP content in the light control-room theme. */
+.node-inspector span { font-size:12px !important; }
+.node-inspector strong { font-size:20px !important; }
+.node-inspector small { font-size:12px !important; padding-top:10px !important; margin-top:10px !important; }
+.node-inspector b { font-size:13px !important; }
+.rail-heading,.solutions-heading,.activity-heading { font-size:13px !important; }
+.solutions-heading small,.activity-heading small { font-size:11px !important; }
+.anomaly-top { font-size:12px !important; }
+.anomaly-top time { font-size:10px !important; }
+.anomaly-card h3 { font-size:19px !important; }
+.anomaly-card p { font-size:14px !important; line-height:1.5 !important; }
+.affected { font-size:11px !important; }
+.affected strong { font-size:13px !important; }
+.solution { padding:17px 13px !important; }
+.rank { font-size:13px !important; }
+.solution-copy strong { font-size:16px !important; }
+.solution-copy small { font-size:13px !important; line-height:1.5 !important; }
+.solution-meta { font-size:11px !important; }
+.activity strong { font-size:13px !important; }
+.activity small { font-size:11px !important; }
+
+/* Keep the map viewport fixed while the decision center scrolls independently. */
+html,body,#root { height:100%; overflow:hidden; }
+.dashboard { height:100vh; min-height:0 !important; overflow:hidden !important; }
+.workspace { height:100vh; min-height:0; }
+.content-grid { min-height:0; overflow:hidden; }
+.map-panel { min-height:0 !important; }
+.right-rail { min-height:0; }
+.apply-button:disabled { opacity:.62; cursor:wait; }

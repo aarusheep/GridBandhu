@@ -65,6 +65,12 @@ def main() -> None:
         if edge_id not in baselines["edges"]:
             raise RuntimeError(f"Edge {edge_id!r} is not present in the Postgres topology")
 
+    # The control layer sets this key when an operator accepts a solution.
+    # Clear an old test marker when starting a fresh producer run.
+    fault_id = f"fault_node_{args.node_id}" if args.node_id else f"fault_{edge_id}"
+    stop_key = f"control:stop_fault_test:{fault_id}"
+    redis_client.delete(stop_key)
+
     normal = deepcopy(baselines)
     for edge in normal["edges"].values():
         edge["needs_review"] = False
@@ -133,6 +139,9 @@ def main() -> None:
     )
     fault_until = time.monotonic() + args.fault_seconds
     while time.monotonic() < fault_until:
+        if redis_client.exists(stop_key):
+            log.info("Fault test stopped by control layer after resolution: %s", fault_id)
+            break
         if args.node_id:
             redis_client.hset(f"node:{args.node_id}", mapping={**node_fault_reading, "test_injected": "true"})
         else:

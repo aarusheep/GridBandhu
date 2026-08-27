@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import csv
+from concurrent.futures import ThreadPoolExecutor
 import hashlib
 import json
 import logging
@@ -162,33 +163,66 @@ def route_edges_through_roads() -> None:
         dx = (second[0] - first[0]) * 111 * math.cos(math.radians((first[1] + second[1]) / 2))
         dy = (second[1] - first[1]) * 111
         return math.sqrt(dx * dx + dy * dy)
-    for edge in topology["edges"]:
-        if edge.get("type") not in {"ht", "dt", "lt"} or len(edge.get("coordinates", [])) < 2:
-            continue
+    routable = [edge for edge in topology["edges"] if edge.get("type") in {"ht", "dt", "lt"} and len(edge.get("coordinates", [])) >= 2]
+
+    def route_one(edge: dict[str, Any]) -> tuple[dict[str, Any], list[list[float]] | None, str | None, float | None, float | None]:
         start, end = edge["coordinates"][0], edge["coordinates"][-1]
         query = urllib.parse.urlencode({"overview": "full", "geometries": "geojson"})
-        url = f"https://router.project-osrm.org/route/v1/driving/{start[0]},{start[1]};{end[0]},{end[1]}?{query}"
         try:
-            request = urllib.request.Request(url, headers={"User-Agent": "GridBandhu/0.1"})
-            with urllib.request.urlopen(request, timeout=2.5) as response:
-                result = json.loads(response.read().decode("utf-8"))
+            def fetch_route(first: list[float], second: list[float]) -> dict[str, Any]:
+                url = f"https://router.project-osrm.org/route/v1/driving/{first[0]},{first[1]};{second[0]},{second[1]}?{query}"
+                request = urllib.request.Request(url, headers={"User-Agent": "GridBandhu/0.1"})
+                with urllib.request.urlopen(request, timeout=2.5) as response:
+                    return json.loads(response.read().decode("utf-8"))
+
+            result = fetch_route(start, end)
             if result.get("routes"):
                 routed = result["routes"][0]["geometry"]["coordinates"]
                 route_length = sum(distance_km(routed[index - 1], routed[index]) for index in range(1, len(routed)))
                 direct_length = distance_km(start, end)
-                if route_length <= max(direct_length * 6, direct_length + 1.0):
-                    edge["coordinates"] = [start, *routed[1:-1], end]
-                    edge["road_route_km"] = round(route_length, 3)
-                    edge["road_direct_km"] = round(direct_length, 3)
-                    edge["road_routed"] = True
-                else:
-                    edge["road_routed"] = False
-                    edge["routing_error"] = f"Rejected excessive detour ({route_length:.1f} km for {direct_length:.1f} km direct)"
+                # Short utility connections can legitimately follow a road
+                # network several times farther than their straight-line
+                # distance. Allow that urban detour, but reject OSRM matches
+                # that jump to a distant/unrelated road.
+                if route_length <= max(direct_length * 10, direct_length + 2.0):
+                    return edge, [start, *routed[1:-1], end], None, route_length, direct_length
+                # Some utility endpoints sit slightly away from a routable
+                # road. Snap both ends to their nearest road and retry before
+                # giving up; this avoids drawing a false straight connection.
+                nearest = []
+                for point in (start, end):
+                    nearest_url = f"https://router.project-osrm.org/nearest/v1/driving/{point[0]},{point[1]}?number=1"
+                    nearest_request = urllib.request.Request(nearest_url, headers={"User-Agent": "GridBandhu/0.1"})
+                    with urllib.request.urlopen(nearest_request, timeout=2.5) as response:
+                        nearest_result = json.loads(response.read().decode("utf-8"))
+                    nearest.append(nearest_result.get("waypoints", [{}])[0].get("location"))
+                if nearest[0] and nearest[1]:
+                    snapped = fetch_route(nearest[0], nearest[1])
+                    if snapped.get("routes"):
+                        routed = snapped["routes"][0]["geometry"]["coordinates"]
+                        route_length = sum(distance_km(routed[index - 1], routed[index]) for index in range(1, len(routed)))
+                        if route_length <= max(direct_length * 30, direct_length + 4.0):
+                            return edge, [start, *routed, end], None, route_length, direct_length
+                    return edge, None, f"Rejected excessive detour ({route_length:.1f} km for {direct_length:.1f} km direct)", None, None
+                return edge, None, f"Rejected excessive detour ({route_length:.1f} km for {direct_length:.1f} km direct)", None, None
+            return edge, None, "OSRM returned no route", None, None
         except Exception:
+            return edge, None, "OSRM route unavailable; inspect backend logs", None, None
+
+    # Parallelize the independent edge requests, but keep a small worker pool
+    # so a basemap reload does not overwhelm the public routing service.
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        results = list(executor.map(route_one, routable))
+    for edge, coordinates, error, route_length, direct_length in results:
+        if coordinates:
+            edge["coordinates"] = coordinates
+            edge["road_route_km"] = round(route_length, 3)
+            edge["road_direct_km"] = round(direct_length, 3)
+            edge["road_routed"] = True
+        else:
             edge["road_routed"] = False
-            edge["routing_error"] = "OSRM route unavailable; inspect backend logs"
-            edge["coordinates"] = [start, end]
-            logger.warning("Road routing failed for %s", edge.get("id"), exc_info=True)
+            edge["routing_error"] = error or "OSRM route unavailable; inspect backend logs"
+            logger.warning("Road routing failed for %s: %s", edge.get("id"), edge["routing_error"])
     roads_loaded = True
 events: list[dict[str, Any]] = []
 connections: set[WebSocket] = set()
@@ -307,13 +341,15 @@ def apply_control_command(command: dict[str, Any], client) -> None:
 def _restore_controlled_asset(anomaly: dict[str, Any], client) -> None:
     """Restore one asset and atomically retire its resolved fault record.
 
-    The detector remains responsible for detecting a fault again if a producer
-    continues publishing bad telemetry. Removing the active record here is
-    necessary because the control layer is the component that has confirmed
-    the accepted resolution was executed; it also prevents a stale detector
-    membership from keeping the UI stuck on an already-normal asset.
+    The control layer also stops the test producer from writing the old fault
+    back into Redis after the accepted solution has been executed.
     """
     fault_id = anomaly.get("id")
+    if fault_id:
+        # The faulty-live-data test producer checks this marker before every
+        # injection cycle. It is intentionally scoped to the fault so other
+        # active tests are not interrupted.
+        client.set(f"control:stop_fault_test:{fault_id}", "1", ex=3600)
     if anomaly.get("edge_id"):
         edge = next((item for item in topology["edges"] if item["id"] == anomaly["edge_id"]), None)
         if edge:
@@ -377,6 +413,10 @@ async def live_integration_loop() -> None:
     global active_anomaly, active_anomalies, active_solution
     try:
         client = create_redis_client()
+        # Route geometry must be ready before the first telemetry broadcast;
+        # otherwise the frontend receives raw two-point database segments and
+        # overwrites the routed topology on the next WebSocket update.
+        await asyncio.to_thread(route_edges_through_roads)
     except Exception as exc:
         logger.exception("Redis integration could not start")
         await broadcast({"type": "integration_error", "message": f"Redis telemetry integration could not start: {exc}", "severity": "critical", "timestamp": now_iso()})
@@ -658,6 +698,7 @@ async def preview_solution(anomaly_id: str, solution_id: str, _: dict = Depends(
 def clear_accepted_fault(anomaly: dict[str, Any], client) -> None:
     """Restore the selected Redis asset and remove only its active fault."""
     fault_id = anomaly["id"]
+    client.set(f"control:stop_fault_test:{fault_id}", "1", ex=3600)
     if anomaly.get("edge_id"):
         edge = next((item for item in topology["edges"] if item["id"] == anomaly["edge_id"]), None)
         if edge:

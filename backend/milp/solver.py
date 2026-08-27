@@ -35,7 +35,7 @@ def solve(feeders: list[dict], total_supply_mw: float, topology: dict = None) ->
                     path["fault_id"] = fault_id
                     path["fault_detail"] = context.get("fault_detail", "")
                     path["affected_edge_ids"] = _edge_ids_for_path(path, feeders)
-                    path["description"] = _fault_description(context, path)
+                    path["description"] = _fault_description(context, path, topology or {})
                     fault_paths.append(path)
                 store_paths(fault_id, fault_paths)
         return first_primary
@@ -112,10 +112,42 @@ def _group_overlapping_faults(faults, topology):
     return [group["faults"] for group in groups]
 
 
-def _fault_description(context, path):
-    target = context.get("node_id") or context.get("edge_id") or "network asset"
+def _fault_description(context, path, topology):
+    """Explain one MILP alternative in operator-friendly language."""
+    target = context.get("node_id") or context.get("edge_id") or "the affected network asset"
     kind = context.get("fault_type", "fault").replace("_", " ")
-    return f"Response to {kind} at {target}: {path['description']}"
+    allocations = path.get("allocations", [])
+    served = [a for a in allocations if a.get("status") != "SHED"]
+    shed = [a for a in allocations if a.get("status") == "SHED"]
+    curtailed = [a for a in allocations if a.get("status") == "CURTAILED"]
+    route = _describe_edges(path.get("affected_edge_ids", []), topology)
+    strategy = path.get("strategy", "This alternative")
+    if "breadth" in strategy.lower():
+        purpose = "spreads the available supply across more feeders so fewer areas lose service"
+    elif "critical" in strategy.lower():
+        purpose = "reserves available supply for critical services such as hospitals, water plants, and fire stations"
+    else:
+        purpose = "balances priority, demand, and available supply to serve the most important loads"
+    parts = [f"{strategy}: {purpose}.", f"The {kind} at {target} is handled by using the connected route {route or 'from the affected asset into the distribution network'}."]
+    if served:
+        parts.append("Supply is maintained for " + ", ".join(f"{a.get('load_type', 'load')} feeder {a.get('feeder_id')} ({a.get('served_mw', 0):.2f} MW)" for a in served) + ".")
+    if curtailed:
+        parts.append("The plan limits " + ", ".join(f"{a.get('load_type', 'load')} feeder {a.get('feeder_id')} to {a.get('fraction', 0):.0%}" for a in curtailed) + " to stay within the supply constraint.")
+    if shed:
+        parts.append("It temporarily sheds " + ", ".join(f"{a.get('load_type', 'load')} feeder {a.get('feeder_id')}" for a in shed) + " because those loads have lower priority in this scenario.")
+    total_demand = path.get("total_demand_mw") or sum(float(a.get("demand_mw", 0)) for a in allocations)
+    parts.append(f"Expected service: {path.get('total_served_mw', 0):.2f} MW of {total_demand:.2f} MW demand.")
+    return " ".join(parts)
+
+
+def _describe_edges(edge_ids, topology):
+    names = {str(node.get("id")): node.get("name", node.get("id")) for node in topology.get("nodes", [])}
+    descriptions = []
+    for edge_id in edge_ids[:5]:
+        edge = next((item for item in topology.get("edges", []) if str(item.get("id")) == str(edge_id)), None)
+        if edge:
+            descriptions.append(f"{names.get(str(edge.get('from')), edge.get('from'))} to {names.get(str(edge.get('to')), edge.get('to'))}")
+    return "; ".join(descriptions)
 
 
 def _edge_ids_for_path(path: dict, feeders: list[dict]) -> list[str]:
