@@ -1,0 +1,8555 @@
+{
+  "nodes": [
+    {
+      "id": "SUB_283100",
+      "type": "substation",
+      "name": "KISAN NAGAR",
+      "lat": 19.181214,
+      "lng": 72.9474384,
+      "status": "healthy",
+      "load": 61
+    },
+    {
+      "id": "SUB_283116",
+      "type": "substation",
+      "name": "22 11 KV KAILASH NAGAR SUB STA",
+      "lat": 19.1839605,
+      "lng": 72.9364116,
+      "status": "healthy",
+      "load": 61
+    },
+    {
+      "id": "POLE_KN/283100/205/P001",
+      "type": "pole",
+      "name": "KN/283100/205/P001",
+      "lat": 19.181214,
+      "lng": 72.9474384,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283100/205/P002",
+      "type": "pole",
+      "name": "KN/283100/205/P002",
+      "lat": 19.1799977,
+      "lng": 72.9453864,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283100/205/P003",
+      "type": "pole",
+      "name": "KN/283100/205/P003",
+      "lat": 19.1820149,
+      "lng": 72.9465612,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283100/205/P004",
+      "type": "pole",
+      "name": "KN/283100/205/P004",
+      "lat": 19.1844422,
+      "lng": 72.9475349,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283100/205/P005",
+      "type": "pole",
+      "name": "KN/283100/205/P005",
+      "lat": 19.1858857,
+      "lng": 72.9497449,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283100/205/P006",
+      "type": "pole",
+      "name": "KN/283100/205/P006",
+      "lat": 19.18469,
+      "lng": 72.9511911,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283100/206/P006",
+      "type": "pole",
+      "name": "KN/283100/206/P006",
+      "lat": 19.1804155,
+      "lng": 72.945307,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283100/206/P007",
+      "type": "pole",
+      "name": "KN/283100/206/P007",
+      "lat": 19.1787074,
+      "lng": 72.9463848,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283100/206/P008",
+      "type": "pole",
+      "name": "KN/283100/206/P008",
+      "lat": 19.1778123,
+      "lng": 72.9485533,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283100/206/P009",
+      "type": "pole",
+      "name": "KN/283100/206/P009",
+      "lat": 19.1801163,
+      "lng": 72.9475104,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283100/206/P010",
+      "type": "pole",
+      "name": "KN/283100/206/P010",
+      "lat": 19.1789434,
+      "lng": 72.9458443,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283100/206/P011",
+      "type": "pole",
+      "name": "KN/283100/206/P011",
+      "lat": 19.1803975,
+      "lng": 72.9441448,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283100/207/P011",
+      "type": "pole",
+      "name": "KN/283100/207/P011",
+      "lat": 19.1821506,
+      "lng": 72.9326723,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283100/207/P012",
+      "type": "pole",
+      "name": "KN/283100/207/P012",
+      "lat": 19.1841781,
+      "lng": 72.9302201,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283100/207/P013",
+      "type": "pole",
+      "name": "KN/283100/207/P013",
+      "lat": 19.1820818,
+      "lng": 72.9320383,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283100/207/P014",
+      "type": "pole",
+      "name": "KN/283100/207/P014",
+      "lat": 19.179672,
+      "lng": 72.9299941,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283100/207/P015",
+      "type": "pole",
+      "name": "KN/283100/207/P015",
+      "lat": 19.1813691,
+      "lng": 72.9275546,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283100/208/P015",
+      "type": "pole",
+      "name": "KN/283100/208/P015",
+      "lat": 19.1834813,
+      "lng": 72.9393691,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283100/208/P016",
+      "type": "pole",
+      "name": "KN/283100/208/P016",
+      "lat": 19.1816812,
+      "lng": 72.9375688,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283100/208/P017",
+      "type": "pole",
+      "name": "KN/283100/208/P017",
+      "lat": 19.1829546,
+      "lng": 72.9364046,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283100/208/P018",
+      "type": "pole",
+      "name": "KN/283100/208/P018",
+      "lat": 19.183915,
+      "lng": 72.9378069,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283116/209/P018",
+      "type": "pole",
+      "name": "KN/283116/209/P018",
+      "lat": 19.1839605,
+      "lng": 72.9364116,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283116/209/P019",
+      "type": "pole",
+      "name": "KN/283116/209/P019",
+      "lat": 19.1855232,
+      "lng": 72.9375235,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283116/209/P020",
+      "type": "pole",
+      "name": "KN/283116/209/P020",
+      "lat": 19.1833019,
+      "lng": 72.9351487,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283116/209/P021",
+      "type": "pole",
+      "name": "KN/283116/209/P021",
+      "lat": 19.1857769,
+      "lng": 72.9375238,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283116/210/P021",
+      "type": "pole",
+      "name": "KN/283116/210/P021",
+      "lat": 19.1833414,
+      "lng": 72.9337771,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283116/210/P022",
+      "type": "pole",
+      "name": "KN/283116/210/P022",
+      "lat": 19.1812907,
+      "lng": 72.9317055,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283116/210/P023",
+      "type": "pole",
+      "name": "KN/283116/210/P023",
+      "lat": 19.1790434,
+      "lng": 72.9298939,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283116/210/P024",
+      "type": "pole",
+      "name": "KN/283116/210/P024",
+      "lat": 19.1809609,
+      "lng": 72.9275049,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283116/210/P025",
+      "type": "pole",
+      "name": "KN/283116/210/P025",
+      "lat": 19.1785816,
+      "lng": 72.9266891,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283116/211/P025",
+      "type": "pole",
+      "name": "KN/283116/211/P025",
+      "lat": 19.1821423,
+      "lng": 72.9492823,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283116/211/P026",
+      "type": "pole",
+      "name": "KN/283116/211/P026",
+      "lat": 19.1801463,
+      "lng": 72.9512177,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283116/211/P027",
+      "type": "pole",
+      "name": "KN/283116/211/P027",
+      "lat": 19.1812106,
+      "lng": 72.9530459,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283116/211/P028",
+      "type": "pole",
+      "name": "KN/283116/211/P028",
+      "lat": 19.1821675,
+      "lng": 72.950836,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283116/211/P029",
+      "type": "pole",
+      "name": "KN/283116/211/P029",
+      "lat": 19.1806404,
+      "lng": 72.9498458,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283116/212/P029",
+      "type": "pole",
+      "name": "KN/283116/212/P029",
+      "lat": 19.1969659,
+      "lng": 72.9368089,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283116/212/P030",
+      "type": "pole",
+      "name": "KN/283116/212/P030",
+      "lat": 19.1957417,
+      "lng": 72.9382102,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283116/212/P031",
+      "type": "pole",
+      "name": "KN/283116/212/P031",
+      "lat": 19.1968427,
+      "lng": 72.9390523,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "POLE_KN/283116/212/P032",
+      "type": "pole",
+      "name": "KN/283116/212/P032",
+      "lat": 19.1988349,
+      "lng": 72.941335,
+      "status": "healthy",
+      "load": 0
+    },
+    {
+      "id": "DTC_4540414",
+      "type": "dtc",
+      "name": "MARKET III",
+      "lat": 19.1799977,
+      "lng": 72.9453864,
+      "status": "healthy",
+      "load": 57.6,
+      "telemetry": {
+        "current_load_kw": "362.94",
+        "loading_percentage": "57.6",
+        "status": "good",
+        "load_kw": "362.94",
+        "capacity_kw": "630.0",
+        "timestamp": "2026-08-27T14:05:46.857988+05:30",
+        "voltage_pu": "1.0388",
+        "thd_percentage": "1.722",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "DTC_4540415",
+      "type": "dtc",
+      "name": "R D ASHAR ROAD DTC 1",
+      "lat": 19.1820149,
+      "lng": 72.9465612,
+      "status": "healthy",
+      "load": 64.0,
+      "telemetry": {
+        "current_load_kw": "255.82",
+        "loading_percentage": "64.0",
+        "status": "good",
+        "load_kw": "255.82",
+        "capacity_kw": "400.0",
+        "timestamp": "2026-08-27T14:05:46.858471+05:30",
+        "voltage_pu": "1.0102",
+        "thd_percentage": "1.68",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "DTC_4540420",
+      "type": "dtc",
+      "name": "KISAN NAGAR SOCIETY DTC",
+      "lat": 19.1787074,
+      "lng": 72.9463848,
+      "status": "healthy",
+      "load": 61.4,
+      "telemetry": {
+        "current_load_kw": "153.45",
+        "loading_percentage": "61.4",
+        "status": "good",
+        "load_kw": "153.45",
+        "capacity_kw": "250.0",
+        "timestamp": "2026-08-27T14:05:46.858882+05:30",
+        "voltage_pu": "1.0346",
+        "thd_percentage": "1.191",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "DTC_4540421",
+      "type": "dtc",
+      "name": "SHIV SHAKTI CHS DTC",
+      "lat": 19.1778123,
+      "lng": 72.9485533,
+      "status": "healthy",
+      "load": 58.9,
+      "telemetry": {
+        "current_load_kw": "117.87",
+        "loading_percentage": "58.9",
+        "status": "good",
+        "load_kw": "117.87",
+        "capacity_kw": "200.0",
+        "timestamp": "2026-08-27T14:05:46.859249+05:30",
+        "voltage_pu": "1.0261",
+        "thd_percentage": "1.446",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "DTC_4540430",
+      "type": "dtc",
+      "name": "PANCHPAKHADI MAIN DTC",
+      "lat": 19.1841781,
+      "lng": 72.9302201,
+      "status": "healthy",
+      "load": 71.2,
+      "telemetry": {
+        "current_load_kw": "284.65",
+        "loading_percentage": "71.2",
+        "status": "good",
+        "load_kw": "284.65",
+        "capacity_kw": "400.0",
+        "timestamp": "2026-08-27T14:05:46.859752+05:30",
+        "voltage_pu": "1.02",
+        "thd_percentage": "2.438",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "DTC_4540431",
+      "type": "dtc",
+      "name": "PANCHPAKHADI COLONY DTC",
+      "lat": 19.1820818,
+      "lng": 72.9320383,
+      "status": "healthy",
+      "load": 64.0,
+      "telemetry": {
+        "current_load_kw": "159.96",
+        "loading_percentage": "64.0",
+        "status": "good",
+        "load_kw": "159.96",
+        "capacity_kw": "250.0",
+        "timestamp": "2026-08-27T14:05:46.860466+05:30",
+        "voltage_pu": "0.9625",
+        "thd_percentage": "2.236",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "DTC_4540440",
+      "type": "dtc",
+      "name": "NAUPADA MARKET DTC",
+      "lat": 19.1816812,
+      "lng": 72.9375688,
+      "status": "healthy",
+      "load": 69.5,
+      "telemetry": {
+        "current_load_kw": "437.63",
+        "loading_percentage": "69.5",
+        "status": "good",
+        "load_kw": "437.63",
+        "capacity_kw": "630.0",
+        "timestamp": "2026-08-27T14:05:46.861059+05:30",
+        "voltage_pu": "1.0185",
+        "thd_percentage": "1.669",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "DTC_4540441",
+      "type": "dtc",
+      "name": "NAUPADA RESIDENTIAL DTC",
+      "lat": 19.1829546,
+      "lng": 72.9364046,
+      "status": "healthy",
+      "load": 76.5,
+      "telemetry": {
+        "current_load_kw": "152.9",
+        "loading_percentage": "76.5",
+        "status": "good",
+        "load_kw": "152.9",
+        "capacity_kw": "200.0",
+        "timestamp": "2026-08-27T14:05:46.861656+05:30",
+        "voltage_pu": "0.9761",
+        "thd_percentage": "2.77",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "DTC_4540450",
+      "type": "dtc",
+      "name": "VARTAK NAGAR MIDC DTC 1",
+      "lat": 19.1855232,
+      "lng": 72.9375235,
+      "status": "healthy",
+      "load": 68.6,
+      "telemetry": {
+        "current_load_kw": "685.52",
+        "loading_percentage": "68.6",
+        "status": "good",
+        "load_kw": "685.52",
+        "capacity_kw": "1000.0",
+        "timestamp": "2026-08-27T14:05:46.86247+05:30",
+        "voltage_pu": "0.9785",
+        "thd_percentage": "2.613",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "DTC_4540451",
+      "type": "dtc",
+      "name": "VARTAK NAGAR MIDC DTC 2",
+      "lat": 19.1833019,
+      "lng": 72.9351487,
+      "status": "healthy",
+      "load": 55.0,
+      "telemetry": {
+        "current_load_kw": "346.63",
+        "loading_percentage": "55.0",
+        "status": "good",
+        "load_kw": "346.63",
+        "capacity_kw": "630.0",
+        "timestamp": "2026-08-27T14:05:46.863032+05:30",
+        "voltage_pu": "1.0213",
+        "thd_percentage": "1.806",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "DTC_4540460",
+      "type": "dtc",
+      "name": "GHODBUNDER IND ESTATE DTC",
+      "lat": 19.1812907,
+      "lng": 72.9317055,
+      "status": "healthy",
+      "load": 69.7,
+      "telemetry": {
+        "current_load_kw": "697.12",
+        "loading_percentage": "69.7",
+        "status": "good",
+        "load_kw": "697.12",
+        "capacity_kw": "1000.0",
+        "timestamp": "2026-08-27T14:05:46.863546+05:30",
+        "voltage_pu": "1.032",
+        "thd_percentage": "2.289",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "DTC_4540470",
+      "type": "dtc",
+      "name": "MANPADA CHS DTC",
+      "lat": 19.1801463,
+      "lng": 72.9512177,
+      "status": "healthy",
+      "load": 62.6,
+      "telemetry": {
+        "current_load_kw": "156.6",
+        "loading_percentage": "62.6",
+        "status": "good",
+        "load_kw": "156.6",
+        "capacity_kw": "250.0",
+        "timestamp": "2026-08-27T14:05:46.864094+05:30",
+        "voltage_pu": "0.9668",
+        "thd_percentage": "1.473",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "DTC_4540480",
+      "type": "dtc",
+      "name": "KOPRI COLONY DTC",
+      "lat": 19.1957417,
+      "lng": 72.9382102,
+      "status": "healthy",
+      "load": 55.9,
+      "telemetry": {
+        "current_load_kw": "223.59",
+        "loading_percentage": "55.9",
+        "status": "good",
+        "load_kw": "223.59",
+        "capacity_kw": "400.0",
+        "timestamp": "2026-08-27T14:05:46.865135+05:30",
+        "voltage_pu": "0.9821",
+        "thd_percentage": "2.66",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "FAC_MANISHA_UNIVERSAL_MULTISPECIALITY_HOSPIT",
+      "type": "facility",
+      "name": "Manisha Universal Multispeciality Hospital, Mulund",
+      "facility_type": "HOSPITAL",
+      "lat": 19.18621964658593,
+      "lng": 72.94701915295096,
+      "status": "healthy",
+      "load": 60.0,
+      "telemetry": {
+        "current_load_kw": "155.5",
+        "avg_utilised_power_1min": "154.05",
+        "status": "good",
+        "is_faulted": "false",
+        "test_injected": "false",
+        "load_kw": "155.5",
+        "loading_percentage": "60.0",
+        "voltage_pu": "0.9851",
+        "thd_percentage": "1.91"
+      }
+    },
+    {
+      "id": "FAC_MODI_HOSPITAL_MATERNITY_SURGICAL_NURSING",
+      "type": "facility",
+      "name": "Modi Hospital Maternity & Surgical Nursing Home",
+      "facility_type": "HOSPITAL",
+      "lat": 19.188908757893163,
+      "lng": 72.94587928158681,
+      "status": "healthy",
+      "load": 60.9,
+      "telemetry": {
+        "current_load_kw": "72.5",
+        "avg_utilised_power_1min": "71.99",
+        "status": "good",
+        "load_kw": "72.5",
+        "loading_percentage": "60.9",
+        "voltage_pu": "1.012",
+        "thd_percentage": "2.489",
+        "test_injected": "false",
+        "is_faulted": "false"
+      }
+    },
+    {
+      "id": "FAC_DR_THAKUR_S_SHREE_HOSPITAL",
+      "type": "facility",
+      "name": "Dr. Thakur's Shree Hospital",
+      "facility_type": "HOSPITAL",
+      "lat": 19.189526776398484,
+      "lng": 72.9456936020249,
+      "status": "healthy",
+      "load": 88.2,
+      "telemetry": {
+        "current_load_kw": "160.47",
+        "avg_utilised_power_1min": "160.01",
+        "status": "good",
+        "is_faulted": "false",
+        "test_injected": "false",
+        "load_kw": "160.47",
+        "loading_percentage": "88.2",
+        "voltage_pu": "1.0165",
+        "thd_percentage": "2.755"
+      }
+    },
+    {
+      "id": "FAC_SPRINTEK_WATER_TREATMENT_PVT_LTD",
+      "type": "facility",
+      "name": "Sprintek Water Treatment Pvt Ltd",
+      "facility_type": "WATER_UTILITY",
+      "lat": 19.19508089990528,
+      "lng": 72.94574503760695,
+      "status": "healthy",
+      "load": 69.9,
+      "telemetry": {
+        "current_load_kw": "68.5",
+        "avg_utilised_power_1min": "68.17",
+        "status": "good",
+        "is_faulted": "false",
+        "test_injected": "false",
+        "load_kw": "68.5",
+        "loading_percentage": "69.9",
+        "voltage_pu": "0.9867",
+        "thd_percentage": "1.414"
+      }
+    },
+    {
+      "id": "FAC_JALAMRUT_WATER_TREATMENT",
+      "type": "facility",
+      "name": "Jalamrut Water Treatment",
+      "facility_type": "WATER_UTILITY",
+      "lat": 19.21225109832505,
+      "lng": 72.9506778717115,
+      "status": "healthy",
+      "load": 72.7,
+      "telemetry": {
+        "current_load_kw": "81.39",
+        "avg_utilised_power_1min": "82.03",
+        "status": "good",
+        "is_faulted": "false",
+        "test_injected": "false",
+        "load_kw": "81.39",
+        "loading_percentage": "72.7",
+        "voltage_pu": "1.0251",
+        "thd_percentage": "2.487"
+      }
+    },
+    {
+      "id": "FAC_WAGLE_FIRE_BRIGADE_STATION",
+      "type": "facility",
+      "name": "Wagle Fire Brigade Station",
+      "facility_type": "FIRE_STATION",
+      "lat": 19.19504759419322,
+      "lng": 72.95220123760703,
+      "status": "healthy",
+      "load": 65.7,
+      "telemetry": {
+        "current_load_kw": "46.01",
+        "avg_utilised_power_1min": "46.44",
+        "status": "good",
+        "is_faulted": "false",
+        "test_injected": "false",
+        "load_kw": "46.01",
+        "loading_percentage": "65.7",
+        "voltage_pu": "1.0394",
+        "thd_percentage": "2.616"
+      }
+    },
+    {
+      "id": "FAC_PANCHPAKHADI_FIRE_STATION",
+      "type": "facility",
+      "name": "Panchpakhadi Fire Station",
+      "facility_type": "FIRE_STATION",
+      "lat": 19.19976090656221,
+      "lng": 72.96457339527932,
+      "status": "healthy",
+      "load": 67.3,
+      "telemetry": {
+        "current_load_kw": "37.69",
+        "avg_utilised_power_1min": "37.44",
+        "status": "good",
+        "is_faulted": "false",
+        "test_injected": "false",
+        "load_kw": "37.69",
+        "loading_percentage": "67.3",
+        "voltage_pu": "1.0087",
+        "thd_percentage": "1.236"
+      }
+    },
+    {
+      "id": "FAC_GALVANIC_ENGINEERS_SOLAR_GREEN_METER_INS",
+      "type": "facility",
+      "name": "Galvanic Engineers - Solar & Green Meter Installation",
+      "facility_type": "POWER_UTILITY",
+      "lat": 19.19326573417868,
+      "lng": 72.94259930877084,
+      "status": "healthy",
+      "load": 71.2,
+      "telemetry": {
+        "current_load_kw": "54.8",
+        "avg_utilised_power_1min": "54.69",
+        "status": "good",
+        "is_faulted": "false",
+        "test_injected": "false",
+        "load_kw": "54.8",
+        "loading_percentage": "71.2",
+        "voltage_pu": "1.0221",
+        "thd_percentage": "2.019"
+      }
+    },
+    {
+      "id": "FAC_VIDHYUT_POWER_AND_SYSTEMS_BIOMASS_ENERGY",
+      "type": "facility",
+      "name": "Vidhyut Power and Systems - Biomass Energy Plant",
+      "facility_type": "POWER_PLANT",
+      "lat": 19.186604772735794,
+      "lng": 72.97437886829523,
+      "status": "healthy",
+      "load": 79.0,
+      "telemetry": {
+        "current_load_kw": "121.67",
+        "avg_utilised_power_1min": "121.58",
+        "status": "good",
+        "is_faulted": "false",
+        "test_injected": "false",
+        "load_kw": "121.67",
+        "loading_percentage": "79.0",
+        "voltage_pu": "0.9703",
+        "thd_percentage": "1.426"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "KN/283100/205/P001",
+      "from": "POLE_KN/283100/205/P001",
+      "to": "POLE_KN/283100/205/P002",
+      "type": "ht",
+      "voltage": 11.0,
+      "capacity": 560.7,
+      "status": "healthy",
+      "flow": 336.42,
+      "coordinates": [
+        [
+          72.9474384,
+          19.181214
+        ],
+        [
+          72.947324,
+          19.181494
+        ],
+        [
+          72.947127,
+          19.181553
+        ],
+        [
+          72.947104,
+          19.181556
+        ],
+        [
+          72.947064,
+          19.181551
+        ],
+        [
+          72.946973,
+          19.181555
+        ],
+        [
+          72.946932,
+          19.181563
+        ],
+        [
+          72.946847,
+          19.1816
+        ],
+        [
+          72.9468,
+          19.181628
+        ],
+        [
+          72.946326,
+          19.180785
+        ],
+        [
+          72.946262,
+          19.180683
+        ],
+        [
+          72.945772,
+          19.179768
+        ],
+        [
+          72.945728,
+          19.179689
+        ],
+        [
+          72.945293,
+          19.178873
+        ],
+        [
+          72.945181,
+          19.178685
+        ],
+        [
+          72.945163,
+          19.178666
+        ],
+        [
+          72.945109,
+          19.178603
+        ],
+        [
+          72.944996,
+          19.178682
+        ],
+        [
+          72.945049,
+          19.178741
+        ],
+        [
+          72.945075,
+          19.178783
+        ],
+        [
+          72.945155,
+          19.178912
+        ],
+        [
+          72.945226,
+          19.179027
+        ],
+        [
+          72.945376,
+          19.179266
+        ],
+        [
+          72.945447,
+          19.1794
+        ],
+        [
+          72.945636,
+          19.17974
+        ],
+        [
+          72.945695,
+          19.179856
+        ],
+        [
+          72.945639,
+          19.179881
+        ],
+        [
+          72.945559,
+          19.179917
+        ],
+        [
+          72.9453864,
+          19.1799977
+        ]
+      ],
+      "road_route_km": 0.66,
+      "road_direct_km": 0.254,
+      "road_routed": true,
+      "telemetry": {
+        "current_flow_kw": "336.42",
+        "switch_state": "closed",
+        "protective_relay_status": "NORMAL",
+        "test_injected": "false",
+        "is_faulted": "false"
+      }
+    },
+    {
+      "id": "KN/283100/205/P002",
+      "from": "POLE_KN/283100/205/P002",
+      "to": "POLE_KN/283100/205/P003",
+      "type": "ht",
+      "voltage": 22.0,
+      "capacity": 384.0,
+      "status": "healthy",
+      "flow": 224.96,
+      "coordinates": [
+        [
+          72.9453864,
+          19.1799977
+        ],
+        [
+          72.945559,
+          19.179917
+        ],
+        [
+          72.945639,
+          19.179881
+        ],
+        [
+          72.945695,
+          19.179856
+        ],
+        [
+          72.946116,
+          19.180607
+        ],
+        [
+          72.946218,
+          19.180799
+        ],
+        [
+          72.946435,
+          19.181204
+        ],
+        [
+          72.946457,
+          19.181246
+        ],
+        [
+          72.946542,
+          19.1814
+        ],
+        [
+          72.946698,
+          19.181685
+        ],
+        [
+          72.946724,
+          19.18172
+        ],
+        [
+          72.946759,
+          19.181769
+        ],
+        [
+          72.946831,
+          19.18187
+        ],
+        [
+          72.946768,
+          19.181901
+        ],
+        [
+          72.94675,
+          19.181911
+        ],
+        [
+          72.94662,
+          19.181982
+        ],
+        [
+          72.946611,
+          19.181998
+        ],
+        [
+          72.946607,
+          19.182015
+        ],
+        [
+          72.9465612,
+          19.1820149
+        ]
+      ],
+      "road_route_km": 0.319,
+      "road_direct_km": 0.256,
+      "road_routed": true,
+      "telemetry": {
+        "current_flow_kw": "224.96",
+        "switch_state": "closed",
+        "protective_relay_status": "NORMAL",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "KN/283100/205/P003",
+      "from": "POLE_KN/283100/205/P003",
+      "to": "POLE_KN/283100/205/P004",
+      "type": "ht",
+      "voltage": 11.0,
+      "capacity": 592.2,
+      "status": "healthy",
+      "flow": 358.25,
+      "coordinates": [
+        [
+          72.9465612,
+          19.1820149
+        ],
+        [
+          72.946607,
+          19.182015
+        ],
+        [
+          72.946611,
+          19.181998
+        ],
+        [
+          72.94662,
+          19.181982
+        ],
+        [
+          72.94675,
+          19.181911
+        ],
+        [
+          72.946768,
+          19.181901
+        ],
+        [
+          72.946831,
+          19.18187
+        ],
+        [
+          72.946915,
+          19.181988
+        ],
+        [
+          72.947212,
+          19.182369
+        ],
+        [
+          72.947263,
+          19.182435
+        ],
+        [
+          72.9475,
+          19.182713
+        ],
+        [
+          72.947754,
+          19.182934
+        ],
+        [
+          72.948001,
+          19.183108
+        ],
+        [
+          72.948035,
+          19.183127
+        ],
+        [
+          72.948141,
+          19.183187
+        ],
+        [
+          72.948339,
+          19.183276
+        ],
+        [
+          72.948532,
+          19.183319
+        ],
+        [
+          72.948646,
+          19.183334
+        ],
+        [
+          72.948751,
+          19.183398
+        ],
+        [
+          72.948808,
+          19.183473
+        ],
+        [
+          72.948823,
+          19.183552
+        ],
+        [
+          72.948798,
+          19.183668
+        ],
+        [
+          72.948565,
+          19.184104
+        ],
+        [
+          72.94847,
+          19.184264
+        ],
+        [
+          72.948248,
+          19.184527
+        ],
+        [
+          72.9481,
+          19.184433
+        ],
+        [
+          72.948086,
+          19.184424
+        ],
+        [
+          72.948067,
+          19.184412
+        ],
+        [
+          72.948022,
+          19.184466
+        ],
+        [
+          72.947915,
+          19.184585
+        ],
+        [
+          72.947886,
+          19.184597
+        ],
+        [
+          72.947848,
+          19.184597
+        ],
+        [
+          72.947697,
+          19.184531
+        ],
+        [
+          72.947629,
+          19.184531
+        ],
+        [
+          72.9475349,
+          19.1844422
+        ]
+      ],
+      "road_route_km": 0.532,
+      "road_direct_km": 0.288,
+      "road_routed": true,
+      "telemetry": {
+        "current_flow_kw": "358.25",
+        "switch_state": "closed",
+        "protective_relay_status": "NORMAL",
+        "test_injected": "false",
+        "is_faulted": "false"
+      }
+    },
+    {
+      "id": "KN/283100/205/P004",
+      "from": "POLE_KN/283100/205/P004",
+      "to": "POLE_KN/283100/205/P005",
+      "type": "ht",
+      "voltage": 11.0,
+      "capacity": 352.0,
+      "status": "healthy",
+      "flow": 211.54,
+      "coordinates": [
+        [
+          72.9475349,
+          19.1844422
+        ],
+        [
+          72.947629,
+          19.184531
+        ],
+        [
+          72.947697,
+          19.184531
+        ],
+        [
+          72.947848,
+          19.184597
+        ],
+        [
+          72.947886,
+          19.184597
+        ],
+        [
+          72.947915,
+          19.184585
+        ],
+        [
+          72.948022,
+          19.184466
+        ],
+        [
+          72.948044,
+          19.18448
+        ],
+        [
+          72.948054,
+          19.184486
+        ],
+        [
+          72.948207,
+          19.184577
+        ],
+        [
+          72.948026,
+          19.184788
+        ],
+        [
+          72.947865,
+          19.185047
+        ],
+        [
+          72.948071,
+          19.184826
+        ],
+        [
+          72.948523,
+          19.184318
+        ],
+        [
+          72.948544,
+          19.184294
+        ],
+        [
+          72.948618,
+          19.18415
+        ],
+        [
+          72.948711,
+          19.184016
+        ],
+        [
+          72.948774,
+          19.183927
+        ],
+        [
+          72.948939,
+          19.183666
+        ],
+        [
+          72.948943,
+          19.183658
+        ],
+        [
+          72.949138,
+          19.183483
+        ],
+        [
+          72.949243,
+          19.18342
+        ],
+        [
+          72.949329,
+          19.183391
+        ],
+        [
+          72.949503,
+          19.1834
+        ],
+        [
+          72.949829,
+          19.183425
+        ],
+        [
+          72.950707,
+          19.183493
+        ],
+        [
+          72.950725,
+          19.184173
+        ],
+        [
+          72.950715,
+          19.184257
+        ],
+        [
+          72.950723,
+          19.18434
+        ],
+        [
+          72.9497449,
+          19.1858857
+        ]
+      ],
+      "road_route_km": 0.684,
+      "road_direct_km": 0.282,
+      "road_routed": true,
+      "telemetry": {
+        "current_flow_kw": "211.54",
+        "switch_state": "closed",
+        "protective_relay_status": "NORMAL",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "KN/283100/205/P005",
+      "from": "POLE_KN/283100/205/P005",
+      "to": "POLE_KN/283100/205/P006",
+      "type": "ht",
+      "voltage": 11.0,
+      "capacity": 579.6,
+      "status": "healthy",
+      "flow": 355.93,
+      "coordinates": [
+        [
+          72.9497449,
+          19.1858857
+        ],
+        [
+          72.950723,
+          19.18434
+        ],
+        [
+          72.950715,
+          19.184257
+        ],
+        [
+          72.950725,
+          19.184173
+        ],
+        [
+          72.950764,
+          19.184213
+        ],
+        [
+          72.951061,
+          19.184247
+        ],
+        [
+          72.95107,
+          19.184551
+        ],
+        [
+          72.951076,
+          19.184763
+        ],
+        [
+          72.9511911,
+          19.18469
+        ]
+      ],
+      "road_route_km": 0.183,
+      "road_direct_km": 0.201,
+      "road_routed": true,
+      "telemetry": {
+        "current_flow_kw": "355.93",
+        "switch_state": "closed",
+        "protective_relay_status": "NORMAL",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "KN/283100/206/P006",
+      "from": "POLE_KN/283100/206/P006",
+      "to": "POLE_KN/283100/206/P007",
+      "type": "ht",
+      "voltage": 11.0,
+      "capacity": 237.5,
+      "status": "healthy",
+      "flow": 142.9,
+      "coordinates": [
+        [
+          72.945307,
+          19.1804155
+        ],
+        [
+          72.945559,
+          19.179917
+        ],
+        [
+          72.945639,
+          19.179881
+        ],
+        [
+          72.945695,
+          19.179856
+        ],
+        [
+          72.946116,
+          19.180607
+        ],
+        [
+          72.946218,
+          19.180799
+        ],
+        [
+          72.946435,
+          19.181204
+        ],
+        [
+          72.946457,
+          19.181246
+        ],
+        [
+          72.946542,
+          19.1814
+        ],
+        [
+          72.946698,
+          19.181685
+        ],
+        [
+          72.9468,
+          19.181628
+        ],
+        [
+          72.946326,
+          19.180785
+        ],
+        [
+          72.946262,
+          19.180683
+        ],
+        [
+          72.945772,
+          19.179768
+        ],
+        [
+          72.945728,
+          19.179689
+        ],
+        [
+          72.945293,
+          19.178873
+        ],
+        [
+          72.945348,
+          19.178703
+        ],
+        [
+          72.9454,
+          19.178623
+        ],
+        [
+          72.945449,
+          19.178568
+        ],
+        [
+          72.945524,
+          19.178528
+        ],
+        [
+          72.945601,
+          19.178513
+        ],
+        [
+          72.945727,
+          19.178491
+        ],
+        [
+          72.9463848,
+          19.1787074
+        ]
+      ],
+      "road_route_km": 0.787,
+      "road_direct_km": 0.221,
+      "road_routed": true,
+      "telemetry": {
+        "current_flow_kw": "142.9",
+        "switch_state": "closed",
+        "protective_relay_status": "NORMAL",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "KN/283100/206/P007",
+      "from": "POLE_KN/283100/206/P007",
+      "to": "POLE_KN/283100/206/P008",
+      "type": "ht",
+      "voltage": 22.0,
+      "capacity": 194.0,
+      "status": "healthy",
+      "flow": 116.45,
+      "coordinates": [
+        [
+          72.9463848,
+          19.1787074
+        ],
+        [
+          72.946485,
+          19.178512
+        ],
+        [
+          72.947017,
+          19.178527
+        ],
+        [
+          72.947493,
+          19.178538
+        ],
+        [
+          72.947499,
+          19.178385
+        ],
+        [
+          72.947514,
+          19.178064
+        ],
+        [
+          72.947517,
+          19.177958
+        ],
+        [
+          72.947529,
+          19.177672
+        ],
+        [
+          72.947914,
+          19.17768
+        ],
+        [
+          72.9485533,
+          19.1778123
+        ]
+      ],
+      "road_route_km": 0.319,
+      "road_direct_km": 0.248,
+      "road_routed": true,
+      "telemetry": {
+        "current_flow_kw": "116.45",
+        "switch_state": "closed",
+        "protective_relay_status": "NORMAL",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "KN/283100/206/P008",
+      "from": "POLE_KN/283100/206/P008",
+      "to": "POLE_KN/283100/206/P009",
+      "type": "ht",
+      "voltage": 22.0,
+      "capacity": 227.5,
+      "status": "healthy",
+      "flow": 136.83,
+      "coordinates": [
+        [
+          72.9485533,
+          19.1778123
+        ],
+        [
+          72.947914,
+          19.17768
+        ],
+        [
+          72.947529,
+          19.177672
+        ],
+        [
+          72.947517,
+          19.177958
+        ],
+        [
+          72.947514,
+          19.178064
+        ],
+        [
+          72.947499,
+          19.178385
+        ],
+        [
+          72.947493,
+          19.178538
+        ],
+        [
+          72.94747,
+          19.178778
+        ],
+        [
+          72.94743,
+          19.179207
+        ],
+        [
+          72.9474,
+          19.179476
+        ],
+        [
+          72.947363,
+          19.179726
+        ],
+        [
+          72.9474,
+          19.179914
+        ],
+        [
+          72.947432,
+          19.180076
+        ],
+        [
+          72.9475104,
+          19.1801163
+        ]
+      ],
+      "road_route_km": 0.385,
+      "road_direct_km": 0.278,
+      "road_routed": true,
+      "telemetry": {
+        "current_flow_kw": "136.83",
+        "switch_state": "closed",
+        "protective_relay_status": "NORMAL",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "KN/283100/206/P009",
+      "from": "POLE_KN/283100/206/P009",
+      "to": "POLE_KN/283100/206/P010",
+      "type": "ht",
+      "voltage": 11.0,
+      "capacity": 180.0,
+      "status": "healthy",
+      "flow": 105.36,
+      "coordinates": [
+        [
+          72.9475104,
+          19.1801163
+        ],
+        [
+          72.947432,
+          19.180076
+        ],
+        [
+          72.9474,
+          19.179914
+        ],
+        [
+          72.947363,
+          19.179726
+        ],
+        [
+          72.9474,
+          19.179476
+        ],
+        [
+          72.94743,
+          19.179207
+        ],
+        [
+          72.94747,
+          19.178778
+        ],
+        [
+          72.947493,
+          19.178538
+        ],
+        [
+          72.947017,
+          19.178527
+        ],
+        [
+          72.946485,
+          19.178512
+        ],
+        [
+          72.945727,
+          19.178491
+        ],
+        [
+          72.945601,
+          19.178513
+        ],
+        [
+          72.945524,
+          19.178528
+        ],
+        [
+          72.945447,
+          19.178528
+        ],
+        [
+          72.945318,
+          19.178557
+        ],
+        [
+          72.945109,
+          19.178603
+        ],
+        [
+          72.944996,
+          19.178682
+        ],
+        [
+          72.945049,
+          19.178741
+        ],
+        [
+          72.945075,
+          19.178783
+        ],
+        [
+          72.945155,
+          19.178912
+        ],
+        [
+          72.945226,
+          19.179027
+        ],
+        [
+          72.945376,
+          19.179266
+        ],
+        [
+          72.945447,
+          19.1794
+        ],
+        [
+          72.945636,
+          19.17974
+        ],
+        [
+          72.945695,
+          19.179856
+        ],
+        [
+          72.946116,
+          19.180607
+        ],
+        [
+          72.946218,
+          19.180799
+        ],
+        [
+          72.946435,
+          19.181204
+        ],
+        [
+          72.946457,
+          19.181246
+        ],
+        [
+          72.946542,
+          19.1814
+        ],
+        [
+          72.946698,
+          19.181685
+        ],
+        [
+          72.9468,
+          19.181628
+        ],
+        [
+          72.946326,
+          19.180785
+        ],
+        [
+          72.946262,
+          19.180683
+        ],
+        [
+          72.945772,
+          19.179768
+        ],
+        [
+          72.945728,
+          19.179689
+        ],
+        [
+          72.9458443,
+          19.1789434
+        ]
+      ],
+      "road_route_km": 1.149,
+      "road_direct_km": 0.218,
+      "road_routed": true,
+      "telemetry": {
+        "current_flow_kw": "105.36",
+        "switch_state": "closed",
+        "protective_relay_status": "NORMAL",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "KN/283100/206/P010",
+      "from": "POLE_KN/283100/206/P010",
+      "to": "POLE_KN/283100/206/P011",
+      "type": "ht",
+      "voltage": 11.0,
+      "capacity": 242.5,
+      "status": "healthy",
+      "flow": 144.74,
+      "coordinates": [
+        [
+          72.9458443,
+          19.1789434
+        ],
+        [
+          72.945293,
+          19.178873
+        ],
+        [
+          72.945181,
+          19.178685
+        ],
+        [
+          72.945163,
+          19.178666
+        ],
+        [
+          72.945109,
+          19.178603
+        ],
+        [
+          72.944996,
+          19.178682
+        ],
+        [
+          72.945049,
+          19.178741
+        ],
+        [
+          72.945075,
+          19.178783
+        ],
+        [
+          72.945155,
+          19.178912
+        ],
+        [
+          72.945226,
+          19.179027
+        ],
+        [
+          72.945376,
+          19.179266
+        ],
+        [
+          72.945447,
+          19.1794
+        ],
+        [
+          72.945636,
+          19.17974
+        ],
+        [
+          72.945695,
+          19.179856
+        ],
+        [
+          72.945639,
+          19.179881
+        ],
+        [
+          72.945559,
+          19.179917
+        ],
+        [
+          72.944538,
+          19.180374
+        ],
+        [
+          72.944362,
+          19.180459
+        ],
+        [
+          72.9441448,
+          19.1803975
+        ]
+      ],
+      "road_route_km": 0.406,
+      "road_direct_km": 0.24,
+      "road_routed": true,
+      "telemetry": {
+        "current_flow_kw": "144.74",
+        "switch_state": "closed",
+        "protective_relay_status": "NORMAL",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "KN/283100/207/P011",
+      "from": "POLE_KN/283100/207/P011",
+      "to": "POLE_KN/283100/207/P012",
+      "type": "ht",
+      "voltage": 22.0,
+      "capacity": 376.0,
+      "status": "healthy",
+      "flow": 230.82,
+      "coordinates": [
+        [
+          72.9326723,
+          19.1821506
+        ],
+        [
+          72.937216,
+          19.182884
+        ],
+        [
+          72.937299,
+          19.182665
+        ],
+        [
+          72.937326,
+          19.182599
+        ],
+        [
+          72.937367,
+          19.182562
+        ],
+        [
+          72.937795,
+          19.182428
+        ],
+        [
+          72.937866,
+          19.182408
+        ],
+        [
+          72.937896,
+          19.182399
+        ],
+        [
+          72.93835,
+          19.182229
+        ],
+        [
+          72.938436,
+          19.182196
+        ],
+        [
+          72.938476,
+          19.182182
+        ],
+        [
+          72.938905,
+          19.182032
+        ],
+        [
+          72.939023,
+          19.181989
+        ],
+        [
+          72.938976,
+          19.181873
+        ],
+        [
+          72.938907,
+          19.181706
+        ],
+        [
+          72.938901,
+          19.181691
+        ],
+        [
+          72.938885,
+          19.18164
+        ],
+        [
+          72.938878,
+          19.181452
+        ],
+        [
+          72.938874,
+          19.18115
+        ],
+        [
+          72.938879,
+          19.180882
+        ],
+        [
+          72.938917,
+          19.180808
+        ],
+        [
+          72.939078,
+          19.180736
+        ],
+        [
+          72.939579,
+          19.180531
+        ],
+        [
+          72.939871,
+          19.180824
+        ],
+        [
+          72.939916,
+          19.180869
+        ],
+        [
+          72.940082,
+          19.181003
+        ],
+        [
+          72.940114,
+          19.181028
+        ],
+        [
+          72.940161,
+          19.181067
+        ],
+        [
+          72.940762,
+          19.181396
+        ],
+        [
+          72.940952,
+          19.181476
+        ],
+        [
+          72.941188,
+          19.181573
+        ],
+        [
+          72.941326,
+          19.181675
+        ],
+        [
+          72.941378,
+          19.181733
+        ],
+        [
+          72.941684,
+          19.182125
+        ],
+        [
+          72.941767,
+          19.182272
+        ],
+        [
+          72.941895,
+          19.182498
+        ],
+        [
+          72.941685,
+          19.182642
+        ],
+        [
+          72.941334,
+          19.182898
+        ],
+        [
+          72.941317,
+          19.18291
+        ],
+        [
+          72.940713,
+          19.18334
+        ],
+        [
+          72.93998,
+          19.183863
+        ],
+        [
+          72.938941,
+          19.184548
+        ],
+        [
+          72.938693,
+          19.184175
+        ],
+        [
+          72.938539,
+          19.183943
+        ],
+        [
+          72.938321,
+          19.184074
+        ],
+        [
+          72.938204,
+          19.184141
+        ],
+        [
+          72.938104,
+          19.184199
+        ],
+        [
+          72.937991,
+          19.184183
+        ],
+        [
+          72.937829,
+          19.184161
+        ],
+        [
+          72.93769,
+          19.184161
+        ],
+        [
+          72.937649,
+          19.184161
+        ],
+        [
+          72.937471,
+          19.184211
+        ],
+        [
+          72.937408,
+          19.18423
+        ],
+        [
+          72.937346,
+          19.184248
+        ],
+        [
+          72.937301,
+          19.184261
+        ],
+        [
+          72.937283,
+          19.184267
+        ],
+        [
+          72.937257,
+          19.184264
+        ],
+        [
+          72.937235,
+          19.18425
+        ],
+        [
+          72.937154,
+          19.184154
+        ],
+        [
+          72.937027,
+          19.183863
+        ],
+        [
+          72.9302201,
+          19.1841781
+        ]
+      ],
+      "road_route_km": 1.43,
+      "road_direct_km": 0.342,
+      "road_routed": true,
+      "telemetry": {
+        "current_flow_kw": "230.82",
+        "switch_state": "closed",
+        "protective_relay_status": "NORMAL",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "KN/283100/207/P012",
+      "from": "POLE_KN/283100/207/P012",
+      "to": "POLE_KN/283100/207/P013",
+      "type": "ht",
+      "voltage": 11.0,
+      "capacity": 242.5,
+      "status": "healthy",
+      "flow": 149.08,
+      "coordinates": [
+        [
+          72.9302201,
+          19.1841781
+        ],
+        [
+          72.937027,
+          19.183863
+        ],
+        [
+          72.937154,
+          19.184154
+        ],
+        [
+          72.937235,
+          19.18425
+        ],
+        [
+          72.937257,
+          19.184264
+        ],
+        [
+          72.937283,
+          19.184267
+        ],
+        [
+          72.937301,
+          19.184261
+        ],
+        [
+          72.937346,
+          19.184248
+        ],
+        [
+          72.937408,
+          19.18423
+        ],
+        [
+          72.937471,
+          19.184211
+        ],
+        [
+          72.937649,
+          19.184161
+        ],
+        [
+          72.93769,
+          19.184161
+        ],
+        [
+          72.937829,
+          19.184161
+        ],
+        [
+          72.937991,
+          19.184183
+        ],
+        [
+          72.938104,
+          19.184199
+        ],
+        [
+          72.938204,
+          19.184141
+        ],
+        [
+          72.938321,
+          19.184074
+        ],
+        [
+          72.938539,
+          19.183943
+        ],
+        [
+          72.938693,
+          19.184175
+        ],
+        [
+          72.938941,
+          19.184548
+        ],
+        [
+          72.93998,
+          19.183863
+        ],
+        [
+          72.940713,
+          19.18334
+        ],
+        [
+          72.941317,
+          19.18291
+        ],
+        [
+          72.941334,
+          19.182898
+        ],
+        [
+          72.941685,
+          19.182642
+        ],
+        [
+          72.941895,
+          19.182498
+        ],
+        [
+          72.942006,
+          19.182467
+        ],
+        [
+          72.941762,
+          19.182039
+        ],
+        [
+          72.941458,
+          19.181676
+        ],
+        [
+          72.941421,
+          19.181632
+        ],
+        [
+          72.941218,
+          19.181495
+        ],
+        [
+          72.940884,
+          19.181338
+        ],
+        [
+          72.940379,
+          19.181033
+        ],
+        [
+          72.940309,
+          19.180991
+        ],
+        [
+          72.939952,
+          19.180775
+        ],
+        [
+          72.939678,
+          19.180497
+        ],
+        [
+          72.939579,
+          19.180531
+        ],
+        [
+          72.939078,
+          19.180736
+        ],
+        [
+          72.938917,
+          19.180808
+        ],
+        [
+          72.938879,
+          19.180882
+        ],
+        [
+          72.938874,
+          19.18115
+        ],
+        [
+          72.938878,
+          19.181452
+        ],
+        [
+          72.938885,
+          19.18164
+        ],
+        [
+          72.938901,
+          19.181691
+        ],
+        [
+          72.938907,
+          19.181706
+        ],
+        [
+          72.938976,
+          19.181873
+        ],
+        [
+          72.939023,
+          19.181989
+        ],
+        [
+          72.938905,
+          19.182032
+        ],
+        [
+          72.938476,
+          19.182182
+        ],
+        [
+          72.938436,
+          19.182196
+        ],
+        [
+          72.93835,
+          19.182229
+        ],
+        [
+          72.937896,
+          19.182399
+        ],
+        [
+          72.937866,
+          19.182408
+        ],
+        [
+          72.937795,
+          19.182428
+        ],
+        [
+          72.937367,
+          19.182562
+        ],
+        [
+          72.937326,
+          19.182599
+        ],
+        [
+          72.937299,
+          19.182665
+        ],
+        [
+          72.937216,
+          19.182884
+        ],
+        [
+          72.9320383,
+          19.1820818
+        ]
+      ],
+      "road_route_km": 1.453,
+      "road_direct_km": 0.301,
+      "road_routed": true,
+      "telemetry": {
+        "current_flow_kw": "149.08",
+        "switch_state": "closed",
+        "protective_relay_status": "NORMAL",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "KN/283100/207/P013",
+      "from": "POLE_KN/283100/207/P013",
+      "to": "POLE_KN/283100/207/P014",
+      "type": "ht",
+      "voltage": 22.0,
+      "capacity": 356.0,
+      "status": "healthy",
+      "flow": 212.89,
+      "coordinates": [
+        [
+          72.9320383,
+          19.1820818
+        ],
+        [
+          72.937216,
+          19.182884
+        ],
+        [
+          72.937299,
+          19.182665
+        ],
+        [
+          72.937326,
+          19.182599
+        ],
+        [
+          72.937367,
+          19.182562
+        ],
+        [
+          72.937795,
+          19.182428
+        ],
+        [
+          72.937866,
+          19.182408
+        ],
+        [
+          72.937896,
+          19.182399
+        ],
+        [
+          72.93835,
+          19.182229
+        ],
+        [
+          72.938436,
+          19.182196
+        ],
+        [
+          72.938476,
+          19.182182
+        ],
+        [
+          72.938905,
+          19.182032
+        ],
+        [
+          72.939023,
+          19.181989
+        ],
+        [
+          72.938976,
+          19.181873
+        ],
+        [
+          72.938907,
+          19.181706
+        ],
+        [
+          72.938901,
+          19.181691
+        ],
+        [
+          72.938885,
+          19.18164
+        ],
+        [
+          72.938878,
+          19.181452
+        ],
+        [
+          72.938874,
+          19.18115
+        ],
+        [
+          72.938879,
+          19.180882
+        ],
+        [
+          72.938917,
+          19.180808
+        ],
+        [
+          72.939078,
+          19.180736
+        ],
+        [
+          72.939579,
+          19.180531
+        ],
+        [
+          72.939678,
+          19.180497
+        ],
+        [
+          72.939527,
+          19.180278
+        ],
+        [
+          72.939494,
+          19.180205
+        ],
+        [
+          72.939319,
+          19.179833
+        ],
+        [
+          72.939306,
+          19.17977
+        ],
+        [
+          72.939281,
+          19.17965
+        ],
+        [
+          72.93924,
+          19.179366
+        ],
+        [
+          72.939206,
+          19.178979
+        ],
+        [
+          72.939156,
+          19.178869
+        ],
+        [
+          72.939235,
+          19.17874
+        ],
+        [
+          72.939445,
+          19.178447
+        ],
+        [
+          72.939454,
+          19.178373
+        ],
+        [
+          72.939451,
+          19.178331
+        ],
+        [
+          72.93941,
+          19.178269
+        ],
+        [
+          72.939332,
+          19.178152
+        ],
+        [
+          72.939309,
+          19.178036
+        ],
+        [
+          72.939308,
+          19.177875
+        ],
+        [
+          72.939311,
+          19.177662
+        ],
+        [
+          72.939324,
+          19.177586
+        ],
+        [
+          72.939413,
+          19.17733
+        ],
+        [
+          72.939024,
+          19.177152
+        ],
+        [
+          72.938674,
+          19.176989
+        ],
+        [
+          72.938557,
+          19.176873
+        ],
+        [
+          72.938544,
+          19.176857
+        ],
+        [
+          72.938486,
+          19.176802
+        ],
+        [
+          72.938347,
+          19.176597
+        ],
+        [
+          72.938218,
+          19.176364
+        ],
+        [
+          72.938101,
+          19.176236
+        ],
+        [
+          72.937983,
+          19.176156
+        ],
+        [
+          72.937562,
+          19.175868
+        ],
+        [
+          72.937258,
+          19.175558
+        ],
+        [
+          72.937198,
+          19.175372
+        ],
+        [
+          72.937168,
+          19.175265
+        ],
+        [
+          72.937135,
+          19.17507
+        ],
+        [
+          72.937073,
+          19.17496
+        ],
+        [
+          72.936848,
+          19.174888
+        ],
+        [
+          72.936259,
+          19.17457
+        ],
+        [
+          72.935985,
+          19.174347
+        ],
+        [
+          72.935649,
+          19.174606
+        ],
+        [
+          72.935397,
+          19.174779
+        ],
+        [
+          72.935,
+          19.175169
+        ],
+        [
+          72.935067,
+          19.175354
+        ],
+        [
+          72.935162,
+          19.175616
+        ],
+        [
+          72.935359,
+          19.176052
+        ],
+        [
+          72.935402,
+          19.176145
+        ],
+        [
+          72.9299941,
+          19.179672
+        ]
+      ],
+      "road_route_km": 1.602,
+      "road_direct_km": 0.343,
+      "road_routed": true,
+      "telemetry": {
+        "current_flow_kw": "212.89",
+        "switch_state": "closed",
+        "protective_relay_status": "NORMAL",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "KN/283100/207/P014",
+      "from": "POLE_KN/283100/207/P014",
+      "to": "POLE_KN/283100/207/P015",
+      "type": "ht",
+      "voltage": 11.0,
+      "capacity": 237.5,
+      "status": "healthy",
+      "flow": 143.97,
+      "coordinates": [
+        [
+          72.9299941,
+          19.179672
+        ],
+        [
+          72.9275546,
+          19.1813691
+        ]
+      ],
+      "road_routed": false,
+      "routing_error": "Rejected excessive detour (25.0 km for 0.3 km direct)",
+      "telemetry": {
+        "current_flow_kw": "143.97",
+        "switch_state": "closed",
+        "protective_relay_status": "NORMAL",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "KN/283100/208/P015",
+      "from": "POLE_KN/283100/208/P015",
+      "to": "POLE_KN/283100/208/P016",
+      "type": "ht",
+      "voltage": 11.0,
+      "capacity": 567.0,
+      "status": "healthy",
+      "flow": 341.38,
+      "coordinates": [
+        [
+          72.9393691,
+          19.1834813
+        ],
+        [
+          72.939317,
+          19.18348
+        ],
+        [
+          72.939318,
+          19.183506
+        ],
+        [
+          72.93931,
+          19.183525
+        ],
+        [
+          72.939216,
+          19.183679
+        ],
+        [
+          72.939201,
+          19.183689
+        ],
+        [
+          72.939186,
+          19.183693
+        ],
+        [
+          72.939172,
+          19.183692
+        ],
+        [
+          72.93906,
+          19.183666
+        ],
+        [
+          72.939045,
+          19.183657
+        ],
+        [
+          72.939037,
+          19.183648
+        ],
+        [
+          72.938984,
+          19.183563
+        ],
+        [
+          72.938923,
+          19.1836
+        ],
+        [
+          72.938487,
+          19.183865
+        ],
+        [
+          72.938539,
+          19.183943
+        ],
+        [
+          72.938693,
+          19.184175
+        ],
+        [
+          72.938941,
+          19.184548
+        ],
+        [
+          72.93998,
+          19.183863
+        ],
+        [
+          72.940713,
+          19.18334
+        ],
+        [
+          72.941317,
+          19.18291
+        ],
+        [
+          72.941334,
+          19.182898
+        ],
+        [
+          72.941685,
+          19.182642
+        ],
+        [
+          72.941895,
+          19.182498
+        ],
+        [
+          72.942006,
+          19.182467
+        ],
+        [
+          72.941762,
+          19.182039
+        ],
+        [
+          72.941458,
+          19.181676
+        ],
+        [
+          72.941421,
+          19.181632
+        ],
+        [
+          72.941218,
+          19.181495
+        ],
+        [
+          72.940884,
+          19.181338
+        ],
+        [
+          72.940379,
+          19.181033
+        ],
+        [
+          72.940309,
+          19.180991
+        ],
+        [
+          72.939952,
+          19.180775
+        ],
+        [
+          72.939678,
+          19.180497
+        ],
+        [
+          72.939579,
+          19.180531
+        ],
+        [
+          72.939078,
+          19.180736
+        ],
+        [
+          72.938917,
+          19.180808
+        ],
+        [
+          72.938879,
+          19.180882
+        ],
+        [
+          72.938874,
+          19.18115
+        ],
+        [
+          72.938878,
+          19.181452
+        ],
+        [
+          72.938885,
+          19.18164
+        ],
+        [
+          72.938901,
+          19.181691
+        ],
+        [
+          72.938907,
+          19.181706
+        ],
+        [
+          72.938976,
+          19.181873
+        ],
+        [
+          72.939023,
+          19.181989
+        ],
+        [
+          72.938905,
+          19.182032
+        ],
+        [
+          72.938476,
+          19.182182
+        ],
+        [
+          72.938436,
+          19.182196
+        ],
+        [
+          72.93835,
+          19.182229
+        ],
+        [
+          72.937896,
+          19.182399
+        ],
+        [
+          72.937866,
+          19.182408
+        ],
+        [
+          72.937795,
+          19.182428
+        ],
+        [
+          72.9375688,
+          19.1816812
+        ]
+      ],
+      "road_route_km": 1.298,
+      "road_direct_km": 0.275,
+      "road_routed": true,
+      "telemetry": {
+        "current_flow_kw": "341.38",
+        "switch_state": "closed",
+        "protective_relay_status": "NORMAL",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "KN/283100/208/P016",
+      "from": "POLE_KN/283100/208/P016",
+      "to": "POLE_KN/283100/208/P017",
+      "type": "ht",
+      "voltage": 11.0,
+      "capacity": 188.0,
+      "status": "healthy",
+      "flow": 109.66,
+      "coordinates": [
+        [
+          72.9375688,
+          19.1816812
+        ],
+        [
+          72.937367,
+          19.182562
+        ],
+        [
+          72.937326,
+          19.182599
+        ],
+        [
+          72.937299,
+          19.182665
+        ],
+        [
+          72.937216,
+          19.182884
+        ],
+        [
+          72.937215,
+          19.182915
+        ],
+        [
+          72.9364046,
+          19.1829546
+        ]
+      ],
+      "road_route_km": 0.09,
+      "road_direct_km": 0.187,
+      "road_routed": true,
+      "telemetry": {
+        "current_flow_kw": "109.66",
+        "switch_state": "closed",
+        "protective_relay_status": "NORMAL",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "KN/283100/208/P017",
+      "from": "POLE_KN/283100/208/P017",
+      "to": "POLE_KN/283100/208/P018",
+      "type": "ht",
+      "voltage": 22.0,
+      "capacity": 598.5,
+      "status": "healthy",
+      "flow": 359.8,
+      "coordinates": [
+        [
+          72.9364046,
+          19.1829546
+        ],
+        [
+          72.937215,
+          19.182915
+        ],
+        [
+          72.937216,
+          19.182884
+        ],
+        [
+          72.937299,
+          19.182665
+        ],
+        [
+          72.937326,
+          19.182599
+        ],
+        [
+          72.937367,
+          19.182562
+        ],
+        [
+          72.937795,
+          19.182428
+        ],
+        [
+          72.937866,
+          19.182408
+        ],
+        [
+          72.937896,
+          19.182399
+        ],
+        [
+          72.93835,
+          19.182229
+        ],
+        [
+          72.938436,
+          19.182196
+        ],
+        [
+          72.938476,
+          19.182182
+        ],
+        [
+          72.938905,
+          19.182032
+        ],
+        [
+          72.939023,
+          19.181989
+        ],
+        [
+          72.938976,
+          19.181873
+        ],
+        [
+          72.938907,
+          19.181706
+        ],
+        [
+          72.938901,
+          19.181691
+        ],
+        [
+          72.938885,
+          19.18164
+        ],
+        [
+          72.938878,
+          19.181452
+        ],
+        [
+          72.938874,
+          19.18115
+        ],
+        [
+          72.938879,
+          19.180882
+        ],
+        [
+          72.938917,
+          19.180808
+        ],
+        [
+          72.939078,
+          19.180736
+        ],
+        [
+          72.939579,
+          19.180531
+        ],
+        [
+          72.939871,
+          19.180824
+        ],
+        [
+          72.939916,
+          19.180869
+        ],
+        [
+          72.940082,
+          19.181003
+        ],
+        [
+          72.940114,
+          19.181028
+        ],
+        [
+          72.940161,
+          19.181067
+        ],
+        [
+          72.940762,
+          19.181396
+        ],
+        [
+          72.940952,
+          19.181476
+        ],
+        [
+          72.941188,
+          19.181573
+        ],
+        [
+          72.941326,
+          19.181675
+        ],
+        [
+          72.941378,
+          19.181733
+        ],
+        [
+          72.941684,
+          19.182125
+        ],
+        [
+          72.941767,
+          19.182272
+        ],
+        [
+          72.941895,
+          19.182498
+        ],
+        [
+          72.941685,
+          19.182642
+        ],
+        [
+          72.941334,
+          19.182898
+        ],
+        [
+          72.941317,
+          19.18291
+        ],
+        [
+          72.940713,
+          19.18334
+        ],
+        [
+          72.93998,
+          19.183863
+        ],
+        [
+          72.938941,
+          19.184548
+        ],
+        [
+          72.938693,
+          19.184175
+        ],
+        [
+          72.938539,
+          19.183943
+        ],
+        [
+          72.938487,
+          19.183865
+        ],
+        [
+          72.938383,
+          19.18371
+        ],
+        [
+          72.938351,
+          19.183661
+        ],
+        [
+          72.938319,
+          19.183613
+        ],
+        [
+          72.93828,
+          19.183639
+        ],
+        [
+          72.938204,
+          19.183685
+        ],
+        [
+          72.938135,
+          19.183727
+        ],
+        [
+          72.938066,
+          19.183769
+        ],
+        [
+          72.938002,
+          19.183808
+        ],
+        [
+          72.937936,
+          19.183848
+        ],
+        [
+          72.937851,
+          19.1839
+        ],
+        [
+          72.9378069,
+          19.183915
+        ]
+      ],
+      "road_route_km": 1.342,
+      "road_direct_km": 0.182,
+      "road_routed": true,
+      "telemetry": {
+        "current_flow_kw": "359.8",
+        "switch_state": "closed",
+        "protective_relay_status": "NORMAL",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "KN/283116/209/P018",
+      "from": "POLE_KN/283116/209/P018",
+      "to": "POLE_KN/283116/209/P019",
+      "type": "ht",
+      "voltage": 22.0,
+      "capacity": 920.0,
+      "status": "healthy",
+      "flow": 548.15,
+      "coordinates": [
+        [
+          72.9364116,
+          19.1839605
+        ],
+        [
+          72.937027,
+          19.183863
+        ],
+        [
+          72.937154,
+          19.184154
+        ],
+        [
+          72.937235,
+          19.18425
+        ],
+        [
+          72.937257,
+          19.184264
+        ],
+        [
+          72.937283,
+          19.184267
+        ],
+        [
+          72.937301,
+          19.184261
+        ],
+        [
+          72.937346,
+          19.184248
+        ],
+        [
+          72.937408,
+          19.18423
+        ],
+        [
+          72.937471,
+          19.184211
+        ],
+        [
+          72.937649,
+          19.184161
+        ],
+        [
+          72.93769,
+          19.184161
+        ],
+        [
+          72.937829,
+          19.184161
+        ],
+        [
+          72.937991,
+          19.184183
+        ],
+        [
+          72.938104,
+          19.184199
+        ],
+        [
+          72.938204,
+          19.184141
+        ],
+        [
+          72.938321,
+          19.184074
+        ],
+        [
+          72.938539,
+          19.183943
+        ],
+        [
+          72.938693,
+          19.184175
+        ],
+        [
+          72.938941,
+          19.184548
+        ],
+        [
+          72.938888,
+          19.184575
+        ],
+        [
+          72.938368,
+          19.184863
+        ],
+        [
+          72.938301,
+          19.184893
+        ],
+        [
+          72.9375235,
+          19.1855232
+        ]
+      ],
+      "road_route_km": 0.398,
+      "road_direct_km": 0.209,
+      "road_routed": true,
+      "telemetry": {
+        "current_flow_kw": "548.15",
+        "switch_state": "closed",
+        "protective_relay_status": "NORMAL",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "KN/283116/209/P019",
+      "from": "POLE_KN/283116/209/P019",
+      "to": "POLE_KN/283116/209/P020",
+      "type": "ht",
+      "voltage": 11.0,
+      "capacity": 567.0,
+      "status": "healthy",
+      "flow": 341.22,
+      "coordinates": [
+        [
+          72.9375235,
+          19.1855232
+        ],
+        [
+          72.938301,
+          19.184893
+        ],
+        [
+          72.938368,
+          19.184863
+        ],
+        [
+          72.938888,
+          19.184575
+        ],
+        [
+          72.938941,
+          19.184548
+        ],
+        [
+          72.938693,
+          19.184175
+        ],
+        [
+          72.938539,
+          19.183943
+        ],
+        [
+          72.938321,
+          19.184074
+        ],
+        [
+          72.938204,
+          19.184141
+        ],
+        [
+          72.938104,
+          19.184199
+        ],
+        [
+          72.937991,
+          19.184183
+        ],
+        [
+          72.937829,
+          19.184161
+        ],
+        [
+          72.93769,
+          19.184161
+        ],
+        [
+          72.937649,
+          19.184161
+        ],
+        [
+          72.937471,
+          19.184211
+        ],
+        [
+          72.937408,
+          19.18423
+        ],
+        [
+          72.937346,
+          19.184248
+        ],
+        [
+          72.937301,
+          19.184261
+        ],
+        [
+          72.937283,
+          19.184267
+        ],
+        [
+          72.937257,
+          19.184264
+        ],
+        [
+          72.937235,
+          19.18425
+        ],
+        [
+          72.937154,
+          19.184154
+        ],
+        [
+          72.937027,
+          19.183863
+        ],
+        [
+          72.937026,
+          19.18384
+        ],
+        [
+          72.93703,
+          19.183824
+        ],
+        [
+          72.9351487,
+          19.1833019
+        ]
+      ],
+      "road_route_km": 0.402,
+      "road_direct_km": 0.35,
+      "road_routed": true,
+      "telemetry": {
+        "current_flow_kw": "341.22",
+        "switch_state": "closed",
+        "protective_relay_status": "NORMAL",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "KN/283116/209/P020",
+      "from": "POLE_KN/283116/209/P020",
+      "to": "POLE_KN/283116/209/P021",
+      "type": "ht",
+      "voltage": 22.0,
+      "capacity": 950.0,
+      "status": "healthy",
+      "flow": 559.63,
+      "coordinates": [
+        [
+          72.9351487,
+          19.1833019
+        ],
+        [
+          72.93703,
+          19.183824
+        ],
+        [
+          72.937026,
+          19.18384
+        ],
+        [
+          72.937027,
+          19.183863
+        ],
+        [
+          72.937154,
+          19.184154
+        ],
+        [
+          72.937235,
+          19.18425
+        ],
+        [
+          72.937257,
+          19.184264
+        ],
+        [
+          72.937283,
+          19.184267
+        ],
+        [
+          72.937301,
+          19.184261
+        ],
+        [
+          72.937346,
+          19.184248
+        ],
+        [
+          72.937408,
+          19.18423
+        ],
+        [
+          72.937471,
+          19.184211
+        ],
+        [
+          72.937649,
+          19.184161
+        ],
+        [
+          72.93769,
+          19.184161
+        ],
+        [
+          72.937829,
+          19.184161
+        ],
+        [
+          72.937991,
+          19.184183
+        ],
+        [
+          72.938104,
+          19.184199
+        ],
+        [
+          72.938204,
+          19.184141
+        ],
+        [
+          72.938321,
+          19.184074
+        ],
+        [
+          72.938539,
+          19.183943
+        ],
+        [
+          72.938693,
+          19.184175
+        ],
+        [
+          72.938941,
+          19.184548
+        ],
+        [
+          72.938888,
+          19.184575
+        ],
+        [
+          72.938368,
+          19.184863
+        ],
+        [
+          72.938301,
+          19.184893
+        ],
+        [
+          72.9375238,
+          19.1857769
+        ]
+      ],
+      "road_route_km": 0.402,
+      "road_direct_km": 0.371,
+      "road_routed": true,
+      "telemetry": {
+        "current_flow_kw": "559.63",
+        "switch_state": "closed",
+        "protective_relay_status": "NORMAL",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "KN/283116/210/P021",
+      "from": "POLE_KN/283116/210/P021",
+      "to": "POLE_KN/283116/210/P022",
+      "type": "ht",
+      "voltage": 22.0,
+      "capacity": 970.0,
+      "status": "healthy",
+      "flow": 0.0,
+      "coordinates": [
+        [
+          72.9337771,
+          19.1833414
+        ],
+        [
+          72.937026,
+          19.18384
+        ],
+        [
+          72.937027,
+          19.183863
+        ],
+        [
+          72.937154,
+          19.184154
+        ],
+        [
+          72.937235,
+          19.18425
+        ],
+        [
+          72.937257,
+          19.184264
+        ],
+        [
+          72.937283,
+          19.184267
+        ],
+        [
+          72.937301,
+          19.184261
+        ],
+        [
+          72.937346,
+          19.184248
+        ],
+        [
+          72.937408,
+          19.18423
+        ],
+        [
+          72.937471,
+          19.184211
+        ],
+        [
+          72.937649,
+          19.184161
+        ],
+        [
+          72.93769,
+          19.184161
+        ],
+        [
+          72.937829,
+          19.184161
+        ],
+        [
+          72.937991,
+          19.184183
+        ],
+        [
+          72.938104,
+          19.184199
+        ],
+        [
+          72.938204,
+          19.184141
+        ],
+        [
+          72.938321,
+          19.184074
+        ],
+        [
+          72.938539,
+          19.183943
+        ],
+        [
+          72.938693,
+          19.184175
+        ],
+        [
+          72.938941,
+          19.184548
+        ],
+        [
+          72.93998,
+          19.183863
+        ],
+        [
+          72.940713,
+          19.18334
+        ],
+        [
+          72.941317,
+          19.18291
+        ],
+        [
+          72.941334,
+          19.182898
+        ],
+        [
+          72.941685,
+          19.182642
+        ],
+        [
+          72.941895,
+          19.182498
+        ],
+        [
+          72.942006,
+          19.182467
+        ],
+        [
+          72.941762,
+          19.182039
+        ],
+        [
+          72.941458,
+          19.181676
+        ],
+        [
+          72.941421,
+          19.181632
+        ],
+        [
+          72.941218,
+          19.181495
+        ],
+        [
+          72.940884,
+          19.181338
+        ],
+        [
+          72.940379,
+          19.181033
+        ],
+        [
+          72.940309,
+          19.180991
+        ],
+        [
+          72.939952,
+          19.180775
+        ],
+        [
+          72.939678,
+          19.180497
+        ],
+        [
+          72.939527,
+          19.180278
+        ],
+        [
+          72.939494,
+          19.180205
+        ],
+        [
+          72.939319,
+          19.179833
+        ],
+        [
+          72.939306,
+          19.17977
+        ],
+        [
+          72.939281,
+          19.17965
+        ],
+        [
+          72.93924,
+          19.179366
+        ],
+        [
+          72.939206,
+          19.178979
+        ],
+        [
+          72.939156,
+          19.178869
+        ],
+        [
+          72.939235,
+          19.17874
+        ],
+        [
+          72.939445,
+          19.178447
+        ],
+        [
+          72.939454,
+          19.178373
+        ],
+        [
+          72.939451,
+          19.178331
+        ],
+        [
+          72.93941,
+          19.178269
+        ],
+        [
+          72.939332,
+          19.178152
+        ],
+        [
+          72.938988,
+          19.178418
+        ],
+        [
+          72.938871,
+          19.178495
+        ],
+        [
+          72.938565,
+          19.178694
+        ],
+        [
+          72.937537,
+          19.17961
+        ],
+        [
+          72.937491,
+          19.179638
+        ],
+        [
+          72.937443,
+          19.179667
+        ],
+        [
+          72.937372,
+          19.179678
+        ],
+        [
+          72.937225,
+          19.179654
+        ],
+        [
+          72.937176,
+          19.179644
+        ],
+        [
+          72.936777,
+          19.179567
+        ],
+        [
+          72.9317055,
+          19.1812907
+        ]
+      ],
+      "road_route_km": 1.653,
+      "road_direct_km": 0.315,
+      "road_routed": true,
+      "telemetry": {
+        "current_flow_kw": "0",
+        "switch_state": "open",
+        "protective_relay_status": "NORMAL",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "KN/283116/210/P022",
+      "from": "POLE_KN/283116/210/P022",
+      "to": "POLE_KN/283116/210/P023",
+      "type": "ht",
+      "voltage": 22.0,
+      "capacity": 940.0,
+      "status": "healthy",
+      "flow": 567.23,
+      "coordinates": [
+        [
+          72.9317055,
+          19.1812907
+        ],
+        [
+          72.936777,
+          19.179567
+        ],
+        [
+          72.937176,
+          19.179644
+        ],
+        [
+          72.937225,
+          19.179654
+        ],
+        [
+          72.937372,
+          19.179678
+        ],
+        [
+          72.937443,
+          19.179667
+        ],
+        [
+          72.937491,
+          19.179638
+        ],
+        [
+          72.937537,
+          19.17961
+        ],
+        [
+          72.938565,
+          19.178694
+        ],
+        [
+          72.938871,
+          19.178495
+        ],
+        [
+          72.938988,
+          19.178418
+        ],
+        [
+          72.939332,
+          19.178152
+        ],
+        [
+          72.939309,
+          19.178036
+        ],
+        [
+          72.939308,
+          19.177875
+        ],
+        [
+          72.939311,
+          19.177662
+        ],
+        [
+          72.939324,
+          19.177586
+        ],
+        [
+          72.939413,
+          19.17733
+        ],
+        [
+          72.939024,
+          19.177152
+        ],
+        [
+          72.938674,
+          19.176989
+        ],
+        [
+          72.938557,
+          19.176873
+        ],
+        [
+          72.938544,
+          19.176857
+        ],
+        [
+          72.938486,
+          19.176802
+        ],
+        [
+          72.938347,
+          19.176597
+        ],
+        [
+          72.938218,
+          19.176364
+        ],
+        [
+          72.938101,
+          19.176236
+        ],
+        [
+          72.937983,
+          19.176156
+        ],
+        [
+          72.937562,
+          19.175868
+        ],
+        [
+          72.937258,
+          19.175558
+        ],
+        [
+          72.937198,
+          19.175372
+        ],
+        [
+          72.937168,
+          19.175265
+        ],
+        [
+          72.937135,
+          19.17507
+        ],
+        [
+          72.937073,
+          19.17496
+        ],
+        [
+          72.936848,
+          19.174888
+        ],
+        [
+          72.936259,
+          19.17457
+        ],
+        [
+          72.935985,
+          19.174347
+        ],
+        [
+          72.935794,
+          19.174164
+        ],
+        [
+          72.93566,
+          19.173992
+        ],
+        [
+          72.935577,
+          19.173885
+        ],
+        [
+          72.935497,
+          19.173835
+        ],
+        [
+          72.93547,
+          19.173818
+        ],
+        [
+          72.935361,
+          19.173749
+        ],
+        [
+          72.93508,
+          19.173619
+        ],
+        [
+          72.934985,
+          19.173524
+        ],
+        [
+          72.934877,
+          19.173416
+        ],
+        [
+          72.934848,
+          19.173294
+        ],
+        [
+          72.93478,
+          19.173333
+        ],
+        [
+          72.934174,
+          19.173672
+        ],
+        [
+          72.934103,
+          19.173712
+        ],
+        [
+          72.933794,
+          19.173894
+        ],
+        [
+          72.933584,
+          19.174107
+        ],
+        [
+          72.9298939,
+          19.1790434
+        ]
+      ],
+      "road_route_km": 1.323,
+      "road_direct_km": 0.314,
+      "road_routed": true,
+      "telemetry": {
+        "current_flow_kw": "567.23",
+        "switch_state": "closed",
+        "protective_relay_status": "NORMAL",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "KN/283116/210/P023",
+      "from": "POLE_KN/283116/210/P023",
+      "to": "POLE_KN/283116/210/P024",
+      "type": "ht",
+      "voltage": 11.0,
+      "capacity": 910.0,
+      "status": "healthy",
+      "flow": 554.55,
+      "coordinates": [
+        [
+          72.9298939,
+          19.1790434
+        ],
+        [
+          72.9275049,
+          19.1809609
+        ]
+      ],
+      "road_routed": false,
+      "routing_error": "OSRM route unavailable; inspect backend logs",
+      "telemetry": {
+        "current_flow_kw": "554.55",
+        "switch_state": "closed",
+        "protective_relay_status": "NORMAL",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "KN/283116/210/P024",
+      "from": "POLE_KN/283116/210/P024",
+      "to": "POLE_KN/283116/210/P025",
+      "type": "ht",
+      "voltage": 11.0,
+      "capacity": 910.0,
+      "status": "healthy",
+      "flow": 547.72,
+      "coordinates": [
+        [
+          72.9275049,
+          19.1809609
+        ],
+        [
+          72.9266891,
+          19.1785816
+        ]
+      ],
+      "road_routed": false,
+      "routing_error": "Rejected excessive detour (24.5 km for 0.3 km direct)",
+      "telemetry": {
+        "current_flow_kw": "547.72",
+        "switch_state": "closed",
+        "protective_relay_status": "NORMAL",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "KN/283116/211/P025",
+      "from": "POLE_KN/283116/211/P025",
+      "to": "POLE_KN/283116/211/P026",
+      "type": "ht",
+      "voltage": 11.0,
+      "capacity": 242.5,
+      "status": "healthy",
+      "flow": 147.79,
+      "coordinates": [
+        [
+          72.9492823,
+          19.1821423
+        ],
+        [
+          72.949075,
+          19.182121
+        ],
+        [
+          72.948965,
+          19.182069
+        ],
+        [
+          72.948924,
+          19.182071
+        ],
+        [
+          72.948631,
+          19.182155
+        ],
+        [
+          72.948627,
+          19.181763
+        ],
+        [
+          72.94863,
+          19.181744
+        ],
+        [
+          72.948649,
+          19.181732
+        ],
+        [
+          72.948669,
+          19.181731
+        ],
+        [
+          72.948855,
+          19.181726
+        ],
+        [
+          72.949295,
+          19.181713
+        ],
+        [
+          72.94935,
+          19.181711
+        ],
+        [
+          72.949373,
+          19.181711
+        ],
+        [
+          72.94938,
+          19.181711
+        ],
+        [
+          72.949485,
+          19.181711
+        ],
+        [
+          72.949475,
+          19.181443
+        ],
+        [
+          72.949473,
+          19.181396
+        ],
+        [
+          72.949464,
+          19.18114
+        ],
+        [
+          72.949433,
+          19.180334
+        ],
+        [
+          72.949456,
+          19.180171
+        ],
+        [
+          72.949468,
+          19.179977
+        ],
+        [
+          72.949624,
+          19.179034
+        ],
+        [
+          72.949859,
+          19.179009
+        ],
+        [
+          72.950112,
+          19.178995
+        ],
+        [
+          72.95024,
+          19.17897
+        ],
+        [
+          72.950405,
+          19.178914
+        ],
+        [
+          72.950554,
+          19.178899
+        ],
+        [
+          72.95061,
+          19.178895
+        ],
+        [
+          72.950923,
+          19.178867
+        ],
+        [
+          72.951063,
+          19.178825
+        ],
+        [
+          72.95126,
+          19.178766
+        ],
+        [
+          72.95164,
+          19.178547
+        ],
+        [
+          72.951727,
+          19.178665
+        ],
+        [
+          72.951818,
+          19.178693
+        ],
+        [
+          72.951896,
+          19.179965
+        ],
+        [
+          72.952435,
+          19.18079
+        ],
+        [
+          72.952279,
+          19.18084
+        ],
+        [
+          72.952043,
+          19.180948
+        ],
+        [
+          72.952008,
+          19.180933
+        ],
+        [
+          72.951938,
+          19.180866
+        ],
+        [
+          72.951514,
+          19.180261
+        ],
+        [
+          72.951479,
+          19.180217
+        ],
+        [
+          72.9514,
+          19.180168
+        ],
+        [
+          72.951352,
+          19.180138
+        ],
+        [
+          72.951342,
+          19.180119
+        ],
+        [
+          72.951329,
+          19.180091
+        ],
+        [
+          72.9512177,
+          19.1801463
+        ]
+      ],
+      "road_route_km": 1.151,
+      "road_direct_km": 0.3,
+      "road_routed": true,
+      "telemetry": {
+        "current_flow_kw": "147.79",
+        "switch_state": "closed",
+        "protective_relay_status": "NORMAL",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "KN/283116/211/P026",
+      "from": "POLE_KN/283116/211/P026",
+      "to": "POLE_KN/283116/211/P027",
+      "type": "ht",
+      "voltage": 11.0,
+      "capacity": 227.5,
+      "status": "healthy",
+      "flow": 132.79,
+      "coordinates": [
+        [
+          72.9512177,
+          19.1801463
+        ],
+        [
+          72.951329,
+          19.180091
+        ],
+        [
+          72.951342,
+          19.180119
+        ],
+        [
+          72.951352,
+          19.180138
+        ],
+        [
+          72.9514,
+          19.180168
+        ],
+        [
+          72.951479,
+          19.180217
+        ],
+        [
+          72.951514,
+          19.180261
+        ],
+        [
+          72.951938,
+          19.180866
+        ],
+        [
+          72.952008,
+          19.180933
+        ],
+        [
+          72.952043,
+          19.180948
+        ],
+        [
+          72.952279,
+          19.18084
+        ],
+        [
+          72.952435,
+          19.18079
+        ],
+        [
+          72.952916,
+          19.180776
+        ],
+        [
+          72.9530459,
+          19.1812106
+        ]
+      ],
+      "road_route_km": 0.268,
+      "road_direct_km": 0.225,
+      "road_routed": true,
+      "telemetry": {
+        "current_flow_kw": "132.79",
+        "switch_state": "closed",
+        "protective_relay_status": "NORMAL",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "KN/283116/211/P027",
+      "from": "POLE_KN/283116/211/P027",
+      "to": "POLE_KN/283116/211/P028",
+      "type": "ht",
+      "voltage": 11.0,
+      "capacity": 235.0,
+      "status": "healthy",
+      "flow": 138.89,
+      "coordinates": [
+        [
+          72.9530459,
+          19.1812106
+        ],
+        [
+          72.952916,
+          19.180776
+        ],
+        [
+          72.95284,
+          19.179422
+        ],
+        [
+          72.95277,
+          19.179088
+        ],
+        [
+          72.952703,
+          19.178837
+        ],
+        [
+          72.952575,
+          19.178625
+        ],
+        [
+          72.952777,
+          19.178431
+        ],
+        [
+          72.952417,
+          19.17802
+        ],
+        [
+          72.952749,
+          19.177788
+        ],
+        [
+          72.953157,
+          19.177463
+        ],
+        [
+          72.953273,
+          19.177312
+        ],
+        [
+          72.953339,
+          19.177281
+        ],
+        [
+          72.953455,
+          19.17718
+        ],
+        [
+          72.953524,
+          19.177241
+        ],
+        [
+          72.95365,
+          19.177492
+        ],
+        [
+          72.95373,
+          19.177771
+        ],
+        [
+          72.953795,
+          19.178044
+        ],
+        [
+          72.953862,
+          19.178414
+        ],
+        [
+          72.953877,
+          19.178687
+        ],
+        [
+          72.953898,
+          19.17903
+        ],
+        [
+          72.953922,
+          19.179608
+        ],
+        [
+          72.953891,
+          19.179817
+        ],
+        [
+          72.953838,
+          19.180182
+        ],
+        [
+          72.95384,
+          19.180448
+        ],
+        [
+          72.953843,
+          19.180674
+        ],
+        [
+          72.953988,
+          19.181591
+        ],
+        [
+          72.95399,
+          19.181968
+        ],
+        [
+          72.953986,
+          19.182017
+        ],
+        [
+          72.953972,
+          19.182154
+        ],
+        [
+          72.95396,
+          19.182272
+        ],
+        [
+          72.953697,
+          19.182799
+        ],
+        [
+          72.953666,
+          19.18286
+        ],
+        [
+          72.953587,
+          19.183053
+        ],
+        [
+          72.953562,
+          19.183299
+        ],
+        [
+          72.953557,
+          19.183336
+        ],
+        [
+          72.953484,
+          19.183553
+        ],
+        [
+          72.953464,
+          19.183607
+        ],
+        [
+          72.953407,
+          19.183654
+        ],
+        [
+          72.953357,
+          19.183683
+        ],
+        [
+          72.953274,
+          19.183721
+        ],
+        [
+          72.953196,
+          19.183756
+        ],
+        [
+          72.953119,
+          19.183783
+        ],
+        [
+          72.953015,
+          19.183751
+        ],
+        [
+          72.952502,
+          19.18361
+        ],
+        [
+          72.95155,
+          19.183447
+        ],
+        [
+          72.950836,
+          19.1821675
+        ]
+      ],
+      "road_route_km": 1.559,
+      "road_direct_km": 0.255,
+      "road_routed": true,
+      "telemetry": {
+        "current_flow_kw": "138.89",
+        "switch_state": "closed",
+        "protective_relay_status": "NORMAL",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "KN/283116/211/P028",
+      "from": "POLE_KN/283116/211/P028",
+      "to": "POLE_KN/283116/211/P029",
+      "type": "ht",
+      "voltage": 11.0,
+      "capacity": 235.0,
+      "status": "healthy",
+      "flow": 141.49,
+      "coordinates": [
+        [
+          72.950836,
+          19.1821675
+        ],
+        [
+          72.950729,
+          19.183354
+        ],
+        [
+          72.949688,
+          19.183274
+        ],
+        [
+          72.94963,
+          19.183246
+        ],
+        [
+          72.949575,
+          19.183202
+        ],
+        [
+          72.949506,
+          19.183071
+        ],
+        [
+          72.949486,
+          19.181748
+        ],
+        [
+          72.949485,
+          19.181711
+        ],
+        [
+          72.949475,
+          19.181443
+        ],
+        [
+          72.949473,
+          19.181396
+        ],
+        [
+          72.949464,
+          19.18114
+        ],
+        [
+          72.9498458,
+          19.1806404
+        ]
+      ],
+      "road_route_km": 0.408,
+      "road_direct_km": 0.199,
+      "road_routed": true,
+      "telemetry": {
+        "current_flow_kw": "141.49",
+        "switch_state": "closed",
+        "protective_relay_status": "NORMAL",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "KN/283116/212/P029",
+      "from": "POLE_KN/283116/212/P029",
+      "to": "POLE_KN/283116/212/P030",
+      "type": "ht",
+      "voltage": 11.0,
+      "capacity": 388.0,
+      "status": "healthy",
+      "flow": 0.0,
+      "coordinates": [
+        [
+          72.9368089,
+          19.1969659
+        ],
+        [
+          72.941376,
+          19.198995
+        ],
+        [
+          72.941674,
+          19.198859
+        ],
+        [
+          72.941777,
+          19.198827
+        ],
+        [
+          72.94165,
+          19.198611
+        ],
+        [
+          72.9382102,
+          19.1957417
+        ]
+      ],
+      "road_route_km": 0.159,
+      "road_direct_km": 0.2,
+      "road_routed": true,
+      "telemetry": {
+        "current_flow_kw": "0",
+        "switch_state": "open",
+        "protective_relay_status": "NORMAL",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "KN/283116/212/P030",
+      "from": "POLE_KN/283116/212/P030",
+      "to": "POLE_KN/283116/212/P031",
+      "type": "ht",
+      "voltage": 22.0,
+      "capacity": 380.0,
+      "status": "healthy",
+      "flow": 222.3,
+      "coordinates": [
+        [
+          72.9382102,
+          19.1957417
+        ],
+        [
+          72.9390523,
+          19.1968427
+        ]
+      ],
+      "road_route_km": 0.0,
+      "road_direct_km": 0.151,
+      "road_routed": true,
+      "telemetry": {
+        "current_flow_kw": "222.3",
+        "switch_state": "closed",
+        "protective_relay_status": "NORMAL",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "KN/283116/212/P031",
+      "from": "POLE_KN/283116/212/P031",
+      "to": "POLE_KN/283116/212/P032",
+      "type": "ht",
+      "voltage": 11.0,
+      "capacity": 372.0,
+      "status": "healthy",
+      "flow": 218.11,
+      "coordinates": [
+        [
+          72.9390523,
+          19.1968427
+        ],
+        [
+          72.94165,
+          19.198611
+        ],
+        [
+          72.941777,
+          19.198827
+        ],
+        [
+          72.941674,
+          19.198859
+        ],
+        [
+          72.941335,
+          19.1988349
+        ]
+      ],
+      "road_route_km": 0.096,
+      "road_direct_km": 0.326,
+      "road_routed": true,
+      "telemetry": {
+        "current_flow_kw": "218.11",
+        "switch_state": "closed",
+        "protective_relay_status": "NORMAL",
+        "is_faulted": "false",
+        "test_injected": "false"
+      }
+    },
+    {
+      "id": "EDGE_DTC_4540414",
+      "from": "POLE_KN/283100/205/P002",
+      "to": "DTC_4540414",
+      "type": "dt",
+      "voltage": 11.0,
+      "capacity": 560.7,
+      "status": "healthy",
+      "flow": 55,
+      "coordinates": [
+        [
+          72.9453864,
+          19.1799977
+        ],
+        [
+          72.9453864,
+          19.1799977
+        ]
+      ],
+      "road_route_km": 0.0,
+      "road_direct_km": 0.0,
+      "road_routed": true
+    },
+    {
+      "id": "EDGE_DTC_4540415",
+      "from": "POLE_KN/283100/205/P003",
+      "to": "DTC_4540415",
+      "type": "dt",
+      "voltage": 22.0,
+      "capacity": 384.0,
+      "status": "healthy",
+      "flow": 55,
+      "coordinates": [
+        [
+          72.9465612,
+          19.1820149
+        ],
+        [
+          72.9465612,
+          19.1820149
+        ]
+      ],
+      "road_route_km": 0.0,
+      "road_direct_km": 0.0,
+      "road_routed": true
+    },
+    {
+      "id": "EDGE_DTC_4540420",
+      "from": "POLE_KN/283100/206/P007",
+      "to": "DTC_4540420",
+      "type": "dt",
+      "voltage": 11.0,
+      "capacity": 237.5,
+      "status": "healthy",
+      "flow": 55,
+      "coordinates": [
+        [
+          72.9463848,
+          19.1787074
+        ],
+        [
+          72.9463848,
+          19.1787074
+        ]
+      ],
+      "road_route_km": 0.0,
+      "road_direct_km": 0.0,
+      "road_routed": true
+    },
+    {
+      "id": "EDGE_DTC_4540421",
+      "from": "POLE_KN/283100/206/P008",
+      "to": "DTC_4540421",
+      "type": "dt",
+      "voltage": 22.0,
+      "capacity": 194.0,
+      "status": "healthy",
+      "flow": 55,
+      "coordinates": [
+        [
+          72.9485533,
+          19.1778123
+        ],
+        [
+          72.9485533,
+          19.1778123
+        ]
+      ],
+      "road_route_km": 0.0,
+      "road_direct_km": 0.0,
+      "road_routed": true
+    },
+    {
+      "id": "EDGE_DTC_4540430",
+      "from": "POLE_KN/283100/207/P012",
+      "to": "DTC_4540430",
+      "type": "dt",
+      "voltage": 22.0,
+      "capacity": 376.0,
+      "status": "healthy",
+      "flow": 55,
+      "coordinates": [
+        [
+          72.9302201,
+          19.1841781
+        ],
+        [
+          72.9302201,
+          19.1841781
+        ]
+      ],
+      "road_route_km": 0.0,
+      "road_direct_km": 0.0,
+      "road_routed": true
+    },
+    {
+      "id": "EDGE_DTC_4540431",
+      "from": "POLE_KN/283100/207/P013",
+      "to": "DTC_4540431",
+      "type": "dt",
+      "voltage": 11.0,
+      "capacity": 242.5,
+      "status": "healthy",
+      "flow": 55,
+      "coordinates": [
+        [
+          72.9320383,
+          19.1820818
+        ],
+        [
+          72.9320383,
+          19.1820818
+        ]
+      ],
+      "road_route_km": 0.0,
+      "road_direct_km": 0.0,
+      "road_routed": true
+    },
+    {
+      "id": "EDGE_DTC_4540440",
+      "from": "POLE_KN/283100/208/P016",
+      "to": "DTC_4540440",
+      "type": "dt",
+      "voltage": 11.0,
+      "capacity": 567.0,
+      "status": "healthy",
+      "flow": 55,
+      "coordinates": [
+        [
+          72.9375688,
+          19.1816812
+        ],
+        [
+          72.9375688,
+          19.1816812
+        ]
+      ],
+      "road_routed": false,
+      "routing_error": "OSRM route unavailable; inspect backend logs"
+    },
+    {
+      "id": "EDGE_DTC_4540441",
+      "from": "POLE_KN/283100/208/P017",
+      "to": "DTC_4540441",
+      "type": "dt",
+      "voltage": 11.0,
+      "capacity": 188.0,
+      "status": "healthy",
+      "flow": 55,
+      "coordinates": [
+        [
+          72.9364046,
+          19.1829546
+        ],
+        [
+          72.9364046,
+          19.1829546
+        ]
+      ],
+      "road_route_km": 0.0,
+      "road_direct_km": 0.0,
+      "road_routed": true
+    },
+    {
+      "id": "EDGE_DTC_4540450",
+      "from": "POLE_KN/283116/209/P019",
+      "to": "DTC_4540450",
+      "type": "dt",
+      "voltage": 22.0,
+      "capacity": 920.0,
+      "status": "healthy",
+      "flow": 55,
+      "coordinates": [
+        [
+          72.9375235,
+          19.1855232
+        ],
+        [
+          72.9375235,
+          19.1855232
+        ]
+      ],
+      "road_route_km": 0.0,
+      "road_direct_km": 0.0,
+      "road_routed": true
+    },
+    {
+      "id": "EDGE_DTC_4540451",
+      "from": "POLE_KN/283116/209/P020",
+      "to": "DTC_4540451",
+      "type": "dt",
+      "voltage": 11.0,
+      "capacity": 567.0,
+      "status": "healthy",
+      "flow": 55,
+      "coordinates": [
+        [
+          72.9351487,
+          19.1833019
+        ],
+        [
+          72.9351487,
+          19.1833019
+        ]
+      ],
+      "road_route_km": 0.0,
+      "road_direct_km": 0.0,
+      "road_routed": true
+    },
+    {
+      "id": "EDGE_DTC_4540460",
+      "from": "POLE_KN/283116/210/P022",
+      "to": "DTC_4540460",
+      "type": "dt",
+      "voltage": 22.0,
+      "capacity": 970.0,
+      "status": "healthy",
+      "flow": 55,
+      "coordinates": [
+        [
+          72.9317055,
+          19.1812907
+        ],
+        [
+          72.9317055,
+          19.1812907
+        ]
+      ],
+      "road_routed": false,
+      "routing_error": "OSRM route unavailable; inspect backend logs"
+    },
+    {
+      "id": "EDGE_DTC_4540470",
+      "from": "POLE_KN/283116/211/P026",
+      "to": "DTC_4540470",
+      "type": "dt",
+      "voltage": 11.0,
+      "capacity": 242.5,
+      "status": "healthy",
+      "flow": 55,
+      "coordinates": [
+        [
+          72.9512177,
+          19.1801463
+        ],
+        [
+          72.9512177,
+          19.1801463
+        ]
+      ],
+      "road_route_km": 0.0,
+      "road_direct_km": 0.0,
+      "road_routed": true
+    },
+    {
+      "id": "EDGE_DTC_4540480",
+      "from": "POLE_KN/283116/212/P030",
+      "to": "DTC_4540480",
+      "type": "dt",
+      "voltage": 11.0,
+      "capacity": 388.0,
+      "status": "healthy",
+      "flow": 55,
+      "coordinates": [
+        [
+          72.9382102,
+          19.1957417
+        ],
+        [
+          72.9382102,
+          19.1957417
+        ]
+      ],
+      "road_route_km": 0.0,
+      "road_direct_km": 0.0,
+      "road_routed": true
+    },
+    {
+      "id": "EDGE_LT_FAC_MANISHA_UNIVERSAL_MULTISPECIALITY_HOSPIT",
+      "from": "DTC_4540414",
+      "to": "FAC_MANISHA_UNIVERSAL_MULTISPECIALITY_HOSPIT",
+      "type": "lt",
+      "voltage": 0.415,
+      "capacity": 200,
+      "status": "healthy",
+      "flow": 40,
+      "coordinates": [
+        [
+          72.9453864,
+          19.1799977
+        ],
+        [
+          72.945559,
+          19.179917
+        ],
+        [
+          72.945639,
+          19.179881
+        ],
+        [
+          72.945695,
+          19.179856
+        ],
+        [
+          72.946116,
+          19.180607
+        ],
+        [
+          72.946218,
+          19.180799
+        ],
+        [
+          72.946435,
+          19.181204
+        ],
+        [
+          72.946457,
+          19.181246
+        ],
+        [
+          72.946542,
+          19.1814
+        ],
+        [
+          72.946698,
+          19.181685
+        ],
+        [
+          72.946724,
+          19.18172
+        ],
+        [
+          72.946759,
+          19.181769
+        ],
+        [
+          72.946831,
+          19.18187
+        ],
+        [
+          72.946915,
+          19.181988
+        ],
+        [
+          72.947212,
+          19.182369
+        ],
+        [
+          72.947263,
+          19.182435
+        ],
+        [
+          72.9475,
+          19.182713
+        ],
+        [
+          72.947754,
+          19.182934
+        ],
+        [
+          72.948001,
+          19.183108
+        ],
+        [
+          72.948035,
+          19.183127
+        ],
+        [
+          72.948141,
+          19.183187
+        ],
+        [
+          72.948339,
+          19.183276
+        ],
+        [
+          72.948532,
+          19.183319
+        ],
+        [
+          72.948646,
+          19.183334
+        ],
+        [
+          72.948751,
+          19.183398
+        ],
+        [
+          72.948808,
+          19.183473
+        ],
+        [
+          72.948823,
+          19.183552
+        ],
+        [
+          72.948798,
+          19.183668
+        ],
+        [
+          72.948565,
+          19.184104
+        ],
+        [
+          72.94847,
+          19.184264
+        ],
+        [
+          72.948248,
+          19.184527
+        ],
+        [
+          72.948207,
+          19.184577
+        ],
+        [
+          72.948026,
+          19.184788
+        ],
+        [
+          72.947865,
+          19.185047
+        ],
+        [
+          72.947724,
+          19.185274
+        ],
+        [
+          72.947314,
+          19.185696
+        ],
+        [
+          72.947191,
+          19.185773
+        ],
+        [
+          72.947161,
+          19.185792
+        ],
+        [
+          72.946936,
+          19.185891
+        ],
+        [
+          72.946811,
+          19.185971
+        ],
+        [
+          72.946799,
+          19.185988
+        ],
+        [
+          72.946697,
+          19.186134
+        ],
+        [
+          72.946522,
+          19.186389
+        ],
+        [
+          72.946458,
+          19.186462
+        ],
+        [
+          72.946531,
+          19.186499
+        ],
+        [
+          72.946844,
+          19.186068
+        ],
+        [
+          72.946935,
+          19.186123
+        ],
+        [
+          72.94701915295096,
+          19.18621964658593
+        ]
+      ],
+      "road_route_km": 1.087,
+      "road_direct_km": 0.712,
+      "road_routed": true
+    },
+    {
+      "id": "EDGE_LT_FAC_MODI_HOSPITAL_MATERNITY_SURGICAL_NURSING",
+      "from": "DTC_4540415",
+      "to": "FAC_MODI_HOSPITAL_MATERNITY_SURGICAL_NURSING",
+      "type": "lt",
+      "voltage": 0.415,
+      "capacity": 200,
+      "status": "healthy",
+      "flow": 40,
+      "coordinates": [
+        [
+          72.9465612,
+          19.1820149
+        ],
+        [
+          72.946607,
+          19.182015
+        ],
+        [
+          72.946611,
+          19.181998
+        ],
+        [
+          72.94662,
+          19.181982
+        ],
+        [
+          72.94675,
+          19.181911
+        ],
+        [
+          72.946768,
+          19.181901
+        ],
+        [
+          72.946831,
+          19.18187
+        ],
+        [
+          72.946915,
+          19.181988
+        ],
+        [
+          72.947212,
+          19.182369
+        ],
+        [
+          72.947263,
+          19.182435
+        ],
+        [
+          72.9475,
+          19.182713
+        ],
+        [
+          72.947754,
+          19.182934
+        ],
+        [
+          72.948001,
+          19.183108
+        ],
+        [
+          72.948035,
+          19.183127
+        ],
+        [
+          72.948141,
+          19.183187
+        ],
+        [
+          72.948339,
+          19.183276
+        ],
+        [
+          72.948532,
+          19.183319
+        ],
+        [
+          72.948646,
+          19.183334
+        ],
+        [
+          72.948751,
+          19.183398
+        ],
+        [
+          72.948808,
+          19.183473
+        ],
+        [
+          72.948823,
+          19.183552
+        ],
+        [
+          72.948798,
+          19.183668
+        ],
+        [
+          72.948565,
+          19.184104
+        ],
+        [
+          72.94847,
+          19.184264
+        ],
+        [
+          72.948248,
+          19.184527
+        ],
+        [
+          72.948207,
+          19.184577
+        ],
+        [
+          72.948026,
+          19.184788
+        ],
+        [
+          72.947865,
+          19.185047
+        ],
+        [
+          72.947724,
+          19.185274
+        ],
+        [
+          72.947314,
+          19.185696
+        ],
+        [
+          72.947191,
+          19.185773
+        ],
+        [
+          72.947161,
+          19.185792
+        ],
+        [
+          72.946936,
+          19.185891
+        ],
+        [
+          72.946811,
+          19.185971
+        ],
+        [
+          72.946799,
+          19.185988
+        ],
+        [
+          72.946697,
+          19.186134
+        ],
+        [
+          72.946522,
+          19.186389
+        ],
+        [
+          72.946458,
+          19.186462
+        ],
+        [
+          72.946367,
+          19.186565
+        ],
+        [
+          72.94634,
+          19.186595
+        ],
+        [
+          72.946133,
+          19.186751
+        ],
+        [
+          72.946121,
+          19.186816
+        ],
+        [
+          72.946061,
+          19.186852
+        ],
+        [
+          72.945845,
+          19.187005
+        ],
+        [
+          72.945728,
+          19.187157
+        ],
+        [
+          72.945668,
+          19.187235
+        ],
+        [
+          72.945648,
+          19.187315
+        ],
+        [
+          72.945661,
+          19.187361
+        ],
+        [
+          72.945713,
+          19.187443
+        ],
+        [
+          72.94597,
+          19.187773
+        ],
+        [
+          72.945987,
+          19.187869
+        ],
+        [
+          72.946002,
+          19.187948
+        ],
+        [
+          72.945969,
+          19.188048
+        ],
+        [
+          72.94587928158681,
+          19.188908757893163
+        ]
+      ],
+      "road_route_km": 1.054,
+      "road_direct_km": 0.769,
+      "road_routed": true
+    },
+    {
+      "id": "EDGE_LT_FAC_DR_THAKUR_S_SHREE_HOSPITAL",
+      "from": "DTC_4540414",
+      "to": "FAC_DR_THAKUR_S_SHREE_HOSPITAL",
+      "type": "lt",
+      "voltage": 0.415,
+      "capacity": 200,
+      "status": "healthy",
+      "flow": 40,
+      "coordinates": [
+        [
+          72.9453864,
+          19.1799977
+        ],
+        [
+          72.945559,
+          19.179917
+        ],
+        [
+          72.945639,
+          19.179881
+        ],
+        [
+          72.945695,
+          19.179856
+        ],
+        [
+          72.946116,
+          19.180607
+        ],
+        [
+          72.946218,
+          19.180799
+        ],
+        [
+          72.946435,
+          19.181204
+        ],
+        [
+          72.946457,
+          19.181246
+        ],
+        [
+          72.946542,
+          19.1814
+        ],
+        [
+          72.946698,
+          19.181685
+        ],
+        [
+          72.946724,
+          19.18172
+        ],
+        [
+          72.946759,
+          19.181769
+        ],
+        [
+          72.946831,
+          19.18187
+        ],
+        [
+          72.946915,
+          19.181988
+        ],
+        [
+          72.947212,
+          19.182369
+        ],
+        [
+          72.947263,
+          19.182435
+        ],
+        [
+          72.9475,
+          19.182713
+        ],
+        [
+          72.947754,
+          19.182934
+        ],
+        [
+          72.948001,
+          19.183108
+        ],
+        [
+          72.948035,
+          19.183127
+        ],
+        [
+          72.948141,
+          19.183187
+        ],
+        [
+          72.948339,
+          19.183276
+        ],
+        [
+          72.948532,
+          19.183319
+        ],
+        [
+          72.948646,
+          19.183334
+        ],
+        [
+          72.948751,
+          19.183398
+        ],
+        [
+          72.948808,
+          19.183473
+        ],
+        [
+          72.948823,
+          19.183552
+        ],
+        [
+          72.948798,
+          19.183668
+        ],
+        [
+          72.948565,
+          19.184104
+        ],
+        [
+          72.94847,
+          19.184264
+        ],
+        [
+          72.948248,
+          19.184527
+        ],
+        [
+          72.948207,
+          19.184577
+        ],
+        [
+          72.948026,
+          19.184788
+        ],
+        [
+          72.947865,
+          19.185047
+        ],
+        [
+          72.947724,
+          19.185274
+        ],
+        [
+          72.947314,
+          19.185696
+        ],
+        [
+          72.947191,
+          19.185773
+        ],
+        [
+          72.947161,
+          19.185792
+        ],
+        [
+          72.946936,
+          19.185891
+        ],
+        [
+          72.946811,
+          19.185971
+        ],
+        [
+          72.946799,
+          19.185988
+        ],
+        [
+          72.946697,
+          19.186134
+        ],
+        [
+          72.946522,
+          19.186389
+        ],
+        [
+          72.946458,
+          19.186462
+        ],
+        [
+          72.946367,
+          19.186565
+        ],
+        [
+          72.94634,
+          19.186595
+        ],
+        [
+          72.946133,
+          19.186751
+        ],
+        [
+          72.946121,
+          19.186816
+        ],
+        [
+          72.946061,
+          19.186852
+        ],
+        [
+          72.945845,
+          19.187005
+        ],
+        [
+          72.945728,
+          19.187157
+        ],
+        [
+          72.945668,
+          19.187235
+        ],
+        [
+          72.945648,
+          19.187315
+        ],
+        [
+          72.945661,
+          19.187361
+        ],
+        [
+          72.945713,
+          19.187443
+        ],
+        [
+          72.94597,
+          19.187773
+        ],
+        [
+          72.945987,
+          19.187869
+        ],
+        [
+          72.946002,
+          19.187948
+        ],
+        [
+          72.945969,
+          19.188048
+        ],
+        [
+          72.945695,
+          19.189157
+        ],
+        [
+          72.945707,
+          19.189239
+        ],
+        [
+          72.945817,
+          19.189337
+        ],
+        [
+          72.9456936020249,
+          19.189526776398484
+        ]
+      ],
+      "road_route_km": 1.381,
+      "road_direct_km": 1.058,
+      "road_routed": true
+    },
+    {
+      "id": "EDGE_LT_FAC_SPRINTEK_WATER_TREATMENT_PVT_LTD",
+      "from": "DTC_4540415",
+      "to": "FAC_SPRINTEK_WATER_TREATMENT_PVT_LTD",
+      "type": "lt",
+      "voltage": 0.415,
+      "capacity": 200,
+      "status": "healthy",
+      "flow": 40,
+      "coordinates": [
+        [
+          72.9465612,
+          19.1820149
+        ],
+        [
+          72.946607,
+          19.182015
+        ],
+        [
+          72.946611,
+          19.181998
+        ],
+        [
+          72.94662,
+          19.181982
+        ],
+        [
+          72.94675,
+          19.181911
+        ],
+        [
+          72.946768,
+          19.181901
+        ],
+        [
+          72.946831,
+          19.18187
+        ],
+        [
+          72.946915,
+          19.181988
+        ],
+        [
+          72.947212,
+          19.182369
+        ],
+        [
+          72.947263,
+          19.182435
+        ],
+        [
+          72.9475,
+          19.182713
+        ],
+        [
+          72.947754,
+          19.182934
+        ],
+        [
+          72.948001,
+          19.183108
+        ],
+        [
+          72.948035,
+          19.183127
+        ],
+        [
+          72.948141,
+          19.183187
+        ],
+        [
+          72.948339,
+          19.183276
+        ],
+        [
+          72.948532,
+          19.183319
+        ],
+        [
+          72.948646,
+          19.183334
+        ],
+        [
+          72.948751,
+          19.183398
+        ],
+        [
+          72.948808,
+          19.183473
+        ],
+        [
+          72.948823,
+          19.183552
+        ],
+        [
+          72.948798,
+          19.183668
+        ],
+        [
+          72.948565,
+          19.184104
+        ],
+        [
+          72.94847,
+          19.184264
+        ],
+        [
+          72.948248,
+          19.184527
+        ],
+        [
+          72.948207,
+          19.184577
+        ],
+        [
+          72.948026,
+          19.184788
+        ],
+        [
+          72.947865,
+          19.185047
+        ],
+        [
+          72.947724,
+          19.185274
+        ],
+        [
+          72.947314,
+          19.185696
+        ],
+        [
+          72.947191,
+          19.185773
+        ],
+        [
+          72.947161,
+          19.185792
+        ],
+        [
+          72.946936,
+          19.185891
+        ],
+        [
+          72.946811,
+          19.185971
+        ],
+        [
+          72.946799,
+          19.185988
+        ],
+        [
+          72.946697,
+          19.186134
+        ],
+        [
+          72.946522,
+          19.186389
+        ],
+        [
+          72.946458,
+          19.186462
+        ],
+        [
+          72.946367,
+          19.186565
+        ],
+        [
+          72.94634,
+          19.186595
+        ],
+        [
+          72.946133,
+          19.186751
+        ],
+        [
+          72.946121,
+          19.186816
+        ],
+        [
+          72.946061,
+          19.186852
+        ],
+        [
+          72.945845,
+          19.187005
+        ],
+        [
+          72.945728,
+          19.187157
+        ],
+        [
+          72.945668,
+          19.187235
+        ],
+        [
+          72.945648,
+          19.187315
+        ],
+        [
+          72.945661,
+          19.187361
+        ],
+        [
+          72.945713,
+          19.187443
+        ],
+        [
+          72.94597,
+          19.187773
+        ],
+        [
+          72.945987,
+          19.187869
+        ],
+        [
+          72.946002,
+          19.187948
+        ],
+        [
+          72.945969,
+          19.188048
+        ],
+        [
+          72.945695,
+          19.189157
+        ],
+        [
+          72.945707,
+          19.189239
+        ],
+        [
+          72.946124,
+          19.188937
+        ],
+        [
+          72.946328,
+          19.1893
+        ],
+        [
+          72.946607,
+          19.190067
+        ],
+        [
+          72.946786,
+          19.190573
+        ],
+        [
+          72.946942,
+          19.191015
+        ],
+        [
+          72.947053,
+          19.191456
+        ],
+        [
+          72.947108,
+          19.191659
+        ],
+        [
+          72.947127,
+          19.192206
+        ],
+        [
+          72.94712,
+          19.19265
+        ],
+        [
+          72.947103,
+          19.192869
+        ],
+        [
+          72.946965,
+          19.193649
+        ],
+        [
+          72.946957,
+          19.19399
+        ],
+        [
+          72.946915,
+          19.194243
+        ],
+        [
+          72.946961,
+          19.19493
+        ],
+        [
+          72.945847,
+          19.195058
+        ],
+        [
+          72.94574503760695,
+          19.19508089990528
+        ]
+      ],
+      "road_route_km": 1.963,
+      "road_direct_km": 1.453,
+      "road_routed": true
+    },
+    {
+      "id": "EDGE_LT_FAC_JALAMRUT_WATER_TREATMENT",
+      "from": "DTC_4540414",
+      "to": "FAC_JALAMRUT_WATER_TREATMENT",
+      "type": "lt",
+      "voltage": 0.415,
+      "capacity": 200,
+      "status": "healthy",
+      "flow": 40,
+      "coordinates": [
+        [
+          72.9453864,
+          19.1799977
+        ],
+        [
+          72.945559,
+          19.179917
+        ],
+        [
+          72.945639,
+          19.179881
+        ],
+        [
+          72.945695,
+          19.179856
+        ],
+        [
+          72.946116,
+          19.180607
+        ],
+        [
+          72.946218,
+          19.180799
+        ],
+        [
+          72.946435,
+          19.181204
+        ],
+        [
+          72.946457,
+          19.181246
+        ],
+        [
+          72.946542,
+          19.1814
+        ],
+        [
+          72.946698,
+          19.181685
+        ],
+        [
+          72.946724,
+          19.18172
+        ],
+        [
+          72.946759,
+          19.181769
+        ],
+        [
+          72.946831,
+          19.18187
+        ],
+        [
+          72.946915,
+          19.181988
+        ],
+        [
+          72.947212,
+          19.182369
+        ],
+        [
+          72.947263,
+          19.182435
+        ],
+        [
+          72.9475,
+          19.182713
+        ],
+        [
+          72.947754,
+          19.182934
+        ],
+        [
+          72.948001,
+          19.183108
+        ],
+        [
+          72.948035,
+          19.183127
+        ],
+        [
+          72.948141,
+          19.183187
+        ],
+        [
+          72.948339,
+          19.183276
+        ],
+        [
+          72.948532,
+          19.183319
+        ],
+        [
+          72.948646,
+          19.183334
+        ],
+        [
+          72.948948,
+          19.183379
+        ],
+        [
+          72.949061,
+          19.183394
+        ],
+        [
+          72.949329,
+          19.183391
+        ],
+        [
+          72.949503,
+          19.1834
+        ],
+        [
+          72.949829,
+          19.183425
+        ],
+        [
+          72.950707,
+          19.183493
+        ],
+        [
+          72.951523,
+          19.183597
+        ],
+        [
+          72.952469,
+          19.183752
+        ],
+        [
+          72.952596,
+          19.18379
+        ],
+        [
+          72.952995,
+          19.183909
+        ],
+        [
+          72.953126,
+          19.183953
+        ],
+        [
+          72.953316,
+          19.184017
+        ],
+        [
+          72.953348,
+          19.184029
+        ],
+        [
+          72.953385,
+          19.184044
+        ],
+        [
+          72.953539,
+          19.184103
+        ],
+        [
+          72.953737,
+          19.184181
+        ],
+        [
+          72.95445,
+          19.184458
+        ],
+        [
+          72.954471,
+          19.184466
+        ],
+        [
+          72.954922,
+          19.184719
+        ],
+        [
+          72.955013,
+          19.184794
+        ],
+        [
+          72.955025,
+          19.184806
+        ],
+        [
+          72.955068,
+          19.184849
+        ],
+        [
+          72.955078,
+          19.184859
+        ],
+        [
+          72.955377,
+          19.185158
+        ],
+        [
+          72.955421,
+          19.185215
+        ],
+        [
+          72.955627,
+          19.185487
+        ],
+        [
+          72.955639,
+          19.185543
+        ],
+        [
+          72.95567,
+          19.185585
+        ],
+        [
+          72.955478,
+          19.186117
+        ],
+        [
+          72.955318,
+          19.186782
+        ],
+        [
+          72.955305,
+          19.186836
+        ],
+        [
+          72.955286,
+          19.187141
+        ],
+        [
+          72.955264,
+          19.187476
+        ],
+        [
+          72.955258,
+          19.187565
+        ],
+        [
+          72.955321,
+          19.188465
+        ],
+        [
+          72.955358,
+          19.188761
+        ],
+        [
+          72.95548,
+          19.189722
+        ],
+        [
+          72.955496,
+          19.190159
+        ],
+        [
+          72.955468,
+          19.19056
+        ],
+        [
+          72.955183,
+          19.191717
+        ],
+        [
+          72.955063,
+          19.192314
+        ],
+        [
+          72.954921,
+          19.19252
+        ],
+        [
+          72.954798,
+          19.192637
+        ],
+        [
+          72.953555,
+          19.193692
+        ],
+        [
+          72.953102,
+          19.19391
+        ],
+        [
+          72.951946,
+          19.194273
+        ],
+        [
+          72.951218,
+          19.194462
+        ],
+        [
+          72.950329,
+          19.194532
+        ],
+        [
+          72.949664,
+          19.194586
+        ],
+        [
+          72.949455,
+          19.194586
+        ],
+        [
+          72.949407,
+          19.194528
+        ],
+        [
+          72.949339,
+          19.194491
+        ],
+        [
+          72.949281,
+          19.19448
+        ],
+        [
+          72.949221,
+          19.194485
+        ],
+        [
+          72.949165,
+          19.194506
+        ],
+        [
+          72.949117,
+          19.194542
+        ],
+        [
+          72.949083,
+          19.194588
+        ],
+        [
+          72.949064,
+          19.194642
+        ],
+        [
+          72.949061,
+          19.194691
+        ],
+        [
+          72.949071,
+          19.194738
+        ],
+        [
+          72.949093,
+          19.194782
+        ],
+        [
+          72.949128,
+          19.194822
+        ],
+        [
+          72.949172,
+          19.194852
+        ],
+        [
+          72.949223,
+          19.19487
+        ],
+        [
+          72.949251,
+          19.194994
+        ],
+        [
+          72.9492,
+          19.196936
+        ],
+        [
+          72.949186,
+          19.197357
+        ],
+        [
+          72.949186,
+          19.197368
+        ],
+        [
+          72.949185,
+          19.197393
+        ],
+        [
+          72.949184,
+          19.197416
+        ],
+        [
+          72.949179,
+          19.197593
+        ],
+        [
+          72.949116,
+          19.198197
+        ],
+        [
+          72.949117,
+          19.198298
+        ],
+        [
+          72.949109,
+          19.198656
+        ],
+        [
+          72.949116,
+          19.19949
+        ],
+        [
+          72.949114,
+          19.199578
+        ],
+        [
+          72.949107,
+          19.199834
+        ],
+        [
+          72.949085,
+          19.200866
+        ],
+        [
+          72.949095,
+          19.200974
+        ],
+        [
+          72.949148,
+          19.201304
+        ],
+        [
+          72.949243,
+          19.201715
+        ],
+        [
+          72.949382,
+          19.202431
+        ],
+        [
+          72.949626,
+          19.203492
+        ],
+        [
+          72.949952,
+          19.204912
+        ],
+        [
+          72.949978,
+          19.205016
+        ],
+        [
+          72.949972,
+          19.205034
+        ],
+        [
+          72.949975,
+          19.205053
+        ],
+        [
+          72.949986,
+          19.205074
+        ],
+        [
+          72.950003,
+          19.205113
+        ],
+        [
+          72.950017,
+          19.205144
+        ],
+        [
+          72.950093,
+          19.205433
+        ],
+        [
+          72.950406,
+          19.206654
+        ],
+        [
+          72.950609,
+          19.207447
+        ],
+        [
+          72.950694,
+          19.207674
+        ],
+        [
+          72.950895,
+          19.208048
+        ],
+        [
+          72.951075,
+          19.208381
+        ],
+        [
+          72.951653,
+          19.209244
+        ],
+        [
+          72.951695,
+          19.20934
+        ],
+        [
+          72.95171,
+          19.20937
+        ],
+        [
+          72.951736,
+          19.209392
+        ],
+        [
+          72.95177,
+          19.209402
+        ],
+        [
+          72.951805,
+          19.2094
+        ],
+        [
+          72.951836,
+          19.209386
+        ],
+        [
+          72.951859,
+          19.209361
+        ],
+        [
+          72.95187,
+          19.209333
+        ],
+        [
+          72.951869,
+          19.209296
+        ],
+        [
+          72.951988,
+          19.20923
+        ],
+        [
+          72.952356,
+          19.208991
+        ],
+        [
+          72.952498,
+          19.208875
+        ],
+        [
+          72.952571,
+          19.20881
+        ],
+        [
+          72.952733,
+          19.209835
+        ],
+        [
+          72.952938,
+          19.209827
+        ],
+        [
+          72.953002,
+          19.20983
+        ],
+        [
+          72.953035,
+          19.209842
+        ],
+        [
+          72.953048,
+          19.20986
+        ],
+        [
+          72.953062,
+          19.209902
+        ],
+        [
+          72.953076,
+          19.210022
+        ],
+        [
+          72.953199,
+          19.210017
+        ],
+        [
+          72.953317,
+          19.210017
+        ],
+        [
+          72.953414,
+          19.210043
+        ],
+        [
+          72.953526,
+          19.210129
+        ],
+        [
+          72.953158,
+          19.210225
+        ],
+        [
+          72.95296,
+          19.210281
+        ],
+        [
+          72.952681,
+          19.210349
+        ],
+        [
+          72.952386,
+          19.210449
+        ],
+        [
+          72.952161,
+          19.210514
+        ],
+        [
+          72.952254,
+          19.210942
+        ],
+        [
+          72.95225,
+          19.211018
+        ],
+        [
+          72.95223,
+          19.211068
+        ],
+        [
+          72.952212,
+          19.211089
+        ],
+        [
+          72.952169,
+          19.211108
+        ],
+        [
+          72.951912,
+          19.211197
+        ],
+        [
+          72.951652,
+          19.211263
+        ],
+        [
+          72.951535,
+          19.211308
+        ],
+        [
+          72.951398,
+          19.211385
+        ],
+        [
+          72.951369,
+          19.211404
+        ],
+        [
+          72.951205,
+          19.21151
+        ],
+        [
+          72.951025,
+          19.211603
+        ],
+        [
+          72.950905,
+          19.211646
+        ],
+        [
+          72.950689,
+          19.211725
+        ],
+        [
+          72.950661,
+          19.211735
+        ],
+        [
+          72.9506778717115,
+          19.21225109832505
+        ]
+      ],
+      "road_route_km": 5.314,
+      "road_direct_km": 3.623,
+      "road_routed": true
+    },
+    {
+      "id": "EDGE_LT_FAC_WAGLE_FIRE_BRIGADE_STATION",
+      "from": "DTC_4540420",
+      "to": "FAC_WAGLE_FIRE_BRIGADE_STATION",
+      "type": "lt",
+      "voltage": 0.415,
+      "capacity": 200,
+      "status": "healthy",
+      "flow": 40,
+      "coordinates": [
+        [
+          72.9463848,
+          19.1787074
+        ],
+        [
+          72.945727,
+          19.178491
+        ],
+        [
+          72.945601,
+          19.178513
+        ],
+        [
+          72.945524,
+          19.178528
+        ],
+        [
+          72.945447,
+          19.178528
+        ],
+        [
+          72.945318,
+          19.178557
+        ],
+        [
+          72.945109,
+          19.178603
+        ],
+        [
+          72.944996,
+          19.178682
+        ],
+        [
+          72.945049,
+          19.178741
+        ],
+        [
+          72.945075,
+          19.178783
+        ],
+        [
+          72.945155,
+          19.178912
+        ],
+        [
+          72.945226,
+          19.179027
+        ],
+        [
+          72.945376,
+          19.179266
+        ],
+        [
+          72.945447,
+          19.1794
+        ],
+        [
+          72.945636,
+          19.17974
+        ],
+        [
+          72.945695,
+          19.179856
+        ],
+        [
+          72.946116,
+          19.180607
+        ],
+        [
+          72.946218,
+          19.180799
+        ],
+        [
+          72.946435,
+          19.181204
+        ],
+        [
+          72.946457,
+          19.181246
+        ],
+        [
+          72.946542,
+          19.1814
+        ],
+        [
+          72.946698,
+          19.181685
+        ],
+        [
+          72.946724,
+          19.18172
+        ],
+        [
+          72.946759,
+          19.181769
+        ],
+        [
+          72.946831,
+          19.18187
+        ],
+        [
+          72.946915,
+          19.181988
+        ],
+        [
+          72.947212,
+          19.182369
+        ],
+        [
+          72.947263,
+          19.182435
+        ],
+        [
+          72.9475,
+          19.182713
+        ],
+        [
+          72.947754,
+          19.182934
+        ],
+        [
+          72.948001,
+          19.183108
+        ],
+        [
+          72.948035,
+          19.183127
+        ],
+        [
+          72.948141,
+          19.183187
+        ],
+        [
+          72.948339,
+          19.183276
+        ],
+        [
+          72.948532,
+          19.183319
+        ],
+        [
+          72.948646,
+          19.183334
+        ],
+        [
+          72.948948,
+          19.183379
+        ],
+        [
+          72.949061,
+          19.183394
+        ],
+        [
+          72.949329,
+          19.183391
+        ],
+        [
+          72.949503,
+          19.1834
+        ],
+        [
+          72.949829,
+          19.183425
+        ],
+        [
+          72.950707,
+          19.183493
+        ],
+        [
+          72.951523,
+          19.183597
+        ],
+        [
+          72.952469,
+          19.183752
+        ],
+        [
+          72.952596,
+          19.18379
+        ],
+        [
+          72.952995,
+          19.183909
+        ],
+        [
+          72.953126,
+          19.183953
+        ],
+        [
+          72.953316,
+          19.184017
+        ],
+        [
+          72.953348,
+          19.184029
+        ],
+        [
+          72.953385,
+          19.184044
+        ],
+        [
+          72.953539,
+          19.184103
+        ],
+        [
+          72.953737,
+          19.184181
+        ],
+        [
+          72.95445,
+          19.184458
+        ],
+        [
+          72.954471,
+          19.184466
+        ],
+        [
+          72.954922,
+          19.184719
+        ],
+        [
+          72.955013,
+          19.184794
+        ],
+        [
+          72.955025,
+          19.184806
+        ],
+        [
+          72.955068,
+          19.184849
+        ],
+        [
+          72.955078,
+          19.184859
+        ],
+        [
+          72.955377,
+          19.185158
+        ],
+        [
+          72.955421,
+          19.185215
+        ],
+        [
+          72.955627,
+          19.185487
+        ],
+        [
+          72.955639,
+          19.185543
+        ],
+        [
+          72.95567,
+          19.185585
+        ],
+        [
+          72.955478,
+          19.186117
+        ],
+        [
+          72.955318,
+          19.186782
+        ],
+        [
+          72.955305,
+          19.186836
+        ],
+        [
+          72.955286,
+          19.187141
+        ],
+        [
+          72.955264,
+          19.187476
+        ],
+        [
+          72.955258,
+          19.187565
+        ],
+        [
+          72.955321,
+          19.188465
+        ],
+        [
+          72.955358,
+          19.188761
+        ],
+        [
+          72.95548,
+          19.189722
+        ],
+        [
+          72.955496,
+          19.190159
+        ],
+        [
+          72.955468,
+          19.19056
+        ],
+        [
+          72.955183,
+          19.191717
+        ],
+        [
+          72.955063,
+          19.192314
+        ],
+        [
+          72.954921,
+          19.19252
+        ],
+        [
+          72.954798,
+          19.192637
+        ],
+        [
+          72.953555,
+          19.193692
+        ],
+        [
+          72.953102,
+          19.19391
+        ],
+        [
+          72.951946,
+          19.194273
+        ],
+        [
+          72.951961,
+          19.194353
+        ],
+        [
+          72.95220123760703,
+          19.19504759419322
+        ]
+      ],
+      "road_route_km": 2.871,
+      "road_direct_km": 1.914,
+      "road_routed": true
+    },
+    {
+      "id": "EDGE_LT_FAC_PANCHPAKHADI_FIRE_STATION",
+      "from": "DTC_4540421",
+      "to": "FAC_PANCHPAKHADI_FIRE_STATION",
+      "type": "lt",
+      "voltage": 0.415,
+      "capacity": 200,
+      "status": "healthy",
+      "flow": 40,
+      "coordinates": [
+        [
+          72.9485533,
+          19.1778123
+        ],
+        [
+          72.949399,
+          19.177713
+        ],
+        [
+          72.949388,
+          19.178192
+        ],
+        [
+          72.949377,
+          19.17845
+        ],
+        [
+          72.94916,
+          19.178654
+        ],
+        [
+          72.949101,
+          19.178672
+        ],
+        [
+          72.949063,
+          19.178707
+        ],
+        [
+          72.94897,
+          19.178813
+        ],
+        [
+          72.948937,
+          19.178853
+        ],
+        [
+          72.948993,
+          19.178873
+        ],
+        [
+          72.949256,
+          19.178949
+        ],
+        [
+          72.949624,
+          19.179034
+        ],
+        [
+          72.949468,
+          19.179977
+        ],
+        [
+          72.949456,
+          19.180171
+        ],
+        [
+          72.949433,
+          19.180334
+        ],
+        [
+          72.949464,
+          19.18114
+        ],
+        [
+          72.949473,
+          19.181396
+        ],
+        [
+          72.949475,
+          19.181443
+        ],
+        [
+          72.949485,
+          19.181711
+        ],
+        [
+          72.949486,
+          19.181748
+        ],
+        [
+          72.949506,
+          19.183071
+        ],
+        [
+          72.949509,
+          19.183261
+        ],
+        [
+          72.949503,
+          19.1834
+        ],
+        [
+          72.949829,
+          19.183425
+        ],
+        [
+          72.950707,
+          19.183493
+        ],
+        [
+          72.951523,
+          19.183597
+        ],
+        [
+          72.952469,
+          19.183752
+        ],
+        [
+          72.952596,
+          19.18379
+        ],
+        [
+          72.952995,
+          19.183909
+        ],
+        [
+          72.953126,
+          19.183953
+        ],
+        [
+          72.953316,
+          19.184017
+        ],
+        [
+          72.953348,
+          19.184029
+        ],
+        [
+          72.953385,
+          19.184044
+        ],
+        [
+          72.953539,
+          19.184103
+        ],
+        [
+          72.953737,
+          19.184181
+        ],
+        [
+          72.95445,
+          19.184458
+        ],
+        [
+          72.954471,
+          19.184466
+        ],
+        [
+          72.954922,
+          19.184719
+        ],
+        [
+          72.955013,
+          19.184794
+        ],
+        [
+          72.955025,
+          19.184806
+        ],
+        [
+          72.955068,
+          19.184849
+        ],
+        [
+          72.955078,
+          19.184859
+        ],
+        [
+          72.955377,
+          19.185158
+        ],
+        [
+          72.955421,
+          19.185215
+        ],
+        [
+          72.955627,
+          19.185487
+        ],
+        [
+          72.955639,
+          19.185543
+        ],
+        [
+          72.95567,
+          19.185585
+        ],
+        [
+          72.955724,
+          19.185618
+        ],
+        [
+          72.955773,
+          19.185627
+        ],
+        [
+          72.955825,
+          19.185619
+        ],
+        [
+          72.956119,
+          19.185657
+        ],
+        [
+          72.956263,
+          19.185676
+        ],
+        [
+          72.956711,
+          19.185786
+        ],
+        [
+          72.957849,
+          19.185834
+        ],
+        [
+          72.95832,
+          19.185933
+        ],
+        [
+          72.959045,
+          19.186091
+        ],
+        [
+          72.96013,
+          19.186348
+        ],
+        [
+          72.960342,
+          19.186456
+        ],
+        [
+          72.960669,
+          19.186623
+        ],
+        [
+          72.961337,
+          19.187018
+        ],
+        [
+          72.961663,
+          19.187211
+        ],
+        [
+          72.961801,
+          19.187316
+        ],
+        [
+          72.961851,
+          19.187348
+        ],
+        [
+          72.961972,
+          19.187427
+        ],
+        [
+          72.962411,
+          19.187739
+        ],
+        [
+          72.96285,
+          19.188046
+        ],
+        [
+          72.962979,
+          19.188124
+        ],
+        [
+          72.963255,
+          19.188348
+        ],
+        [
+          72.963344,
+          19.1884
+        ],
+        [
+          72.96344,
+          19.188456
+        ],
+        [
+          72.963412,
+          19.188575
+        ],
+        [
+          72.963374,
+          19.18872
+        ],
+        [
+          72.963356,
+          19.188804
+        ],
+        [
+          72.963341,
+          19.188869
+        ],
+        [
+          72.962994,
+          19.191155
+        ],
+        [
+          72.962999,
+          19.191597
+        ],
+        [
+          72.962907,
+          19.192197
+        ],
+        [
+          72.96268,
+          19.193674
+        ],
+        [
+          72.9624,
+          19.1955
+        ],
+        [
+          72.962358,
+          19.19593
+        ],
+        [
+          72.962357,
+          19.196306
+        ],
+        [
+          72.962374,
+          19.196664
+        ],
+        [
+          72.962381,
+          19.197117
+        ],
+        [
+          72.962441,
+          19.19752
+        ],
+        [
+          72.962628,
+          19.19803
+        ],
+        [
+          72.962663,
+          19.198125
+        ],
+        [
+          72.962904,
+          19.198662
+        ],
+        [
+          72.963212,
+          19.199205
+        ],
+        [
+          72.963466,
+          19.199577
+        ],
+        [
+          72.96352,
+          19.19965
+        ],
+        [
+          72.963797,
+          19.19953
+        ],
+        [
+          72.963971,
+          19.199492
+        ],
+        [
+          72.964608,
+          19.199218
+        ],
+        [
+          72.964633,
+          19.199258
+        ],
+        [
+          72.964769,
+          19.199517
+        ],
+        [
+          72.964892,
+          19.199735
+        ],
+        [
+          72.96457339527932,
+          19.19976090656221
+        ]
+      ],
+      "road_route_km": 3.905,
+      "road_direct_km": 2.959,
+      "road_routed": true
+    },
+    {
+      "id": "EDGE_LT_FAC_GALVANIC_ENGINEERS_SOLAR_GREEN_METER_INS",
+      "from": "DTC_4540420",
+      "to": "FAC_GALVANIC_ENGINEERS_SOLAR_GREEN_METER_INS",
+      "type": "lt",
+      "voltage": 0.415,
+      "capacity": 200,
+      "status": "healthy",
+      "flow": 40,
+      "coordinates": [
+        [
+          72.9463848,
+          19.1787074
+        ],
+        [
+          72.945727,
+          19.178491
+        ],
+        [
+          72.945601,
+          19.178513
+        ],
+        [
+          72.945524,
+          19.178528
+        ],
+        [
+          72.945447,
+          19.178528
+        ],
+        [
+          72.945318,
+          19.178557
+        ],
+        [
+          72.945109,
+          19.178603
+        ],
+        [
+          72.944996,
+          19.178682
+        ],
+        [
+          72.945049,
+          19.178741
+        ],
+        [
+          72.945075,
+          19.178783
+        ],
+        [
+          72.945155,
+          19.178912
+        ],
+        [
+          72.945226,
+          19.179027
+        ],
+        [
+          72.945376,
+          19.179266
+        ],
+        [
+          72.945447,
+          19.1794
+        ],
+        [
+          72.945636,
+          19.17974
+        ],
+        [
+          72.945695,
+          19.179856
+        ],
+        [
+          72.946116,
+          19.180607
+        ],
+        [
+          72.946218,
+          19.180799
+        ],
+        [
+          72.946435,
+          19.181204
+        ],
+        [
+          72.946457,
+          19.181246
+        ],
+        [
+          72.946542,
+          19.1814
+        ],
+        [
+          72.946698,
+          19.181685
+        ],
+        [
+          72.946724,
+          19.18172
+        ],
+        [
+          72.946759,
+          19.181769
+        ],
+        [
+          72.946831,
+          19.18187
+        ],
+        [
+          72.946915,
+          19.181988
+        ],
+        [
+          72.947212,
+          19.182369
+        ],
+        [
+          72.947263,
+          19.182435
+        ],
+        [
+          72.9475,
+          19.182713
+        ],
+        [
+          72.947754,
+          19.182934
+        ],
+        [
+          72.948001,
+          19.183108
+        ],
+        [
+          72.948035,
+          19.183127
+        ],
+        [
+          72.948141,
+          19.183187
+        ],
+        [
+          72.948339,
+          19.183276
+        ],
+        [
+          72.948532,
+          19.183319
+        ],
+        [
+          72.948646,
+          19.183334
+        ],
+        [
+          72.948751,
+          19.183398
+        ],
+        [
+          72.948808,
+          19.183473
+        ],
+        [
+          72.948823,
+          19.183552
+        ],
+        [
+          72.948798,
+          19.183668
+        ],
+        [
+          72.948565,
+          19.184104
+        ],
+        [
+          72.94847,
+          19.184264
+        ],
+        [
+          72.948248,
+          19.184527
+        ],
+        [
+          72.948207,
+          19.184577
+        ],
+        [
+          72.948026,
+          19.184788
+        ],
+        [
+          72.947865,
+          19.185047
+        ],
+        [
+          72.947724,
+          19.185274
+        ],
+        [
+          72.947314,
+          19.185696
+        ],
+        [
+          72.947191,
+          19.185773
+        ],
+        [
+          72.947161,
+          19.185792
+        ],
+        [
+          72.946936,
+          19.185891
+        ],
+        [
+          72.946811,
+          19.185971
+        ],
+        [
+          72.946799,
+          19.185988
+        ],
+        [
+          72.946697,
+          19.186134
+        ],
+        [
+          72.946522,
+          19.186389
+        ],
+        [
+          72.946458,
+          19.186462
+        ],
+        [
+          72.946367,
+          19.186565
+        ],
+        [
+          72.94634,
+          19.186595
+        ],
+        [
+          72.946133,
+          19.186751
+        ],
+        [
+          72.946121,
+          19.186816
+        ],
+        [
+          72.946061,
+          19.186852
+        ],
+        [
+          72.945845,
+          19.187005
+        ],
+        [
+          72.945728,
+          19.187157
+        ],
+        [
+          72.945668,
+          19.187235
+        ],
+        [
+          72.945648,
+          19.187315
+        ],
+        [
+          72.945661,
+          19.187361
+        ],
+        [
+          72.945713,
+          19.187443
+        ],
+        [
+          72.94597,
+          19.187773
+        ],
+        [
+          72.945987,
+          19.187869
+        ],
+        [
+          72.946002,
+          19.187948
+        ],
+        [
+          72.945969,
+          19.188048
+        ],
+        [
+          72.945695,
+          19.189157
+        ],
+        [
+          72.945707,
+          19.189239
+        ],
+        [
+          72.945817,
+          19.189337
+        ],
+        [
+          72.946107,
+          19.189751
+        ],
+        [
+          72.944542,
+          19.190836
+        ],
+        [
+          72.944721,
+          19.19103
+        ],
+        [
+          72.944603,
+          19.191168
+        ],
+        [
+          72.944579,
+          19.191225
+        ],
+        [
+          72.944583,
+          19.191294
+        ],
+        [
+          72.944605,
+          19.191414
+        ],
+        [
+          72.944639,
+          19.191542
+        ],
+        [
+          72.944703,
+          19.191813
+        ],
+        [
+          72.94474,
+          19.192337
+        ],
+        [
+          72.944733,
+          19.192935
+        ],
+        [
+          72.944038,
+          19.192891
+        ],
+        [
+          72.943785,
+          19.192885
+        ],
+        [
+          72.943533,
+          19.193006
+        ],
+        [
+          72.942795,
+          19.19336
+        ],
+        [
+          72.942743,
+          19.193385
+        ],
+        [
+          72.942647,
+          19.193372
+        ],
+        [
+          72.942601,
+          19.193353
+        ],
+        [
+          72.942566,
+          19.19331
+        ],
+        [
+          72.94259930877084,
+          19.19326573417868
+        ]
+      ],
+      "road_route_km": 2.387,
+      "road_direct_km": 1.664,
+      "road_routed": true
+    },
+    {
+      "id": "EDGE_LT_FAC_VIDHYUT_POWER_AND_SYSTEMS_BIOMASS_ENERGY",
+      "from": "DTC_4540421",
+      "to": "FAC_VIDHYUT_POWER_AND_SYSTEMS_BIOMASS_ENERGY",
+      "type": "lt",
+      "voltage": 0.415,
+      "capacity": 200,
+      "status": "healthy",
+      "flow": 40,
+      "coordinates": [
+        [
+          72.9485533,
+          19.1778123
+        ],
+        [
+          72.949399,
+          19.177713
+        ],
+        [
+          72.949388,
+          19.178192
+        ],
+        [
+          72.949377,
+          19.17845
+        ],
+        [
+          72.94916,
+          19.178654
+        ],
+        [
+          72.949101,
+          19.178672
+        ],
+        [
+          72.949063,
+          19.178707
+        ],
+        [
+          72.94897,
+          19.178813
+        ],
+        [
+          72.948937,
+          19.178853
+        ],
+        [
+          72.948993,
+          19.178873
+        ],
+        [
+          72.949256,
+          19.178949
+        ],
+        [
+          72.949624,
+          19.179034
+        ],
+        [
+          72.949468,
+          19.179977
+        ],
+        [
+          72.949456,
+          19.180171
+        ],
+        [
+          72.949433,
+          19.180334
+        ],
+        [
+          72.949464,
+          19.18114
+        ],
+        [
+          72.949473,
+          19.181396
+        ],
+        [
+          72.949475,
+          19.181443
+        ],
+        [
+          72.949485,
+          19.181711
+        ],
+        [
+          72.949486,
+          19.181748
+        ],
+        [
+          72.949506,
+          19.183071
+        ],
+        [
+          72.949509,
+          19.183261
+        ],
+        [
+          72.949503,
+          19.1834
+        ],
+        [
+          72.949829,
+          19.183425
+        ],
+        [
+          72.950707,
+          19.183493
+        ],
+        [
+          72.951523,
+          19.183597
+        ],
+        [
+          72.952469,
+          19.183752
+        ],
+        [
+          72.952596,
+          19.18379
+        ],
+        [
+          72.952995,
+          19.183909
+        ],
+        [
+          72.953126,
+          19.183953
+        ],
+        [
+          72.953316,
+          19.184017
+        ],
+        [
+          72.953348,
+          19.184029
+        ],
+        [
+          72.953385,
+          19.184044
+        ],
+        [
+          72.953539,
+          19.184103
+        ],
+        [
+          72.953737,
+          19.184181
+        ],
+        [
+          72.95445,
+          19.184458
+        ],
+        [
+          72.954471,
+          19.184466
+        ],
+        [
+          72.954922,
+          19.184719
+        ],
+        [
+          72.955013,
+          19.184794
+        ],
+        [
+          72.955025,
+          19.184806
+        ],
+        [
+          72.955068,
+          19.184849
+        ],
+        [
+          72.955078,
+          19.184859
+        ],
+        [
+          72.955377,
+          19.185158
+        ],
+        [
+          72.955421,
+          19.185215
+        ],
+        [
+          72.955627,
+          19.185487
+        ],
+        [
+          72.955639,
+          19.185543
+        ],
+        [
+          72.95567,
+          19.185585
+        ],
+        [
+          72.955724,
+          19.185618
+        ],
+        [
+          72.955773,
+          19.185627
+        ],
+        [
+          72.955825,
+          19.185619
+        ],
+        [
+          72.956119,
+          19.185657
+        ],
+        [
+          72.956263,
+          19.185676
+        ],
+        [
+          72.956711,
+          19.185786
+        ],
+        [
+          72.957849,
+          19.185834
+        ],
+        [
+          72.95832,
+          19.185933
+        ],
+        [
+          72.959045,
+          19.186091
+        ],
+        [
+          72.96013,
+          19.186348
+        ],
+        [
+          72.960342,
+          19.186456
+        ],
+        [
+          72.960669,
+          19.186623
+        ],
+        [
+          72.961337,
+          19.187018
+        ],
+        [
+          72.961663,
+          19.187211
+        ],
+        [
+          72.961801,
+          19.187316
+        ],
+        [
+          72.961851,
+          19.187348
+        ],
+        [
+          72.961972,
+          19.187427
+        ],
+        [
+          72.962411,
+          19.187739
+        ],
+        [
+          72.96285,
+          19.188046
+        ],
+        [
+          72.962979,
+          19.188124
+        ],
+        [
+          72.963255,
+          19.188348
+        ],
+        [
+          72.963344,
+          19.1884
+        ],
+        [
+          72.96344,
+          19.188456
+        ],
+        [
+          72.963762,
+          19.188604
+        ],
+        [
+          72.96381,
+          19.188442
+        ],
+        [
+          72.963833,
+          19.188365
+        ],
+        [
+          72.964018,
+          19.188321
+        ],
+        [
+          72.964437,
+          19.188194
+        ],
+        [
+          72.964559,
+          19.188142
+        ],
+        [
+          72.965167,
+          19.187945
+        ],
+        [
+          72.96531,
+          19.187899
+        ],
+        [
+          72.965758,
+          19.18776
+        ],
+        [
+          72.966139,
+          19.187674
+        ],
+        [
+          72.967481,
+          19.187455
+        ],
+        [
+          72.967579,
+          19.187456
+        ],
+        [
+          72.967816,
+          19.187455
+        ],
+        [
+          72.968052,
+          19.187455
+        ],
+        [
+          72.968367,
+          19.187412
+        ],
+        [
+          72.968773,
+          19.1873
+        ],
+        [
+          72.96935,
+          19.187141
+        ],
+        [
+          72.969529,
+          19.187103
+        ],
+        [
+          72.97024,
+          19.187046
+        ],
+        [
+          72.970496,
+          19.187054
+        ],
+        [
+          72.970529,
+          19.187055
+        ],
+        [
+          72.970578,
+          19.187068
+        ],
+        [
+          72.97077,
+          19.187118
+        ],
+        [
+          72.971158,
+          19.187369
+        ],
+        [
+          72.971738,
+          19.187644
+        ],
+        [
+          72.971951,
+          19.187715
+        ],
+        [
+          72.972112,
+          19.18775
+        ],
+        [
+          72.972502,
+          19.187788
+        ],
+        [
+          72.973082,
+          19.187811
+        ],
+        [
+          72.973085,
+          19.187764
+        ],
+        [
+          72.973079,
+          19.187722
+        ],
+        [
+          72.973052,
+          19.187668
+        ],
+        [
+          72.973018,
+          19.187629
+        ],
+        [
+          72.972831,
+          19.18749
+        ],
+        [
+          72.972966,
+          19.187102
+        ],
+        [
+          72.973042,
+          19.187035
+        ],
+        [
+          72.973089,
+          19.186993
+        ],
+        [
+          72.973524,
+          19.186844
+        ],
+        [
+          72.973793,
+          19.186836
+        ],
+        [
+          72.973831,
+          19.186834
+        ],
+        [
+          72.973973,
+          19.186831
+        ],
+        [
+          72.973996,
+          19.186829
+        ],
+        [
+          72.974101,
+          19.186826
+        ],
+        [
+          72.9744,
+          19.186753
+        ],
+        [
+          72.974457,
+          19.18674
+        ],
+        [
+          72.974452,
+          19.186658
+        ],
+        [
+          72.97437886829523,
+          19.186604772735794
+        ]
+      ],
+      "road_route_km": 3.759,
+      "road_direct_km": 2.878,
+      "road_routed": true
+    }
+  ],
+  "source": "PostgreSQL/PostGIS",
+  "anomaly": null,
+  "selected_solution": null
+}

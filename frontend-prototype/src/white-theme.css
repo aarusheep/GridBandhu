@@ -43,3 +43,13 @@ html,body,#root { height:100%; overflow:hidden; }
 .map-fallback-mode .map-error { background:#fff !important; color:#000 !important; border-color:#000 !important; box-shadow:0 4px 18px rgba(0,0,0,.15); }
 .map-fallback-mode .map-error strong { color:#000 !important; }
 .map-fallback-mode .map-error span,.map-fallback-mode .map-error small { color:#444 !important; }
+.simulate-button { width:100%; margin:0 0 20px; padding:13px 12px; border:1px solid #000; background:#000; color:#fff; font:600 11px var(--mono); letter-spacing:.08em; cursor:pointer; }
+.simulate-button:hover { background:#333; }
+.prototype-note { font-size:13px; line-height:1.5; }
+.connection-inspector { top:76px; }
+.map-fallback-mode .fallback-node circle:first-child { fill:#fff !important; stroke:#111 !important; stroke-width:3 !important; }
+.map-fallback-mode .fallback-node text { fill:#111 !important; font-size:12px !important; }
+.map-fallback-mode .fallback-edge { stroke:#111 !important; stroke-width:6 !important; stroke-dasharray:none !important; }
+.map-fallback-mode .fallback-edge.affected { stroke:#e53935 !important; stroke-width:7 !important; }
+.sidebar { display:none !important; }
+.workspace { width:100%; }

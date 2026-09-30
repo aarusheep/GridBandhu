@@ -1,0 +1,7 @@
+.live-pill,.connection.online,.tone-cyan { color:#07869a !important; }
+.live-pill i,.map-status .live-dot { background:#07869a !important; }
+.priority,.tone-amber { color:#a66300 !important; }
+.priority { border-color:#a66300 !important; }
+.solution.selected { border-color:#07869a !important; box-shadow:inset 3px 0 #07869a !important; }
+.solution.selected .rank { color:#07869a !important; }
+.map-panel { border-right:1px solid rgba(0,0,0,.16); }
